@@ -12,6 +12,6 @@ export class SidebarComponent {
 
   isHandset$: true;
     
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor() {}
   
   }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CryptotableComponent } from '../cryptotable/cryptotable.component';
+import { StreamsService } from '../streams.service';
 
 @Component({
   selector: 'my-dashboard',
@@ -7,14 +8,21 @@ import { CryptotableComponent } from '../cryptotable/cryptotable.component';
   styleUrls: ['./my-dashboard.component.css'],
   
 })
-export class MyDashboardComponent {
+export class MyDashboardComponent implements OnInit{
   content = CryptotableComponent;
-  cards = [
-    { title: 'All Cryptocurrencies', content: this.content, cols: 2, rows: 1 },
-    { title: 'Picked', cols: 1, rows: 2 },
-    { title: 'Card 3', cols: 1, rows: 1 },
-    { title: 'Card 4', cols: 1, rows: 1 }
-  ];
+  
+  results;
 
-  constructor() {}
+  constructor(private streamService: StreamsService) {}
+
+  ngOnInit() {
+    this.streamService.getStream().subscribe((data: any) => {
+      this.results = data
+      console.log(this.results)
+    });
+  }
+  
+  displayStream() {
+    
+  }
 }

@@ -9,6 +9,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CryptotableComponent } from './cryptotable/cryptotable.component';
 import { ListingComponent } from './listing/listing.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 // Angular router here
@@ -26,6 +27,7 @@ import { ListingComponent } from './listing/listing.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
@@ -40,6 +42,7 @@ import { ListingComponent } from './listing/listing.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    
   ],
   providers: [CryptotableComponent],
   bootstrap: [AppComponent]
