@@ -10,7 +10,9 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { CryptotableComponent } from './cryptotable/cryptotable.component';
 import { ListingComponent } from './listing/listing.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { CandlestickComponent } from './candlestick/candlestick.component';
+import { CommonModule } from '@angular/common';
+import { PlotlyModule } from 'angular-plotly.js';
 
 // Angular router here
 // - /Dashboard
@@ -24,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     SidebarComponent,
     CryptotableComponent,
     ListingComponent,
+    CandlestickComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    
+    CommonModule,
+    PlotlyModule,
   ],
   providers: [CryptotableComponent],
   bootstrap: [AppComponent]

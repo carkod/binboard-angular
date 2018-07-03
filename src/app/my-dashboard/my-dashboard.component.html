@@ -1,10 +1,10 @@
 <div class="grid-container">
   <mat-grid-list cols="2">
-    <mat-grid-tile [colspan]="2" [rowspan]="2">
+    <mat-grid-tile *ngIf="results" [colspan]="2" [rowspan]="2">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            Card 1
+            <h1>{{results.s}}</h1>
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -15,8 +15,8 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>
-            
+          <div class="chart">
+            <candlestick></candlestick>
           </div>
         </mat-card-content>
       </mat-card>
