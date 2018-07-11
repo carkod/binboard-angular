@@ -22,7 +22,7 @@ export class MyDashboardComponent implements OnInit{
     this.streamService.getStream().subscribe(
       (points: any) => {
         this.results = points.k;
-        console.log(this.results)
+        // console.log(this.results)
       },
       (err) => console.log(err),
       () => console.log('complete')

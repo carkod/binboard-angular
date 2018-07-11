@@ -20,7 +20,7 @@ export class StreamsService {
 
   getStream() {
     let subject$ = webSocket(this.candlestick);
-    console.log(this.candlestick)
+    // console.log(this.candlestick)
     return subject$;
 
   }
