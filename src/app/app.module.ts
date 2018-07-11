@@ -11,7 +11,7 @@ import { CryptotableComponent } from './cryptotable/cryptotable.component';
 import { ListingComponent } from './listing/listing.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CandlestickComponent } from './candlestick/candlestick.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { PlotlyModule } from 'angular-plotly.js';
 
 // Angular router here
@@ -48,7 +48,7 @@ import { PlotlyModule } from 'angular-plotly.js';
     CommonModule,
     PlotlyModule,
   ],
-  providers: [CryptotableComponent],
+  providers: [CryptotableComponent, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
