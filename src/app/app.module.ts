@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CandlestickComponent } from './candlestick/candlestick.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { PlotlyModule } from 'angular-plotly.js';
+import { ApiService } from './api.service';
 
 // Angular router here
 // - /Dashboard
@@ -47,8 +48,9 @@ import { PlotlyModule } from 'angular-plotly.js';
     MatSortModule,
     CommonModule,
     PlotlyModule,
+    HttpClientModule
   ],
-  providers: [CryptotableComponent, DatePipe],
+  providers: [CryptotableComponent, DatePipe, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,6 +5,19 @@
 export const environment = {
   production: false,
   baseEndpoint: 'wss://stream.binance.com:9443/ws/',
+  ws: {
+    base: 'wss://stream.binance.com:9443/ws/',
+  },
+  api: {
+    base: 'http://api.binance.com',
+    exchange: '/api/v1/exchangeInfo',
+    marketData: '/api/v1/depth',
+    recentTrades: '/api/v1/trades',
+    historicalTrades: '/api/v1/historicalTrades',
+    candlestick: '/api/v1/klines',
+    ticker24: '/api/v1/ticker/24hr',
+    tickerSymbol: '',
+  },
 };
 
 /*

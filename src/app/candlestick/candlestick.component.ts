@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dates, closePrices, highPrices, lowPrices, openPrices } from './mock.data';
 import { MovingAverageService } from './moving-average.service';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'candlestick',
@@ -13,13 +14,16 @@ export class CandlestickComponent implements OnInit {
   maLineY: Array<any>;
   maLineX: Array<any>;
 
-  constructor(private maService: MovingAverageService) { }
+  constructor(private api: ApiService, private maService: MovingAverageService) { }
 
   ngOnInit() {
+    this.api.getCandelstick().subscribe(d => {
+      console.log(d);
+    })
     
     this.maLineY = this.maService.updatePrices(closePrices);
     this.maLineX = this.maService.updateDates(dates);
-    console.log(this.maLineX);
+    
     this.graph = {
       data: [
         {
