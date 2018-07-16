@@ -1,6 +1,5 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 // import { dates, closePrices, highPrices, lowPrices, openPrices } from './mock.data';
-import { dates } from './mock.data';
 import { MovingAverageService } from './moving-average.service';
 import { ApiService } from '../api.service';
 import { map } from 'rxjs/operators';
@@ -12,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class CandlestickComponent implements OnInit, OnChanges {
 
-  graph: object;
+  graph;
   maLineY: Array<any>;
   maLineX: Array<any>;
   allDataPoints: Array<any> = [];
@@ -20,51 +19,47 @@ export class CandlestickComponent implements OnInit, OnChanges {
   closePrices: Array<any> = [];
   highPrices: Array<any> = [];
   lowPrices: Array<any> = [];
+  closeTime: Array<any> = [];
 
   constructor(private api: ApiService, private maService: MovingAverageService) {
-    
-
   }
 
   ngOnInit() {
-    // this.api.getCandlestick().subscribe((d: Array<any>) => {
-    //   this.allDataPoints = (<any>d).reduce((datum, point, i, arr) => {
-    //     datum.push(point[2]);
-    //     // this.closePrices.push(point[3]);
-    //     // this.highPrices.push(point[4]);
-    //     // this.lowPrices.push(point[5]);
-    //     return datum;
-
-    //   }, []);
-    // });
+    this.graph = false;
     this.api.getCandlestick().subscribe(d => {
-      console.log(d)
+      this.printGraph(d)
+    }, error => {
+      console.error('candlestick data error: ', error)
     })
+  }
 
-    // this.maLineY = this.maService.updatePrices(this.closePrices);
-    this.maLineX = this.maService.updateDates(dates);
+  ngOnChanges(changes) {
+    console.log(changes)
+  }
 
-
+  printGraph(obj): void {
+    let maLineY = this.maService.updatePrices(obj.closePrices);
+    let maLineX = this.maService.updateDates(obj.closeTime);
     this.graph = {
       data: [
         {
           // Price chart
-          x: dates,
-          close: this.closePrices,
+          x: obj.closeTime,
+          close: obj.closePrices,
           decreasing: { line: { color: '#7F7F7F' } },
-          high: this.highPrices,
+          high: obj.highPrices,
           increasing: { line: { color: '#17BECF' } },
           line: { color: 'rgba(31,119,180,1)' },
-          low: this.lowPrices,
-          open: this.openPrices,
+          low: obj.lowPrices,
+          open: obj.openPrices,
           type: 'candlestick',
           xaxis: 'x',
           yaxis: 'y'
         },
         {
           // Moving average
-          x: this.maLineX,
-          y: this.maLineY,
+          x: maLineX,
+          y: maLineY,
           type: 'scatter',
           xaxis: 'x',
           yaxis: 'y',
@@ -97,10 +92,7 @@ export class CandlestickComponent implements OnInit, OnChanges {
         }
       }
     }
-
-  }
-  ngOnChanges(changes) {
-    console.log(changes)
+    
   }
 
 }
