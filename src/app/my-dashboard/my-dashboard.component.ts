@@ -12,12 +12,9 @@ import { map } from 'rxjs/operators';
 })
 export class MyDashboardComponent implements OnInit{
   content = CryptotableComponent;
-  results;
+  results = true;
   
   constructor(private streamService: StreamsService) {}
-
-  
-
   ngOnInit() {
     // this.streamService.getStream().subscribe(
     //   (points: any) => {

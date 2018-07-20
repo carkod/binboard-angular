@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   templateUrl: './candlestick.component.html',
   styleUrls: ['./candlestick.component.css']
 })
-export class CandlestickComponent implements OnInit, OnChanges {
+export class CandlestickComponent implements OnInit {
 
   graph;
   maLineY: Array<any>;
@@ -25,19 +25,14 @@ export class CandlestickComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.graph = false;
     this.api.getCandlestick().subscribe(d => {
+      console.log(d)
       this.printGraph(d)
     }, error => {
       console.error('candlestick data error: ', error)
     })
   }
-
-  ngOnChanges(changes) {
-    console.log(changes)
-  }
-
-  printGraph(obj): void {
+  printGraph(obj) {
     let maLineY = this.maService.updatePrices(obj.closePrices);
     let maLineX = this.maService.updateDates(obj.closeTime);
     this.graph = {
@@ -92,7 +87,7 @@ export class CandlestickComponent implements OnInit, OnChanges {
         }
       }
     }
-    
+    return this.graph;
   }
 
 }
