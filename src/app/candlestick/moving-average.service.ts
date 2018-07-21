@@ -14,7 +14,7 @@ export class MovingAverageService {
 
   constructor() {
     // Set interval for 30 min (add 30 min more)
-    this.interval = 5
+    this.interval = 5;
     this._mean = 0;
     this.maArray = [];
     this.maArrayDates = [];
@@ -30,7 +30,7 @@ export class MovingAverageService {
         return a + v
       }, 0)
       const mean = sum/this.interval;
-      console.log(mean)
+      // console.log(mean)
       this.maArray.push(mean);  
     }
     return this.maArray;
