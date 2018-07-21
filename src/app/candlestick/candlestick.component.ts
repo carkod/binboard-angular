@@ -35,7 +35,7 @@ export class CandlestickComponent implements OnInit {
   printGraph(obj) {
     let maLineY = this.maService.updatePrices(obj.closePrices);
     let maLineX = this.maService.updateDates(obj.closeTimeRaw);
-    console.log(obj.closePrices)
+    console.log(maLineX)
     this.graph = {
       data: [
         {
@@ -45,25 +45,23 @@ export class CandlestickComponent implements OnInit {
           close: obj.closePrices,
           high: obj.highPrices,
           low: obj.lowPrices,
-          // decreasing: { line: { color: '#7F7F7F' } },
           decreasing: { line: { color: 'red' } },
           increasing: { line: { color: 'green' } },
-          // increasing: { line: { color: '#17BECF' } },
-          line: { color: 'green' },
+          // line: { color: '#17BECF' },
           type: 'candlestick',
           xaxis: 'x',
           yaxis: 'y'
         },
-        // {
-        //   // Moving average
-        //   x: maLineX,
-        //   y: maLineY,
-        //   type: 'scatter',
-        //   xaxis: 'x',
-        //   yaxis: 'y',
-        //   mode: 'lines',
-        //   line: { width: '1', },
-        // },
+        {
+          // Moving average
+          x: maLineX,
+          y: maLineY,
+          type: 'scatter',
+          xaxis: 'x',
+          yaxis: 'y',
+          mode: 'lines',
+          line: { width: '1', },
+        },
       ],
       layout: {
         dragmode: 'zoom',
@@ -77,7 +75,7 @@ export class CandlestickComponent implements OnInit {
         xaxis: {
           autorange: true,
           domain: [0, 1],
-          range: [obj.closeTime[0], obj.closeTime[50]],
+          range: [obj.closeTime[0], obj.closeTime[99]],
           // rangeslider: {range: ['2017-01-03 12:00', '2017-02-15 12:00']}, 
           title: 'Date',
           type: 'date'
@@ -85,7 +83,7 @@ export class CandlestickComponent implements OnInit {
         yaxis: {
           autorange: true,
           domain: [0, 1],
-          range: [obj.closePrices[0], obj.closePrices[50]],
+          range: [obj.closePrices[0], obj.closePrices[99]],
           tickformat: '.10f',
           type: 'linear'
         }

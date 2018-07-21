@@ -31,7 +31,6 @@ export class ApiService {
   getCandlestick() {
     this.openPrices = []; this.closePrices = []; this.highPrices = []; this.lowPrices = []; this.closeTime = []; this.closeTimeRaw = [];
     this.dataPoints = this.http.get<any[]>(this.candlestickUrl).pipe(map(res => {
-      console.log(res)
       for (let r of res ) {
         this.openPrices.push(r[1]);
         this.closePrices.push(r[4]);
