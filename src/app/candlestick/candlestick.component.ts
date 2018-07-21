@@ -26,15 +26,16 @@ export class CandlestickComponent implements OnInit {
 
   ngOnInit() {
     this.api.getCandlestick().subscribe(d => {
-      console.log(d)
       this.printGraph(d)
     }, error => {
       console.error('candlestick data error: ', error)
     })
+    
   }
   printGraph(obj) {
     let maLineY = this.maService.updatePrices(obj.closePrices);
-    let maLineX = this.maService.updateDates(obj.closeTime);
+    let maLineX = this.maService.updateDates(obj.closeTimeRaw);
+    console.log(maLineY)
     this.graph = {
       data: [
         {
@@ -73,8 +74,8 @@ export class CandlestickComponent implements OnInit {
         showlegend: false,
         xaxis: {
           autorange: true,
-          domain: [0, 1],
-          range: ['2017-01-03 12:00', '2017-02-15 12:00'],
+          // domain: [0, 1],
+          range: [obj.closePrices[0], obj.closePrices[50]],
           // rangeslider: {range: ['2017-01-03 12:00', '2017-02-15 12:00']}, 
           title: 'Date',
           type: 'date'
