@@ -16,19 +16,25 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiService {
-  symbol: string = 'ONTETH';
+
+  // Candlestick Data
+  symbol: string;
   interval: any = '1h' ;
   limit: number = 100;
   startTime?: any = '';
   endtime? : any = '';
-  candlestickUrl: string = `${environment.api.candlestick}?symbol=${this.symbol}&interval=${this.interval}&limit=${this.limit}`;
+  candlestickUrl: string;
   dataPoints; openPrices; closePrices; lowPrices; highPrices; closeTime; closeTimeRaw;
 
+  // Ticker data
+  tickerPrices;
 
   constructor(private http: HttpClient) {
   }
 
-  getCandlestick() {
+  getCandlestick(symbol: string) {
+    this.symbol = symbol;
+    this.candlestickUrl= `${environment.api.candlestick}?symbol=${this.symbol}&interval=${this.interval}&limit=${this.limit}`;
     this.openPrices = []; this.closePrices = []; this.highPrices = []; this.lowPrices = []; this.closeTime = []; this.closeTimeRaw = [];
     this.dataPoints = this.http.get<any[]>(this.candlestickUrl).pipe(map(res => {
       for (let r of res ) {
@@ -52,7 +58,10 @@ export class ApiService {
       }
     }));
     return this.dataPoints;
-    // return candlestick;
+  }
+
+  getTicker(symbol) {
+
   }
 
 

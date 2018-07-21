@@ -1,8 +1,6 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-// import { dates, closePrices, highPrices, lowPrices, openPrices } from './mock.data';
+import { Component, OnInit } from '@angular/core';
 import { MovingAverageService } from './moving-average.service';
 import { ApiService } from '../api.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'candlestick',
@@ -12,6 +10,7 @@ import { map } from 'rxjs/operators';
 export class CandlestickComponent implements OnInit {
 
   graph;
+  symbolCode: string;
   maLineY: Array<any>;
   maLineX: Array<any>;
   allDataPoints: Array<any> = [];
@@ -25,7 +24,8 @@ export class CandlestickComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.getCandlestick().subscribe(d => {
+    this.symbolCode = 'ONTETH';
+    this.api.getCandlestick(this.symbolCode).subscribe(d => {
       this.printGraph(d)
     }, error => {
       console.error('candlestick data error: ', error)
@@ -35,7 +35,6 @@ export class CandlestickComponent implements OnInit {
   printGraph(obj) {
     let maLineY = this.maService.updatePrices(obj.closePrices);
     let maLineX = this.maService.updateDates(obj.closeTimeRaw);
-    console.log(maLineX)
     this.graph = {
       data: [
         {
@@ -47,7 +46,7 @@ export class CandlestickComponent implements OnInit {
           low: obj.lowPrices,
           decreasing: { line: { color: 'red' } },
           increasing: { line: { color: 'green' } },
-          // line: { color: '#17BECF' },
+          line: { color: '#17BECF' },
           type: 'candlestick',
           xaxis: 'x',
           yaxis: 'y'
