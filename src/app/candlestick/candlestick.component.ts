@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'candlestick',
   templateUrl: './candlestick.component.html',
-  styleUrls: ['./candlestick.component.css']
+  styleUrls: ['./candlestick.component.scss']
 })
 export class CandlestickComponent implements OnInit {
 
