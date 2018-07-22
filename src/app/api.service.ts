@@ -28,6 +28,7 @@ export class ApiService {
 
   // Ticker data
   tickerPrices;
+  tickerUrl: string;
 
   constructor(private http: HttpClient) {
   }
@@ -61,7 +62,8 @@ export class ApiService {
   }
 
   getTicker(symbol) {
-
+    this.tickerUrl = `${environment.api.candlestick}?symbol=${this.symbol}&interval=${this.interval}&limit=${this.limit}`;
+    this.dataPoints = this.http.get<any[]>(this.tickerUrl);
   }
 
 
