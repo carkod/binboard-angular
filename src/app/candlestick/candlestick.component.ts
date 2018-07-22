@@ -33,8 +33,8 @@ export class CandlestickComponent implements OnInit {
     
   }
   printGraph(obj) {
-    let maLineY = this.maService.updatePrices(obj.closePrices, 5);
-    let maLineX = this.maService.updateDates(obj.closeTimeRaw);
+    let maLineY = this.maService.updatePrices(obj.closePrices, 7);
+    let maLineX = this.maService.updateDates(obj.closeTimeRaw, 3);
     this.graph = {
       data: [
         {

@@ -39,13 +39,16 @@ export class MovingAverageService {
     return this.maArray;
   }
 
-  updateDates(dates: Array<any>) {
+  updateDates(dates: Array<any>, range?: number) {
     for (let i = 0; i < dates.length; i++) {
       const serverDate = dates[i] ;
+      range +=0; 
+      const d = new Date(serverDate.setHours(serverDate.getHours() + range));
+      console.log(d)
       // serverDate.setDate(serverDate.getDate() + this.interval);
       // const dateFormatted = formatDate(serverDate, 'yyyy-MM-dd', 'en');
       // const prepArray = dates.slice(i, i+this.interval);
-      const dateFormatted = `${serverDate.getFullYear()}-${serverDate.getMonth() + 1}-${serverDate.getDate()} ${serverDate.getHours()}:${serverDate.getMinutes()}:${serverDate.getSeconds()}`;
+      const dateFormatted = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
       this.maArrayDates.push(dateFormatted);  
     }
     return this.maArrayDates;
