@@ -44,10 +44,6 @@ export class MovingAverageService {
       const serverDate = dates[i] ;
       range +=0; 
       const d = new Date(serverDate.setHours(serverDate.getHours() + range));
-      console.log(d)
-      // serverDate.setDate(serverDate.getDate() + this.interval);
-      // const dateFormatted = formatDate(serverDate, 'yyyy-MM-dd', 'en');
-      // const prepArray = dates.slice(i, i+this.interval);
       const dateFormatted = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
       this.maArrayDates.push(dateFormatted);  
     }

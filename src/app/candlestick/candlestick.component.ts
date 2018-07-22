@@ -35,6 +35,16 @@ export class CandlestickComponent implements OnInit {
   printGraph(obj) {
     let maLineY = this.maService.updatePrices(obj.closePrices, 7);
     let maLineX = this.maService.updateDates(obj.closeTimeRaw, 3);
+    let ma7Trace = {
+      // Moving average
+      x: maLineX,
+      y: maLineY,
+      type: 'scatter',
+      xaxis: 'x',
+      yaxis: 'y',
+      mode: 'lines',
+      line: { width: '1', },
+    };
     this.graph = {
       data: [
         {
@@ -51,16 +61,7 @@ export class CandlestickComponent implements OnInit {
           xaxis: 'x',
           yaxis: 'y'
         },
-        {
-          // Moving average
-          x: maLineX,
-          y: maLineY,
-          type: 'scatter',
-          xaxis: 'x',
-          yaxis: 'y',
-          mode: 'lines',
-          line: { width: '1', },
-        },
+        ma7Trace,
       ],
       layout: {
         dragmode: 'zoom',
