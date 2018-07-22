@@ -12,23 +12,15 @@ import { map } from 'rxjs/operators';
 })
 export class MyDashboardComponent implements OnInit{
   content = CryptotableComponent;
-  results = true;
+  pageElements: Array<any>;
   
   constructor(private streamService: StreamsService) {}
   ngOnInit() {
-    // this.streamService.getStream().subscribe(
-    //   (points: any) => {
-    //     this.results = points.k;
-    //     // console.log(this.results)
-    //   },
-    //   (err) => console.error(err),
-    //   () => console.log('complete')
-    // );
+
   }
 
   
   ngOnDestroy() {
-    this.streamService.getStream().unsubscribe();
   }
 
   log(...text) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MovingAverageService } from './moving-average.service';
 import { ApiService } from '../api.service';
+import { StreamsService } from '../streams.service';
 
 @Component({
   selector: 'candlestick',
@@ -9,8 +10,12 @@ import { ApiService } from '../api.service';
 })
 export class CandlestickComponent implements OnInit {
 
+  // General
   graph;
   symbolCode: string;
+  interval: string;
+
+  // Candlestick
   maLineY: Array<any>;
   maLineX: Array<any>;
   allDataPoints: Array<any> = [];
@@ -20,17 +25,33 @@ export class CandlestickComponent implements OnInit {
   lowPrices: Array<any> = [];
   closeTime: Array<any> = [];
 
-  constructor(private api: ApiService, private maService: MovingAverageService) {
+  //Streams
+  results: boolean;
+
+  constructor(private ws: StreamsService, private api: ApiService, private maService: MovingAverageService) {
   }
 
   ngOnInit() {
     this.symbolCode = 'ONTETH';
+    this.interval = '30m';
+    this.results = true;
     this.api.getCandlestick(this.symbolCode).subscribe(d => {
       this.printGraph(d)
     }, error => {
       console.error('candlestick data error: ', error)
-    })
+    });
+    this.ws.getStream(this.symbolCode, this.interval).subscribe(
+      (points: any) => {
+        this.results = points.k;
+        console.log(this.results)
+      },
+      (err) => console.error(err),
+      () => console.log('complete')
+    );
     
+  }
+  ngOnDestroy() {
+    this.ws.getStream('onteth', '30m').unsubscribe();
   }
   printGraph(obj) {
     let maLineY = this.maService.updatePrices(obj.closePrices, 7);

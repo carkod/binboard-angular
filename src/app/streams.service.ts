@@ -8,19 +8,21 @@ import { webSocket } from 'rxjs/webSocket';
   providedIn: 'root'
 })
 export class StreamsService {
-  symbol = 'trxeth';
-  interval = '30m';
-
-  candlestick = `${environment.baseEndpoint}${this.symbol}@kline_${this.interval}`;
   
   private subject: Subject<any>;
   private observer: Observer<any>;
 
   constructor() { }
 
-  getStream() {
-    let subject$ = webSocket(this.candlestick);
-    console.log(this.candlestick)
+  /**
+   * 
+   * @param symbol - e.g. onteth, ontology and ethereum exchange
+   * @param interval - string, 30m for 30 minutes, 1h for 1 hour
+   */
+  getStream(symbol, interval) {
+    let candlestick = `${environment.baseEndpoint}${symbol}@kline_${interval}`;
+    let subject$ = webSocket(candlestick);
+    console.log(candlestick)
     return subject$;
 
   }
