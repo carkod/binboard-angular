@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  baseEndpoint: 'wss://stream.binance.com:9443/ws/',
   ws: {
     base: 'wss://stream.binance.com:9443/ws/',
   },

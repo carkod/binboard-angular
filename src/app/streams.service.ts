@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Observable, of , Subject, Observer } from 'rxjs';
-import { webSocket } from 'rxjs/webSocket';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
 
 @Injectable({
@@ -9,7 +9,7 @@ import { webSocket } from 'rxjs/webSocket';
 })
 export class StreamsService {
   
-  private subject: Subject<any>;
+  private socket$: WebSocketSubject<any>;
   private observer: Observer<any>;
 
   constructor() { }
@@ -20,11 +20,10 @@ export class StreamsService {
    * @param interval - string, 30m for 30 minutes, 1h for 1 hour
    */
   getStream(symbol, interval) {
-    let candlestick = `${environment.baseEndpoint}${symbol}@kline_${interval}`;
-    let subject$ = webSocket(candlestick);
+    let candlestick = `${environment.ws.base}${symbol.toLowerCase()}@kline_${interval}`;
     console.log(candlestick)
-    return subject$;
-
+    this.socket$ = WebSocketSubject.create(candlestick);
+    return this.socket$;
   }
 
   

@@ -13,10 +13,9 @@ import { map } from 'rxjs/operators';
 export class MyDashboardComponent implements OnInit{
   content = CryptotableComponent;
   pageElements: Array<any>;
-  
-  constructor(private streamService: StreamsService) {}
-  ngOnInit() {
 
+  constructor() {}
+  ngOnInit() {
   }
 
   
