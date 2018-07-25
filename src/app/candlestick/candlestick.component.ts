@@ -35,24 +35,27 @@ export class CandlestickComponent implements OnInit {
     this.symbolCode = 'ONTETH';
     this.interval = '30m';
     
-    this.ws.getStream(this.symbolCode, this.interval).subscribe(
-      (points: any) => {
-        console.log(points)
-        this.results = points.k;
-      },
-      (err) => console.error(err),
-      () => console.log('complete')
-    );
     this.api.getCandlestick(this.symbolCode).subscribe(d => {
       this.printGraph(d);
     }, error => {
       console.error('candlestick data error: ', error)
     });
-    
+    this.ws.candlestickStream(this.symbolCode, this.interval).subscribe(res => {
+      console.log(res);
+        const date = new Date(res.T);
+        const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        const closeTimeRaw = []
+        this.openPrices.push(res.o);
+        this.closePrices.push(res.c);
+        this.highPrices.push(res.h);
+        this.lowPrices.push(res.l);
+        this.closeTime.push(formatDate);
+        closeTimeRaw.push(res.T);
+    });
     
   }
   ngOnDestroy() {
-    // this.ws.getStream('onteth', '30m').unsubscribe();
+    this.ws.candlestickStream(this.symbolCode,this.interval).unsubscribe();
   }
   printGraph(obj) {
     let maLineY = this.maService.updatePrices(obj.closePrices, 7);
