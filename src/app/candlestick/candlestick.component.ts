@@ -18,7 +18,7 @@ export class CandlestickComponent implements OnInit {
   // Candlestick
   maLineY: Array<any>;
   maLineX: Array<any>;
-  allDataPoints: Array<any> = [];
+  apiData;
   openPrices: Array<any> = [];
   closePrices: Array<any> = [];
   highPrices: Array<any> = [];
@@ -27,6 +27,8 @@ export class CandlestickComponent implements OnInit {
 
   //Streams
   results: boolean;
+  updateTrace: Object;
+  updateTime: Object;
 
   constructor(private ws: StreamsService, private api: ApiService, private maService: MovingAverageService) {
   }
@@ -36,26 +38,28 @@ export class CandlestickComponent implements OnInit {
     this.interval = '30m';
     
     this.api.getCandlestick(this.symbolCode).subscribe(d => {
+      this.apiData = d;
       this.printGraph(d);
     }, error => {
       console.error('candlestick data error: ', error)
     });
-    this.ws.candlestickStream(this.symbolCode, this.interval).subscribe(res => {
-      console.log(res);
-        const date = new Date(res.T);
-        const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-        const closeTimeRaw = []
-        this.openPrices.push(res.o);
-        this.closePrices.push(res.c);
-        this.highPrices.push(res.h);
-        this.lowPrices.push(res.l);
-        this.closeTime.push(formatDate);
-        closeTimeRaw.push(res.T);
+    
+    this.ws.candlestickStream(this.symbolCode, this.interval, this.apiData).subscribe(d => {
+      console.log(d);
+      // updateObj = {
+      //   openPrices: d.k.o,
+      //   closePrices: d.k.c,
+      //   highPrices: d.k.h,
+      //   lowPrices: d.k.l,
+      //   // closeTime: d.k.t,
+      //   // closeTimeRaw: fo,
+      // }
     });
+    
     
   }
   ngOnDestroy() {
-    this.ws.candlestickStream(this.symbolCode,this.interval).unsubscribe();
+    // this.ws.candlestickStream(this.symbolCode,this.interval).unsubscribe();
   }
   printGraph(obj) {
     let maLineY = this.maService.updatePrices(obj.closePrices, 7);
@@ -117,5 +121,4 @@ export class CandlestickComponent implements OnInit {
     }
     return this.graph;
   }
-
 }

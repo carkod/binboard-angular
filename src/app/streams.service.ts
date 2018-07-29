@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Observable, of , Subject, Observer } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter, reduce } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
 
@@ -10,7 +10,7 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 })
 export class StreamsService {
   
-  private socket$: WebSocketSubject<any>;
+  private socket$;
   candlestick;
   private observer: Observer<any>;
 
@@ -18,13 +18,31 @@ export class StreamsService {
 
   /**
    * 
-   * @param symbol - e.g. onteth, ontology and ethereum exchange
-   * @param interval - string, 30m for 30 minutes, 1h for 1 hour
+   * @param symbol {string} - e.g. onteth, ontology and ethereum exchange
+   * @param interval {string}- string, 30m for 30 minutes, 1h for 1 hour
    */
-  candlestickStream(symbol, interval) {
-    let candlestick = `${environment.ws.base}${symbol.toLowerCase()}@kline_${interval}`;
-    this.socket$ = new WebSocketSubject(candlestick);
-    return this.socket$;
+  candlestickStream(symbol, interval, apiData?) {
+    let candlestickUrl = `${environment.ws.base}${symbol.toLowerCase()}@kline_${interval}`;
+    let socket$ = new WebSocketSubject<any>(candlestickUrl);
+    console.log(apiData)
+    const updateObj = socket$.pipe(map(v => {
+      const date = new Date(v.k.t);
+      const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+      
+      return {
+        openPrices: v.k.o,
+        closePrices: v.k.c,
+        highPrices: v.k.h,
+        lowPrices: v.k.l,
+        closeTime: formatDate,
+        closeTimeRaw: date,
+      }
+    }));
+    return updateObj;
+  }
+
+  mergeData() {
+
   }
 
   
