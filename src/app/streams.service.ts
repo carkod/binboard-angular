@@ -21,10 +21,9 @@ export class StreamsService {
    * @param symbol {string} - e.g. onteth, ontology and ethereum exchange
    * @param interval {string}- string, 30m for 30 minutes, 1h for 1 hour
    */
-  candlestickStream(symbol, interval, apiData?) {
+  candlestickStream(symbol, interval) {
     let candlestickUrl = `${environment.ws.base}${symbol.toLowerCase()}@kline_${interval}`;
     let socket$ = new WebSocketSubject<any>(candlestickUrl);
-    console.log(apiData)
     const updateObj = socket$.pipe(map(v => {
       const date = new Date(v.k.t);
       const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;

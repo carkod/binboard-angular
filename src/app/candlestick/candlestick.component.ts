@@ -29,6 +29,7 @@ export class CandlestickComponent implements OnInit {
   results: boolean;
   updateTrace: Object;
   updateTime: Object;
+  mergedData;
 
   constructor(private ws: StreamsService, private api: ApiService, private maService: MovingAverageService) {
   }
@@ -44,22 +45,33 @@ export class CandlestickComponent implements OnInit {
       console.error('candlestick data error: ', error)
     });
     
-    this.ws.candlestickStream(this.symbolCode, this.interval, this.apiData).subscribe(d => {
-      console.log(d);
-      // updateObj = {
-      //   openPrices: d.k.o,
-      //   closePrices: d.k.c,
-      //   highPrices: d.k.h,
-      //   lowPrices: d.k.l,
-      //   // closeTime: d.k.t,
-      //   // closeTimeRaw: fo,
-      // }
+    this.ws.candlestickStream(this.symbolCode, this.interval).subscribe(d => {
+      if (this.apiData) {
+        console.log(d);
+        
+        this.mergedData = [
+          {
+          openPrices: d.openPrices,
+          highPrices: d.highPrices,
+          lowPrices: d.lowPrices,
+          closePrices: d.closePrices,
+          closeTime: d.closeTime
+          },
+          [0]
+        ]
+        // this.apiData.openPrices;
+        // this.apiData.highPrices;
+        // this.apiData.lowPrices.push(d.lowPrices);
+        // this.apiData.closePrices.push(d.closePrices);
+        // this.apiData.closeTime.push(d.closeTime);
+        // this.apiData.closeTimeRaw.push(d.closeTimeRaw);
+        
+      }
     });
     
     
   }
   ngOnDestroy() {
-    // this.ws.candlestickStream(this.symbolCode,this.interval).unsubscribe();
   }
   printGraph(obj) {
     let maLineY = this.maService.updatePrices(obj.closePrices, 7);
@@ -104,7 +116,7 @@ export class CandlestickComponent implements OnInit {
         xaxis: {
           autorange: true,
           domain: [0, 1],
-          range: [obj.closeTime[0], obj.closeTime[99]],
+          range: [obj.closeTime[0], obj.closeTime[obj.closeTime.length]],
           // rangeslider: {range: ['2017-01-03 12:00', '2017-02-15 12:00']}, 
           title: 'Date',
           type: 'date'
@@ -113,7 +125,7 @@ export class CandlestickComponent implements OnInit {
           title: this.symbolCode,
           autorange: true,
           domain: [0, 1],
-          range: [obj.closePrices[0], obj.closePrices[99]],
+          range: [obj.closePrices[0], obj.closePrices[obj.closePrices.length]],
           tickformat: '.10f',
           type: 'linear'
         }

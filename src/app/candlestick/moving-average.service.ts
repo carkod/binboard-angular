@@ -49,5 +49,4 @@ export class MovingAverageService {
     }
     return this.maArrayDates;
   }
-
 }
