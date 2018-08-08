@@ -13,6 +13,7 @@ export class StreamsService {
   private socket$;
   candlestick;
   private observer: Observer<any>;
+  prevDate;
 
   constructor() { }
 
@@ -25,27 +26,18 @@ export class StreamsService {
     let candlestickUrl = `${environment.ws.base}${symbol.toLowerCase()}@kline_${interval}`;
     let socket$ = new WebSocketSubject<any>(candlestickUrl);
     const updateObj = socket$.pipe(map(v => {
-      const date = new Date(v.k.t);
+      const date = new Date(v.k.T);
+      this.prevDate = date;
       const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-      
       return {
         openPrices: v.k.o,
         closePrices: v.k.c,
         highPrices: v.k.h,
         lowPrices: v.k.l,
-        closeTime: formatDate,
+        closeTime: date,
         closeTimeRaw: date,
       }
     }));
     return updateObj;
   }
-
-  mergeData() {
-
-  }
-
-  
-
-
-
 }

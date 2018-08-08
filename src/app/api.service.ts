@@ -19,8 +19,8 @@ export class ApiService {
 
   // Candlestick Data
   symbol: string;
-  interval: any = '1h' ;
-  limit: number = 100;
+  interval: string;
+  limit: number;
   startTime?: any = '';
   endtime? : any = '';
   candlestickUrl: string;
@@ -33,8 +33,10 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  getCandlestick(symbol: string) {
+  getCandlestick(symbol: string, interval: string, limit: number) {
     this.symbol = symbol;
+    this.interval = interval;
+    this.limit = limit;
     this.candlestickUrl= `${environment.api.candlestick}?symbol=${this.symbol}&interval=${this.interval}&limit=${this.limit}`;
     this.openPrices = []; this.closePrices = []; this.highPrices = []; this.lowPrices = []; this.closeTime = []; this.closeTimeRaw = [];
     this.dataPoints = this.http.get<any[]>(this.candlestickUrl).pipe(map(res => {
@@ -47,7 +49,7 @@ export class ApiService {
         const date = new Date(r[6]);
         const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
         this.closeTimeRaw.push(date);
-        this.closeTime.push(formatDate);
+        this.closeTime.push(date);
       }
       return {
         openPrices: this.openPrices,

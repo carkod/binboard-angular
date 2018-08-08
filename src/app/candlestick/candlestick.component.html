@@ -1,2 +1,7 @@
 <h1>{{symbolCode}}</h1>
-<plotly-plot *ngIf="graph" [data]="graph.data" [layout]="graph.layout" (extendTraces)="mergedData"  [debug]="true"></plotly-plot>
+<button (click)="updateGraph()">Click to update</button>
+
+<div *ngIf="!data" class="error-data">
+    Data is loading...
+</div>
+<div id="chart" #chart></div>
