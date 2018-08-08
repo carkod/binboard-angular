@@ -60,41 +60,9 @@ export class CandlestickComponent implements OnInit {
 
     this.ws.candlestickStream(this.symbolCode, this.interval).subscribe(sd => {
       let element = this.el.nativeElement;
-      console.log(sd);
-      if (this.apiData && !this.repetition(sd)) {
-        this.count++;
-
-        this.apiData.openPrices.concat([sd.openPrices]).shift();
-        this.apiData.highPrices.concat([sd.highPrices]).shift();
-        this.apiData.lowPrices.concat([sd.lowPrices]).shift();
-        this.apiData.closePrices.concat([sd.closePrices]).shift();
-        this.apiData.closeTime.concat([sd.closeTime]).shift();
-
-        // this.apiData.closeTimeRaw.push(sd.closeTimeRaw);
-        this.ps.update(element, this.renderData(this.apiData), this.renderLayout(this.apiData), [0]);
-        console.log('received non repeating candlestick ', element.data);
-        // console.log(element.data, element.layout);
-      } else if (this.apiData && this.repetition(sd)) {
-        console.log('received repeated ', element.data);
-        const i = this.apiData.closeTime.findIndex(x => x.getTime() === sd.closeTime.getTime());
-
-        this.apiData.openPrices.splice(i, 0, sd.openPrices);
-        this.apiData.openPrices.shift();
-
-        this.apiData.highPrices.splice(i, 0, sd.highPrices);
-        this.apiData.highPrices.shift();
-
-        this.apiData.lowPrices.splice(i, 0, sd.lowPrices);
-        this.apiData.lowPrices.shift();
-
-        this.apiData.closePrices.splice(i, 0, sd.closePrices);
-        this.apiData.closePrices.shift();
-
-        this.apiData.closeTime.splice(i, 0, sd.closeTime);
-        this.apiData.closeTime.shift();
-        
-        console.log('these two should be the same ', this.apiData.openPrices[i], sd.openPrices);
-      }
+      // console.log(sd);
+      this.updateGraph(element, sd);
+      
     });
 
   }
@@ -162,8 +130,36 @@ export class CandlestickComponent implements OnInit {
     console.log('updated', e);
   }
 
-  updateData(websocketData) {
-    
+  updateGraph(element, sd) {
+    if (this.apiData && !this.repetition(sd)) {
+      this.count++;
+
+      this.apiData.openPrices.concat([sd.openPrices]).shift();
+      this.apiData.highPrices.concat([sd.highPrices]).shift();
+      this.apiData.lowPrices.concat([sd.lowPrices]).shift();
+      this.apiData.closePrices.concat([sd.closePrices]).shift();
+      this.apiData.closeTime.concat([sd.closeTime]).shift();
+
+      // this.apiData.closeTimeRaw.push(sd.closeTimeRaw);
+      this.ps.update(element, this.renderData(this.apiData), this.renderLayout(this.apiData), [0]);
+      // console.log('received non repeating candlestick ', element.data);
+    } else if (this.apiData && this.repetition(sd)) {
+      // console.log('received repeated ', element.data);
+      const i = this.apiData.closeTime.findIndex(x => x.getTime() === sd.closeTime.getTime());
+
+      this.apiData.openPrices.splice(i, 0, sd.openPrices);
+      this.apiData.openPrices.shift();
+      this.apiData.highPrices.splice(i, 0, sd.highPrices);
+      this.apiData.highPrices.shift();
+      this.apiData.lowPrices.splice(i, 0, sd.lowPrices);
+      this.apiData.lowPrices.shift();
+      this.apiData.closePrices.splice(i, 0, sd.closePrices);
+      this.apiData.closePrices.shift();
+      this.apiData.closeTime.splice(i, 0, sd.closeTime);
+      this.apiData.closeTime.shift();
+      
+      this.ps.update(element, this.renderData(this.apiData), this.renderLayout(this.apiData), [0]);
+    }
   }
   repetition(sd) {
     // Check whether ws has sent repeated data points

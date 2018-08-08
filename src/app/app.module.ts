@@ -14,6 +14,8 @@ import { CandlestickComponent } from './candlestick/candlestick.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { PlotlyModule } from 'angular-plotly.js';
 import { ApiService } from './api.service';
+import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 // Angular router here
 // - /Dashboard
@@ -28,6 +30,8 @@ import { ApiService } from './api.service';
     CryptotableComponent,
     ListingComponent,
     CandlestickComponent,
+    TopToolbarComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
