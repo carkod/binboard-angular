@@ -148,15 +148,10 @@ export class CandlestickComponent implements OnInit {
       const i = this.apiData.closeTime.findIndex(x => x.getTime() === sd.closeTime.getTime());
 
       this.apiData.openPrices.splice(i, 0, sd.openPrices);
-      this.apiData.openPrices.shift();
       this.apiData.highPrices.splice(i, 0, sd.highPrices);
-      this.apiData.highPrices.shift();
       this.apiData.lowPrices.splice(i, 0, sd.lowPrices);
-      this.apiData.lowPrices.shift();
       this.apiData.closePrices.splice(i, 0, sd.closePrices);
-      this.apiData.closePrices.shift();
       this.apiData.closeTime.splice(i, 0, sd.closeTime);
-      this.apiData.closeTime.shift();
       
       this.ps.update(element, this.renderData(this.apiData), this.renderLayout(this.apiData), [0]);
     }

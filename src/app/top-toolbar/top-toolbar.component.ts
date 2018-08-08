@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRouteSnapshot, ActivatedRoute } from '../../../node_modules/@angular/router';
 
 @Component({
   selector: 'top-toolbar',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopToolbarComponent implements OnInit {
 
-  constructor() { }
+  pageTitle: any;
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.data.subscribe(d => {
+      this.pageTitle = d.pageTitle;
+    })
+    
   }
 
 }

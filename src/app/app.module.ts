@@ -16,6 +16,9 @@ import { PlotlyModule } from 'angular-plotly.js';
 import { ApiService } from './api.service';
 import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { RoutesRoutingModule } from './routes/routes-routing.module';
+import { RoutesModule } from './routes/routes.module';
+import { StockPickerComponent } from './stock-picker/stock-picker.component';
 
 // Angular router here
 // - /Dashboard
@@ -32,6 +35,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     CandlestickComponent,
     TopToolbarComponent,
     NotFoundComponent,
+    StockPickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatSortModule,
     CommonModule,
     PlotlyModule,
-    HttpClientModule
+    HttpClientModule,
+    RoutesRoutingModule,
+    RoutesModule,
   ],
   providers: [CryptotableComponent, DatePipe, ApiService],
   bootstrap: [AppComponent]

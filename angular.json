@@ -129,5 +129,10 @@
       }
     }
   },
-  "defaultProject": "binboard"
+  "defaultProject": "binboard",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
