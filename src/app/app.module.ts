@@ -19,6 +19,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { RoutesRoutingModule } from './routes/routes-routing.module';
 import { RoutesModule } from './routes/routes.module';
 import { StockPickerComponent } from './stock-picker/stock-picker.component';
+import { DrawerService } from './drawer.service';
 
 // Angular router here
 // - /Dashboard
@@ -60,7 +61,7 @@ import { StockPickerComponent } from './stock-picker/stock-picker.component';
     RoutesRoutingModule,
     RoutesModule,
   ],
-  providers: [CryptotableComponent, DatePipe, ApiService],
+  providers: [CryptotableComponent, DatePipe, ApiService, DrawerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

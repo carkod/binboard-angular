@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, ActivatedRoute } from '../../../node_modules/@angular/router';
+import { DrawerService } from '../drawer.service';
 
 @Component({
   selector: 'top-toolbar',
@@ -9,13 +10,17 @@ import { ActivatedRouteSnapshot, ActivatedRoute } from '../../../node_modules/@a
 export class TopToolbarComponent implements OnInit {
 
   pageTitle: any;
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private drawerService: DrawerService) { }
 
   ngOnInit() {
+    console.log(this.drawerService)
     this.route.data.subscribe(d => {
       this.pageTitle = d.pageTitle;
-    })
+    });
     
+  }
+  toggle() {
+    this.drawerService.toggle();
   }
 
 }
