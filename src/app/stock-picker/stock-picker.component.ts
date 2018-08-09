@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'stock-picker',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockPickerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
+    this.api.getCoins(100).subscribe(d => {
+      console.log(d);
+    })
   }
 
 }

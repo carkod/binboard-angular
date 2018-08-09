@@ -15,7 +15,8 @@ export const environment = {
     historicalTrades: '/api/v1/historicalTrades',
     candlestick: '/api/v1/klines',
     ticker24: '/api/v1/ticker/24hr',
-    tickerSymbol: '',
+    ticker:'/api/v3/ticker/price', // Symbol Price only ticker -- retrieve all coins
+    bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
   },
 };
 

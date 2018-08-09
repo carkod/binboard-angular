@@ -13,7 +13,6 @@ export class TopToolbarComponent implements OnInit {
   constructor(private route: ActivatedRoute, private drawerService: DrawerService) { }
 
   ngOnInit() {
-    console.log(this.drawerService)
     this.route.data.subscribe(d => {
       this.pageTitle = d.pageTitle;
     });

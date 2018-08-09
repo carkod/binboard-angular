@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
@@ -30,9 +30,19 @@ export class ApiService {
   tickerPrices;
   tickerUrl: string;
 
+  // All ticker data
+  coins;
+  coinsUrl;
+
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * GET for candlestick base data (deffered time)
+   * @param symbol - coin exchange symbol e.g. ONTETH (coin/reference coin)
+   * @param interval - time interval in min
+   * @param limit - max number of entries
+   */
   getCandlestick(symbol: string, interval: string, limit: number) {
     this.symbol = symbol;
     this.interval = interval;
@@ -47,7 +57,7 @@ export class ApiService {
         this.lowPrices.push(r[3]);
 
         const date = new Date(r[6]);
-        const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        // const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
         this.closeTimeRaw.push(date);
         this.closeTime.push(date);
       }
@@ -57,7 +67,7 @@ export class ApiService {
         highPrices: this.highPrices,
         lowPrices: this.lowPrices,
         closeTime: this.closeTime,
-        closeTimeRaw: this.closeTimeRaw,
+        // closeTimeRaw: this.closeTimeRaw,
       }
     }));
     return this.dataPoints;
@@ -66,6 +76,15 @@ export class ApiService {
   getTicker(symbol) {
     this.tickerUrl = `${environment.api.candlestick}?symbol=${this.symbol}&interval=${this.interval}&limit=${this.limit}`;
     this.dataPoints = this.http.get<any[]>(this.tickerUrl);
+  }
+
+  /**
+   * Get Ticker for all coins
+   */
+  getCoins(budget?: number, symbol?: string) {
+    this.coinsUrl = `${environment.api.ticker}${symbol ? '?symbol' + symbol : ''}`;
+    this.coins = budget ? this.http.get<any>(this.coinsUrl).pipe(map(res => res.filter(coin => coin.price < budget))) : this.http.get<any>(this.coinsUrl);
+    return this.coins;
   }
 
 
