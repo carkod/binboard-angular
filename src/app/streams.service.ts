@@ -19,14 +19,9 @@ export class StreamsService {
   constructor() { }
 
   getStream() {
-    let subject$ = webSocket(this.candlestick);
+    // let subject$ = webSocket(this.candlestick);
     // console.log(this.candlestick)
-    return subject$;
+    // return subject$;
 
   }
-
-  
-
-
-
 }

@@ -12,7 +12,6 @@ import { ListingComponent } from './listing/listing.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CandlestickComponent } from './candlestick/candlestick.component';
 import { CommonModule, DatePipe } from '@angular/common';
-import { PlotlyModule } from 'angular-plotly.js';
 import { ApiService } from './api.service';
 
 // Angular router here
@@ -47,7 +46,6 @@ import { ApiService } from './api.service';
     MatPaginatorModule,
     MatSortModule,
     CommonModule,
-    PlotlyModule,
     HttpClientModule
   ],
   providers: [CryptotableComponent, DatePipe, ApiService],

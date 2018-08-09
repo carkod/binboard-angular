@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port=4300",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -22,7 +22,6 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
-    "angular-plotly.js": "^0.1.14",
     "core-js": "^2.5.4",
     "plotly.js": "^1.38.3",
     "rxjs": "^6.2.1",

@@ -25,7 +25,7 @@ export class MovingAverageService {
       const prepArray = closePrices.slice(i, i+this.interval);
       const sum = (prepArray.reduce((a, v) => a + v));
       const mean = sum/this.interval;
-      this.maArray.push(mean);  
+      this.maArray.push(mean);
     }
     return this.maArray;
   }

@@ -28,21 +28,21 @@ export class CandlestickComponent implements OnInit {
       data: [
         {
           // Price chart
-          x: dates, 
-          close: closePrices, 
-          decreasing: {line: {color: '#7F7F7F'}}, 
-          high: highPrices, 
-          increasing: {line: {color: '#17BECF'}}, 
-          line: {color: 'rgba(31,119,180,1)'}, 
-          low: lowPrices, 
-          open: openPrices, 
-          type: 'candlestick', 
-          xaxis: 'x', 
+          x: dates,
+          close: closePrices,
+          decreasing: {line: {color: '#7F7F7F'}},
+          high: highPrices,
+          increasing: {line: {color: '#17BECF'}},
+          line: {color: 'rgba(31,119,180,1)'},
+          low: lowPrices,
+          open: openPrices,
+          type: 'candlestick',
+          xaxis: 'x',
           yaxis: 'y'
         },
         {
           // Moving average
-          x: this.maLineX, 
+          x: this.maLineX,
           y: this.maLineY,
           type: 'scatter',
           xaxis: 'x',
@@ -52,7 +52,7 @@ export class CandlestickComponent implements OnInit {
         },
       ],
       layout: {
-        dragmode: 'zoom', 
+        dragmode: 'zoom',
         margin: {
           r: 10, 
           t: 25, 
