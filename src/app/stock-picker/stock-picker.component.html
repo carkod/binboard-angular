@@ -5,9 +5,17 @@
           <cryptotable></cryptotable>
         
       </mat-grid-tile>
-      <mat-grid-tile [colspan]="2" [rowspan]="5">
-          Select Coin:
-        
+      <mat-grid-tile [colspan]="2" [rowspan]="2">
+          <form class="coin-form">
+              <mat-form-field class="coin-full-width">
+                <input type="text" placeholder="Pick one" aria-label="Coins" matInput [formControl]="coinsForm" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let c of filteredCoins | async" [value]="c.symbol">
+                    {{c.symbol}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
