@@ -13,32 +13,40 @@ export class MovingAverageService {
   
 
   constructor() {
-    this.interval = 5
-    this._mean = 0;
+    // Set interval for 30 min (add 30 min more)
+    // this.interval = 5;
     this.maArray = [];
     this.maArrayDates = [];
   }
-
-  updatePrices(closePrices: Array<any>) {
-    for (let i = 0; i < closePrices.length - (this.interval - 1); i++) {
+  /**
+   * Updates prices as new data and a range is feeded into it
+   * @param closePrices - binance only
+   * @param {float} range - e.g. 5 will calculate Average with 5 numbers, it must be a discreet number
+   */
+  updatePrices(closePrices: Array<any>, range: number) {
+    for (let i = 0; i < closePrices.length - (range - 1); i++) {
       
-      const prepArray = closePrices.slice(i, i+this.interval);
-      const sum = (prepArray.reduce((a, v) => a + v));
-      const mean = sum/this.interval;
-      this.maArray.push(mean);
+      const prepArray = closePrices.slice(i, i+range);
+      const sum = prepArray.reduce((a, v) => {
+        v = parseFloat(v);
+        a = parseFloat(a);
+        return a + v
+      }, 0)
+      const mean = sum/range;
+      // console.log(mean)
+      this.maArray.push(mean);  
     }
     return this.maArray;
   }
 
-  updateDates(dates: Array<any>) {
+  updateDates(dates: Array<any>, range?: number) {
     for (let i = 0; i < dates.length; i++) {
-      const serverDate = new Date(dates[i]);
-      serverDate.setDate(serverDate.getDate() + this.interval);
-      const dateFormatted = formatDate(serverDate, 'yyyy-MM-dd', 'en');
-      // const prepArray = dates.slice(i, i+this.interval);
+      const serverDate = dates[i] ;
+      range +=0; 
+      const d = new Date(serverDate.setHours(serverDate.getHours() + range));
+      const dateFormatted = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
       this.maArrayDates.push(dateFormatted);  
     }
     return this.maArrayDates;
   }
-
 }

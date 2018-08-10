@@ -5,7 +5,7 @@ import { CryptotableDataSource } from './cryptotable-datasource';
 @Component({
   selector: 'cryptotable',
   templateUrl: './cryptotable.component.html',
-  styleUrls: ['./cryptotable.component.css']
+  styleUrls: ['./cryptotable.component.scss']
 })
 export class CryptotableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;

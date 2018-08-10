@@ -6,32 +6,20 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'my-dashboard',
   templateUrl: './my-dashboard.component.html',
-  styleUrls: ['./my-dashboard.component.css'],
+  styleUrls: ['./my-dashboard.component.scss'],
 
   
 })
 export class MyDashboardComponent implements OnInit{
   content = CryptotableComponent;
-  results;
-  
-  constructor(private streamService: StreamsService) {}
+  pageElements: Array<any>;
 
-  
-
+  constructor() {}
   ngOnInit() {
-    this.streamService.getStream().subscribe(
-      (points: any) => {
-        this.results = points.k;
-        // console.log(this.results)
-      },
-      (err) => console.log(err),
-      () => console.log('complete')
-    );
   }
 
   
   ngOnDestroy() {
-    this.streamService.getStream().unsubscribe();
   }
 
   log(...text) {

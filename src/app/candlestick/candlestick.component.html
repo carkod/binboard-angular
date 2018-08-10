@@ -1,1 +1,6 @@
-<plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+<h1>{{symbolCode}}</h1>
+
+<div *ngIf="!data" class="error-data">
+    Data is loading...
+</div>
+<div id="chart" #chart></div>
