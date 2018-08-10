@@ -15,26 +15,33 @@ export interface Ticker {
 })
 export class StockPickerComponent implements OnInit {
 
-  coins: Array<Ticker>;
-  coinsForm = new FormControl();
-  filteredCoins: Observable<any>;
+  myControl = new FormControl();
+  options: Ticker[];
+  filteredOptions: Observable<Ticker[]>;
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
     this.api.getCoins(100).subscribe(coinData => {
-      this.coins = coinData;
+      this.options = coinData;
+      debugger;
     });
-    this.filteredCoins = this.coinsForm.valueChanges.pipe(
-        startWith(''), map(value => this._filter(value))
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith<string | Ticker>(''),
+        map(value => typeof value === 'string' ? value : value.symbol),
+        map(symbol => symbol ? this._filter(symbol) : this.options.slice())
       );
   }
 
-  private _filter(value: string) {
-    const filterValue = value.toLowerCase();
-    return filterValue;
-    // return this.coins.pipe(map(res => res.filter(option => option.toLowerCase().includes(filterValue))));
-    // return this.coins.filter(option => option.toLowerCase().includes(filterValue));
+  displayFn(coin?: Ticker): string | undefined {
+    return coin ? coin.symbol : undefined;
+  }
+
+  private _filter(name: string): Ticker[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.symbol.toLowerCase().indexOf(filterValue) === 0);
   }
 
 }

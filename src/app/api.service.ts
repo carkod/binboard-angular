@@ -82,8 +82,9 @@ export class ApiService {
    * Get Ticker for all coins
    */
   getCoins(budget?: number, symbol?: string) {
-    this.coinsUrl = `${environment.api.ticker}${symbol ? '?symbol' + symbol : ''}`;
+    this.coinsUrl = `${environment.api.ticker}/${symbol ? '?symbol' + symbol : ''}`;
     this.coins = budget ? this.http.get<any>(this.coinsUrl).pipe(map(res => res.filter(coin => coin.price < budget))) : this.http.get<any>(this.coinsUrl);
+    debugger;
     return this.coins;
   }
 
