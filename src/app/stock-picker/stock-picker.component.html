@@ -1,21 +1,24 @@
-<top-toolbar></top-toolbar>
-<div class="grid-container">
+<div id="stock-picker">
+  <top-toolbar></top-toolbar>
+  <div class="grid-container">
     <mat-grid-list cols="4">
       <mat-grid-tile [colspan]="2" [rowspan]="5">
-          <cryptotable></cryptotable>
-        
+        <cryptotable></cryptotable>
+
       </mat-grid-tile>
       <mat-grid-tile [colspan]="2" [rowspan]="2">
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                {{option}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-        </form>
+
+        <mat-card>
+          <mat-card-title>Add new coin to track: </mat-card-title>
+          <add-new></add-new>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="2" [rowspan]="3">
+
+        <mat-card>
+          <mat-card-title>Another card: </mat-card-title>
+        </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
+</div>

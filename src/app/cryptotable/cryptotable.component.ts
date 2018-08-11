@@ -13,7 +13,7 @@ export class CryptotableComponent implements OnInit {
   dataSource: CryptotableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'name', 'interval', 'limit'];
 
   ngOnInit() {
     this.dataSource = new CryptotableDataSource(this.paginator, this.sort);

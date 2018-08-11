@@ -28,7 +28,6 @@ export class StreamsService {
     const updateObj = socket$.pipe(map(v => {
       const date = new Date(v.k.T);
       this.prevDate = date;
-      const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
       return {
         openPrices: v.k.o,
         closePrices: v.k.c,

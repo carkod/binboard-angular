@@ -47,7 +47,7 @@ export class ApiService {
     this.symbol = symbol;
     this.interval = interval;
     this.limit = limit;
-    this.candlestickUrl= `${environment.api.candlestick}?symbol=${this.symbol}&interval=${this.interval}&limit=${this.limit}`;
+    this.candlestickUrl = `${environment.api.candlestick}?symbol=${this.symbol}&interval=${this.interval}&limit=${this.limit}`;
     this.openPrices = []; this.closePrices = []; this.highPrices = []; this.lowPrices = []; this.closeTime = []; this.closeTimeRaw = [];
     this.dataPoints = this.http.get<any[]>(this.candlestickUrl).pipe(map(res => {
       for (let r of res ) {
@@ -82,9 +82,9 @@ export class ApiService {
    * Get Ticker for all coins
    */
   getCoins(budget?: number, symbol?: string) {
-    this.coinsUrl = `${environment.api.ticker}/${symbol ? '?symbol' + symbol : ''}`;
+    this.coinsUrl = `${environment.api.ticker}${symbol ? '?symbol=' + symbol : ''}`;
+    console.log(this.coinsUrl)
     this.coins = budget ? this.http.get<any>(this.coinsUrl).pipe(map(res => res.filter(coin => coin.price < budget))) : this.http.get<any>(this.coinsUrl);
-    debugger;
     return this.coins;
   }
 

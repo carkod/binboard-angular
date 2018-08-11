@@ -1,7 +1,7 @@
 {
   "/api/*": {
     "target": "https://api.binance.com",
-    "secure": false,
+    "secure": true,
     "logLevel": "debug",
     "changeOrigin": true
   }

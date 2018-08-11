@@ -1,0 +1,31 @@
+<div class="example-container">
+  <form class="example-container" [formGroup]="options">
+
+    <coin-suggester></coin-suggester>
+
+    <!-- <div>
+      <label>Float label: </label>
+      <mat-radio-group formControlName="floatLabel">
+        <mat-radio-button value="auto">Auto</mat-radio-button>
+        <mat-radio-button value="always">Always</mat-radio-button>
+        <mat-radio-button value="never">Never</mat-radio-button>
+      </mat-radio-group>
+    </div> -->
+
+    <mat-form-field [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
+      <input matInput placeholder="Simple placeholder" required>
+    </mat-form-field>
+
+    <mat-form-field [floatLabel]="options.value.floatLabel">
+      <mat-label>Both a label and a placeholder</mat-label>
+      <input formControlName="interval" matInput placeholder="Simple placeholder">
+    </mat-form-field>
+
+    <mat-form-field [floatLabel]="options.value.floatLabel">
+      <mat-label>Both a label and a placeholder</mat-label>
+      <input formControlName="limit" matInput placeholder="Simple placeholder">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="hideRequired">Hide required marker</mat-checkbox>
+  </form>
+</div>

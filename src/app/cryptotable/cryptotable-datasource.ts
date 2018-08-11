@@ -7,12 +7,14 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 export interface CryptotableItem {
   name: string;
   id: number;
+  interval?: string;
+  limit?: number;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: CryptotableItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
+  {id: 1, name: 'Hydrogen', interval: '30m', limit: 50},
+  {id: 2, name: 'Helium', interval: '30m', limit: 50},
   {id: 3, name: 'Lithium'},
   {id: 4, name: 'Beryllium'},
   {id: 5, name: 'Boron'},
