@@ -1,5 +1,5 @@
 <div class="example-container">
-  <form class="example-container" [formGroup]="options">
+  <form class="example-container" [formGroup]="options" (ngSubmit)="onSubmit()">
 
     <coin-suggester></coin-suggester>
 
@@ -26,6 +26,8 @@
       <input formControlName="limit" matInput placeholder="Simple placeholder">
     </mat-form-field>
 
-    <mat-checkbox formControlName="hideRequired">Hide required marker</mat-checkbox>
+    <!-- <mat-checkbox formControlName="hideRequired">Hide required marker</mat-checkbox> -->
+
+    <button mat-button for="submit">Submit</button>
   </form>
 </div>

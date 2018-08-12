@@ -11,7 +11,7 @@ export class AddNewComponent implements OnInit {
 
   constructor(fb: FormBuilder) {
     this.options = fb.group({
-      hideRequired: false,
+      // hideRequired: false,
       floatLabel: 'auto',
       interval:'30m',
       limit: '50',
@@ -19,5 +19,9 @@ export class AddNewComponent implements OnInit {
   }
   ngOnInit() {
 
+  }
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.warn(this.options.value);
   }
 }
