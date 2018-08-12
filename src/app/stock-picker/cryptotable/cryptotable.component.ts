@@ -29,7 +29,14 @@ export class CryptotableComponent implements OnInit {
   ngOnInit() {
     this.dataSource = new CryptotableDataSource(this.paginator, this.sort);
   }
-  getActions() {
+  
+  edit() {
+
+  }
+  view() {
+
+  }
+  delete() {
 
   }
 }

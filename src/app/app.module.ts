@@ -22,6 +22,7 @@ import { ReactiveFormsModule, FormsModule } from '../../node_modules/@angular/fo
 import { AddNewComponent } from './stock-picker/add-new/add-new.component';
 import { CoinSuggesterComponent } from './stock-picker/coin-suggester/coin-suggester.component';
 import { CryptotableComponent } from './stock-picker/cryptotable/cryptotable.component';
+import { DetailComponent } from './stock-picker/detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CryptotableComponent } from './stock-picker/cryptotable/cryptotable.com
     StockPickerComponent,
     AddNewComponent,
     CoinSuggesterComponent,
+    DetailComponent,
   ],
   imports: [
     BrowserModule,
