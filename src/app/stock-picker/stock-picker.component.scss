@@ -1,0 +1,20 @@
+#stock-picker {
+    .grid-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin: 3.5rem;
+    }
+    .column-left, .column-right {
+    }
+    .column-left {
+        flex: 2 1;
+    }
+    .column-right {
+        flex: 1 2;
+        margin-left: 1.2rem;
+        .mat-card {
+            margin-bottom: 1.2rem;
+        }
+    }
+}

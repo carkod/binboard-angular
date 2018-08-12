@@ -3,11 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatAutocompleteModule, MatCheckboxModule, MatRadioModule } from '@angular/material';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatAutocompleteModule, MatCheckboxModule, MatRadioModule, MatChipsModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { CryptotableComponent } from './cryptotable/cryptotable.component';
 import { ListingComponent } from './listing/listing.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CandlestickComponent } from './candlestick/candlestick.component';
@@ -22,11 +21,7 @@ import { DrawerService } from './drawer.service';
 import { ReactiveFormsModule, FormsModule } from '../../node_modules/@angular/forms';
 import { AddNewComponent } from './stock-picker/add-new/add-new.component';
 import { CoinSuggesterComponent } from './stock-picker/coin-suggester/coin-suggester.component';
-
-// Angular router here
-// - /Dashboard
-// - /Listing
-// - /Analysis
+import { CryptotableComponent } from './stock-picker/cryptotable/cryptotable.component';
 
 @NgModule({
   declarations: [
@@ -69,8 +64,9 @@ import { CoinSuggesterComponent } from './stock-picker/coin-suggester/coin-sugge
     FormsModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatChipsModule,
   ],
-  providers: [CryptotableComponent, DatePipe, ApiService, DrawerService],
+  providers: [DatePipe, ApiService, DrawerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,24 +1,19 @@
 <div id="stock-picker">
   <top-toolbar></top-toolbar>
   <div class="grid-container">
-    <mat-grid-list cols="4">
-      <mat-grid-tile [colspan]="2" [rowspan]="5">
-        <cryptotable></cryptotable>
+    <div class="column-left">
+      <cryptotable></cryptotable>
+    </div>
+    <div class="column-right">
+      <mat-card>
+        <mat-card-title>Add new coin to track: </mat-card-title>
+        <add-new></add-new>
+      </mat-card>
 
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="2" [rowspan]="2">
+      <mat-card>
+        <mat-card-title>View settings: </mat-card-title>
+      </mat-card>
+    </div>
 
-        <mat-card>
-          <mat-card-title>Add new coin to track: </mat-card-title>
-          <add-new></add-new>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="2" [rowspan]="3">
-
-        <mat-card>
-          <mat-card-title>Another card: </mat-card-title>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
   </div>
 </div>

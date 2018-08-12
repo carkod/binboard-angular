@@ -9,12 +9,15 @@ export interface CryptotableItem {
   id: number;
   interval?: string;
   limit?: number;
+  price?: string;
+  change?: string;
+  recommend?: string;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: CryptotableItem[] = [
-  {id: 1, name: 'Hydrogen', interval: '30m', limit: 50},
-  {id: 2, name: 'Helium', interval: '30m', limit: 50},
+  {id: 1, name: 'Hydrogen', interval: '30m', limit: 50, price: '.00034', change: '+8.3%', recommend: 'buy'},
+  {id: 2, name: 'Helium', interval: '30m', limit: 50, change: '-2.3%', recommend: 'sell'},
   {id: 3, name: 'Lithium'},
   {id: 4, name: 'Beryllium'},
   {id: 5, name: 'Boron'},
