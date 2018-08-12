@@ -23,6 +23,7 @@ import { AddNewComponent } from './stock-picker/add-new/add-new.component';
 import { CoinSuggesterComponent } from './stock-picker/coin-suggester/coin-suggester.component';
 import { CryptotableComponent } from './stock-picker/cryptotable/cryptotable.component';
 import { DetailComponent } from './stock-picker/detail/detail.component';
+import { RankingTableComponent } from './my-dashboard/ranking-table/ranking-table.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { DetailComponent } from './stock-picker/detail/detail.component';
     AddNewComponent,
     CoinSuggesterComponent,
     DetailComponent,
+    RankingTableComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,3 +19,11 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+.tables {
+  display: flex;
+  .mat-card {
+    margin: 1.2rem;
+  }
+  
+}

@@ -16,6 +16,7 @@ const routes: Routes = [
   {
     path: 'stock-picker',
     component: StockPickerComponent,
+    data: { pageTitle: 'Currencies currently tracked' }
   },
   {
     path: 'stock-picker/:id',

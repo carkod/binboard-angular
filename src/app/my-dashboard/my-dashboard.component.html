@@ -1,27 +1,31 @@
 <top-toolbar></top-toolbar>
-<div class="grid-container">
-  <mat-grid-list cols="2">
-      
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        
-        <mat-card-content class="dashboard-card-content">
-          <div class="chart">
-            <candlestick></candlestick>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+<div class="tables">
+
+
+
+  <mat-card>
+    <div class="table-title">
+      <h1>Most Active</h1>
+    </div>
+    <div class="table-content">
+      <ranking-table></ranking-table>
+    </div>
+  </mat-card>
+  <mat-card>
+    <div class="table-title">
+      <h1>Most Active</h1>
+    </div>
+    <div class="table-content">
+      <ranking-table></ranking-table>
+    </div>
+  </mat-card>
+  <mat-card>
+    <div class="table-title">
+      <h1>Most Active</h1>
+    </div>
+    <div class="table-content">
+      <ranking-table></ranking-table>
+    </div>
+  </mat-card>
+
 </div>
