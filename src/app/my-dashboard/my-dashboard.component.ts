@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ApiService, SymbolPriceTicker } from '../api.service';
+import { MatTableDataSource } from '../../../node_modules/@angular/material';
 
 @Component({
   selector: 'my-dashboard',
@@ -7,11 +9,18 @@ import { Component, OnInit } from '@angular/core';
 
   
 })
-export class MyDashboardComponent implements OnInit{
+export class MyDashboardComponent implements OnInit, OnDestroy{
   pageElements: Array<any>;
+  dataSource: MatTableDataSource<SymbolPriceTicker>;
+  
 
-  constructor() {}
+  constructor(private api: ApiService) {}
   ngOnInit() {
+    
+  }
+
+  ngOnDestroy() {
+
   }
   displayStream() {
     

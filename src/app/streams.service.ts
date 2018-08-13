@@ -1,15 +1,26 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Observable, of , Subject, Observer } from 'rxjs';
+import { Observable, of, Subject, Observer } from 'rxjs';
 import { map, filter, reduce } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
+export class MiniTicker24 {
+  e: string;          // Event type
+  E: number;          // Event time
+  s: string;          // Symbol
+  c: string;          // Current day's close price
+  o: string;          // Open price
+  h: string;          // High price
+  l: string;          // Low price
+  v: string;          // Total traded base asset volume
+  q: string;          // Total traded quote asset volume
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class StreamsService {
-  
+
   private socket$;
   candlestick;
   private observer: Observer<any>;
@@ -39,4 +50,10 @@ export class StreamsService {
     }));
     return updateObj;
   }
+  getTicker(budget?: number, symbol?: string) {
+    let minitickerUrl = `${environment.ws.base}${symbol.toLowerCase()}!miniTicker@arr`;
+    let socket$ = new WebSocketSubject<any>(minitickerUrl);
+    return socket$;
+  }
+
 }

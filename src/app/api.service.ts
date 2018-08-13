@@ -6,11 +6,38 @@ import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    
-    'Content-Type':  'application/json',
+
+    'Content-Type': 'application/json',
     // 'Authorization': 'my-auth-token'
   })
 };
+
+export interface SymbolPriceTicker {
+  symbol: string,
+  price: string,
+}
+
+export class SinglePriceTicker {
+  symbol: string;
+  priceChange: string;
+  priceChangePercent: string;
+  weightedAvgPrice: string;
+  prevClosePrice: string;
+  lastPrice: string;
+  lastQty: string;
+  bidPrice: string;
+  askPrice: string;
+  openPrice: string;
+  highPrice: string;
+  lowPrice: string;
+  volume: string;
+  quoteVolume: string;
+  openTime: number;
+  closeTime: number;
+  firstId: number;   // First tradeId
+  lastId: number;    // Last tradeId
+  count: number;        // Trade count
+}
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +49,7 @@ export class ApiService {
   interval: string;
   limit: number;
   startTime?: any = '';
-  endtime? : any = '';
+  endtime?: any = '';
   candlestickUrl: string;
   dataPoints; openPrices; closePrices; lowPrices; highPrices; closeTime; closeTimeRaw;
 
@@ -50,7 +77,7 @@ export class ApiService {
     this.candlestickUrl = `${environment.api.candlestick}?symbol=${this.symbol}&interval=${this.interval}&limit=${this.limit}`;
     this.openPrices = []; this.closePrices = []; this.highPrices = []; this.lowPrices = []; this.closeTime = []; this.closeTimeRaw = [];
     this.dataPoints = this.http.get<any[]>(this.candlestickUrl).pipe(map(res => {
-      for (let r of res ) {
+      for (let r of res) {
         this.openPrices.push(r[1]);
         this.closePrices.push(r[4]);
         this.highPrices.push(r[2]);
@@ -80,12 +107,18 @@ export class ApiService {
 
   /**
    * Get Ticker for all coins
+   * @param budget - money I possess to invest in this crypto
    */
   getCoins(budget?: number, symbol?: string) {
     this.coinsUrl = `${environment.api.ticker}${symbol ? '?symbol=' + symbol : ''}`;
-    console.log(this.coinsUrl)
-    this.coins = budget ? this.http.get<any>(this.coinsUrl).pipe(map(res => res.filter(coin => coin.price < budget))) : this.http.get<any>(this.coinsUrl);
+    this.coins = budget ? this.http.get<any[]>(this.coinsUrl).pipe(map(res => res.filter(coin => coin.price < budget))) : this.http.get<SinglePriceTicker[]>(this.coinsUrl);
     return this.coins;
+  }
+
+  getSingleCoin(symbol: string) {
+    const coinsUrl = `${environment.api.ticker}${symbol ? '?symbol=' + symbol : ''}`;
+    const coins = this.http.get<SinglePriceTicker>(coinsUrl);
+    return coins;
   }
 
 

@@ -24,6 +24,7 @@ import { CoinSuggesterComponent } from './stock-picker/coin-suggester/coin-sugge
 import { CryptotableComponent } from './stock-picker/cryptotable/cryptotable.component';
 import { DetailComponent } from './stock-picker/detail/detail.component';
 import { RankingTableComponent } from './my-dashboard/ranking-table/ranking-table.component';
+import { StreamsService } from './streams.service';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,7 @@ import { RankingTableComponent } from './my-dashboard/ranking-table/ranking-tabl
     MatRadioModule,
     MatChipsModule,
   ],
-  providers: [DatePipe, ApiService, DrawerService],
+  providers: [DatePipe, ApiService, DrawerService, StreamsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
