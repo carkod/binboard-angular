@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MovingAverageService } from './moving-average.service';
 import { ApiService } from '../api.service';
 import { StreamsService } from '../streams.service';
-import { PlotlyService } from '../../../node_modules/angular-plotly.js';
 import * as Plotly from 'plotly.js/dist/plotly.js';
 
 
@@ -10,7 +9,6 @@ import * as Plotly from 'plotly.js/dist/plotly.js';
   selector: 'candlestick',
   templateUrl: './candlestick.component.html',
   styleUrls: ['./candlestick.component.scss'],
-  providers: [PlotlyService]
 })
 export class CandlestickComponent implements OnInit {
   @ViewChild('chart') el: ElementRef;
@@ -40,7 +38,7 @@ export class CandlestickComponent implements OnInit {
   updateTime: Object;
   count;
 
-  constructor(private ps: PlotlyService, private ws: StreamsService, private api: ApiService, private maService: MovingAverageService) {
+  constructor(private ws: StreamsService, private api: ApiService, private maService: MovingAverageService) {
   }
 
   ngOnInit() {
@@ -52,7 +50,7 @@ export class CandlestickComponent implements OnInit {
     this.api.getCandlestick(this.symbolCode, this.interval, this.limit).subscribe(d => {
       this.apiData = d;
       let element = this.el.nativeElement;
-      this.ps.newPlot(element, this.renderData(d), this.renderLayout(d))
+      Plotly.newPlot(element, this.renderData(d), this.renderLayout(d))
       // console.log(this.apiData);
     }, error => {
       console.error('candlestick data error: ', error)
@@ -141,7 +139,7 @@ export class CandlestickComponent implements OnInit {
       this.apiData.closeTime.concat([sd.closeTime]).shift();
 
       // this.apiData.closeTimeRaw.push(sd.closeTimeRaw);
-      this.ps.update(element, this.renderData(this.apiData), this.renderLayout(this.apiData), [0]);
+      Plotly.update(element, this.renderData(this.apiData), this.renderLayout(this.apiData), [0]);
       // console.log('received non repeating candlestick ', element.data);
     } else if (this.apiData && this.repetition(sd)) {
       // console.log('received repeated ', element.data);
@@ -153,7 +151,7 @@ export class CandlestickComponent implements OnInit {
       this.apiData.closePrices.splice(i, 0, sd.closePrices);
       this.apiData.closeTime.splice(i, 0, sd.closeTime);
       
-      this.ps.update(element, this.renderData(this.apiData), this.renderLayout(this.apiData), [0]);
+      Plotly.update(element, this.renderData(this.apiData), this.renderLayout(this.apiData), [0]);
     }
   }
   repetition(sd) {

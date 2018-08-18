@@ -5,15 +5,15 @@
   "projects": {
     "binboard": {
       "root": "",
-      "sourceRoot": "clie",
+      "sourceRoot": "client",
       "projectType": "application",
-      "prefix": "client",
+      "prefix": "",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/binboard",
+            "outputPath": "../dist/binboard",
             "index": "client/index.html",
             "main": "client/main.ts",
             "polyfills": "client/polyfills.ts",

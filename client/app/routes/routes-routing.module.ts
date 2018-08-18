@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MyDashboardComponent } from '../my-dashboard/my-dashboard.component';
-import { NotFoundComponent } from 'src/app/not-found/not-found.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
 import { StockPickerComponent } from '../stock-picker/stock-picker.component';
 import { DetailComponent } from '../stock-picker/detail/detail.component';
 
