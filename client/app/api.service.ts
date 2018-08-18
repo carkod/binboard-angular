@@ -11,6 +11,12 @@ const httpOptions = {
   })
 };
 
+function errorHandler(payload) {
+  const {code, msg} = payload;
+  if (typeof code === 'number') throw msg;
+  return payload;
+}
+
 export interface SymbolPriceTicker {
   symbol: string,
   price: string,
@@ -114,11 +120,21 @@ export class ApiService {
     return this.coins;
   }
 
-  getSingleCoin(symbol: string) {
-    const coinsUrl = `${environment.api.ticker}${symbol ? '?symbol=' + symbol : ''}`;
-    const coins = this.http.get<SinglePriceTicker>(coinsUrl);
+  getSingleCoinStats() {
+    const coinsUrl = `${environment.api.ticker}`;
+    let coins = this.http.get<SinglePriceTicker>(coinsUrl);
+    coins = errorHandler(coins);
     return coins;
   }
 
-
+  getCoinStats(symbol: string) {
+    const coinsUrl = `${environment.api.ticker}/${symbol}`;
+    const coins = this.http.get<SinglePriceTicker>(coinsUrl);
+    return coins;
+  }
+  getExchange() {
+    const coinsUrl = `${environment.api.exchange}`;
+    const coins = this.http.get<any>(coinsUrl);
+    return coins;
+  }
 }
