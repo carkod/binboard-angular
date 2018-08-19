@@ -1,23 +1,15 @@
 <div class="ranking-table">
   <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
 
-    <!-- Id Column -->
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.symbol}}</mat-cell>
+    <ng-container *ngFor="let title of displayedColumns" matColumnDef="{{title}}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{title | uppercase}}</mat-header-cell>
+       
+      <mat-cell *matCellDef="let row">
+        {{row[title]}}
+      </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="price">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.price}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="change">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>24 %change</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.price}}</mat-cell>
-    </ng-container>
-
+    
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
@@ -25,7 +17,7 @@
   <mat-paginator #paginator
     [length]="dataSource.data.length"
     [pageIndex]="0"
-    [pageSize]="50"
-    [pageSizeOptions]="[25, 50, 100, 250]">
+    [pageSize]="10"
+    [pageSizeOptions]="[10, 20, 50]">
   </mat-paginator>
 </div>

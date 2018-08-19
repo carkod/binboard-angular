@@ -2,10 +2,10 @@
 <div class="tables">
   <mat-card>
     <div class="table-title">
-      <h1>Most Active</h1>
+      <h1>Winners/Losers</h1>
     </div>
     <div class="table-content">
-      <ranking-table></ranking-table>
+      <ranking-table [rank]="'winners'" [displayedColumns]="['symbol', 'prevClosePrice', 'priceChange', 'priceChangePercent']"></ranking-table>
     </div>
   </mat-card>
   <mat-card>
@@ -13,16 +13,7 @@
       <h1>Most Active</h1>
     </div>
     <div class="table-content">
-      <ranking-table></ranking-table>
+      <!-- <ranking-table [rank]="'most-active'" [displayedColumns]="['symbol', 'price', 'volume']"></ranking-table> -->
     </div>
   </mat-card>
-  <mat-card>
-    <div class="table-title">
-      <h1>Most Active</h1>
-    </div>
-    <div class="table-content">
-      <ranking-table></ranking-table>
-    </div>
-  </mat-card>
-
 </div>

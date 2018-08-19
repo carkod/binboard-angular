@@ -18,7 +18,7 @@ export class TopToolbarComponent implements OnInit {
       this.pageTitle = d.pageTitle;
     });
     this.api.getExchange().subscribe(info => {
-      // console.log(info);
+      console.log(info);
     })
     
   }

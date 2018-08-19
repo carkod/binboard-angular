@@ -47,22 +47,16 @@ export class RankingTableDataSource extends DataSource<SymbolPriceTicker> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<SymbolPriceTicker[]> {
+  connect(): Observable<any> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     
     const dataMutations = [
-      observableOf(this.api.getCoins()),
+      observableOf(this.api.getCoinStats()),
       this.paginator.page,
       this.sort.sortChange
     ];
-
-    console.log(observableOf(this.api.getCoins()))
-    // Set the paginators length
-    // this.paginator.length = this.api.getCoins().length;
-
-    return merge(...dataMutations).pipe(map(() => {
-      
+    return merge(...dataMutations).pipe(map((d) => {
       this.paginator.length = this.data.length;
       return this.getPagedData(this.getSortedData([...this.data]));
     }))

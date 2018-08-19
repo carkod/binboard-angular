@@ -120,16 +120,16 @@ export class ApiService {
     return this.coins;
   }
 
-  getSingleCoinStats() {
-    const coinsUrl = `${environment.api.ticker}`;
-    let coins = this.http.get<SinglePriceTicker>(coinsUrl);
+  getCoinStats() {
+    const coinsUrl = `${environment.api.ticker24}`;
+    let coins = this.http.get<any>(coinsUrl);
     coins = errorHandler(coins);
     return coins;
   }
 
-  getCoinStats(symbol: string) {
+  getSinglCoinStats(symbol: string) {
     const coinsUrl = `${environment.api.ticker}/${symbol}`;
-    const coins = this.http.get<SinglePriceTicker>(coinsUrl);
+    const coins = this.http.get<any>(coinsUrl);
     return coins;
   }
   getExchange() {
