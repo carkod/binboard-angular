@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatAutocompleteModule, MatCheckboxModule, MatRadioModule, MatChipsModule } from '@angular/material';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatAutocompleteModule, MatCheckboxModule, MatRadioModule, MatChipsModule, MatSnackBar, MatSnackBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -70,8 +70,15 @@ import { StreamsService } from './streams.service';
     MatCheckboxModule,
     MatRadioModule,
     MatChipsModule,
+    MatSnackBarModule
   ],
-  providers: [DatePipe, ApiService, DrawerService, StreamsService],
+  providers: [
+    DatePipe, 
+    ApiService, 
+    DrawerService, 
+    StreamsService, 
+    MatSnackBar
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

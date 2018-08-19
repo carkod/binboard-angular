@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService, SymbolPriceTicker } from '../api.service';
-import { MatTableDataSource } from '../../../node_modules/@angular/material';
+import { MatTableDataSource, MatSnackBar } from '../../../node_modules/@angular/material';
 
 @Component({
   selector: 'my-dashboard',
@@ -9,20 +9,19 @@ import { MatTableDataSource } from '../../../node_modules/@angular/material';
 
   
 })
-export class MyDashboardComponent implements OnInit, OnDestroy{
+export class MyDashboardComponent implements OnInit{
   pageElements: Array<any>;
   dataSource: MatTableDataSource<SymbolPriceTicker>;
   
 
-  constructor(private api: ApiService) {}
+  constructor(private snackbar: MatSnackBar, private api: ApiService) {}
   ngOnInit() {
     
   }
-
-  ngOnDestroy() {
-
-  }
-  displayStream() {
-    
+  clearLocal() {
+    localStorage.removeItem('getCoinStats');
+    this.snackbar.open('Local Coin data removed!', 'Undo', {
+      duration: 3000
+    });
   }
 }

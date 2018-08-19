@@ -58,11 +58,23 @@ export class RankingTableComponent implements OnInit, AfterViewInit, OnDestroy {
     })
     return sorted;
   }
+  byVolume(data) {
+    const sorted = data.sort((a, b) => {
+      const first = parseFloat(a.volume);
+      const second = parseFloat(b.volume);
+      if (first < second) {
+        return 1
+      } else {
+        return -1
+      }
+    })
+    return sorted;
+  }
   renderData(data) {
     if (this.rank === 'winners') {
       this.dataSource.data = this.byPrice(data);
     } else {
-      this.dataSource.data = data;
+      this.dataSource.data = this.byVolume(data);
     }
   }
   log(...text) {
