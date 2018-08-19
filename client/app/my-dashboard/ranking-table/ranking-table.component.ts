@@ -38,7 +38,7 @@ export class RankingTableComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.renderData(localData);
     }
-    setInterval(localStorage.removeItem('getCoinStats'), 1800000)
+    setInterval(localStorage.removeItem('getCoinStats'), 1800000);
 
   }
 

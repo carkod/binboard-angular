@@ -1,3 +1,14 @@
-// .ranking-table {
-//     display: flex;
-// }
+.ranking-table {
+    .mat-column-priceChangePercent {
+        .caret-down {
+            font-size: 1.3rem;
+            color: red;
+        }
+        .caret-up {
+            font-size: 1.3rem;
+            transform: rotate(180deg);
+            display: block;
+            color: green;
+        }
+    }
+}

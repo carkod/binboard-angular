@@ -3,21 +3,24 @@
 
     <ng-container *ngFor="let title of displayedColumns" matColumnDef="{{title}}">
       <mat-header-cell *matHeaderCellDef mat-sort-header>{{title | uppercase}}</mat-header-cell>
-       
+
       <mat-cell *matCellDef="let row">
+        <span *ngIf="title === 'priceChangePercent'">
+          <span 
+          [ngClass]="{'caret-down': row[title].trim().charAt(0) === '-', 'caret-up': row[title].trim().charAt(0) !== '-'}">
+            &#9660;
+          </span>
+        </span>
         {{row[title]}}
+        <span *ngIf="title === 'priceChangePercent'"> %</span>
       </mat-cell>
     </ng-container>
 
-    
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator #paginator
-    [length]="dataSource.data.length"
-    [pageIndex]="0"
-    [pageSize]="10"
-    [pageSizeOptions]="[10, 20, 50]">
+  <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[10, 20, 50]">
   </mat-paginator>
 </div>
