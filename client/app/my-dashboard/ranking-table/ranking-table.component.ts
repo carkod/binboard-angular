@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input, OnDestroy } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { RankingTableDataSource } from './ranking-table-datasource';
+// import { RankingTableDataSource } from './ranking-table-datasource';
 import { ApiService } from '../../api.service';
 
 @Component({
@@ -60,14 +60,14 @@ export class RankingTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   byVolume(data) {
     const sorted = data.sort((a, b) => {
-      const first = parseFloat(a.volume);
-      const second = parseFloat(b.volume);
+      const first = parseInt(a.volume);
+      const second = parseInt(b.volume);
       if (first < second) {
         return 1
       } else {
         return -1
       }
-    })
+    });
     return sorted;
   }
   renderData(data) {

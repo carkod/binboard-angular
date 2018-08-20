@@ -5,8 +5,6 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 import { StockPickerComponent } from '../stock-picker/stock-picker.component';
 import { DetailComponent } from '../stock-picker/detail/detail.component';
 
-console.log()
-
 const routes: Routes = [
   {
     path: 'dashboard',

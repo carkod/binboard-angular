@@ -3,6 +3,7 @@
   <mat-card>
     <div class="table-title">
       <h1 class="default-h1">Winners/Losers</h1>
+      <button mat-raised-button color="accent" class="btn" (click)="clearLocal()">Clear Local Data</button>
       <small>* large dataset, defferred data</small>
     </div>
     <div class="table-content">
@@ -12,7 +13,7 @@
   <mat-card>
       <div class="table-title">
           <h1 class="default-h1">Most Active</h1>
-          <button class="btn" (click)="clearLocal()">Clear Local Data</button>
+          <button mat-raised-button color="accent" class="btn" (click)="clearLocal()">Clear Local Data</button>
           <small>* high volume coins</small>
         </div>
     <div class="table-content">

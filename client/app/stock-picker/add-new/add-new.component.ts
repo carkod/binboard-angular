@@ -12,7 +12,8 @@ export class AddNewComponent implements OnInit {
   constructor(fb: FormBuilder) {
     this.options = fb.group({
       // hideRequired: false,
-      floatLabel: 'auto',
+      // floatLabel: 'auto',
+      symbol: '',
       interval:'30m',
       limit: '50',
     });
