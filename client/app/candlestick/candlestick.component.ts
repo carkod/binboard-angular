@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MovingAverageService } from './moving-average.service';
-import { ApiService } from '../api.service';
-import { StreamsService } from '../streams.service';
+import { ApiService } from '../services/api.service';
+import { StreamsService } from '../services/streams.service';
 import * as Plotly from 'plotly.js/dist/plotly.js';
 
 

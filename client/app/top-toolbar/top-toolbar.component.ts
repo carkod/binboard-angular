@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot, ActivatedRoute } from '../../../node_modules/@angular/router';
-import { DrawerService } from '../drawer.service';
-import { ApiService } from '../api.service';
+import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { DrawerService } from '../services/drawer.service';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'top-toolbar',

@@ -11,20 +11,20 @@ import { ListingComponent } from './listing/listing.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CandlestickComponent } from './candlestick/candlestick.component';
 import { CommonModule, DatePipe } from '@angular/common';
-import { ApiService } from './api.service';
+import { ApiService } from './services/api.service';
 import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RoutesRoutingModule } from './routes/routes-routing.module';
 import { RoutesModule } from './routes/routes.module';
 import { StockPickerComponent } from './stock-picker/stock-picker.component';
-import { DrawerService } from './drawer.service';
+import { DrawerService } from './services/drawer.service';
 import { ReactiveFormsModule, FormsModule } from '../../node_modules/@angular/forms';
 import { AddNewComponent } from './stock-picker/add-new/add-new.component';
 import { CoinSuggesterComponent } from './stock-picker/coin-suggester/coin-suggester.component';
 import { CryptotableComponent } from './stock-picker/cryptotable/cryptotable.component';
 import { DetailComponent } from './stock-picker/detail/detail.component';
 import { RankingTableComponent } from './my-dashboard/ranking-table/ranking-table.component';
-import { StreamsService } from './streams.service';
+import { StreamsService } from './services/streams.service';
 
 @NgModule({
   declarations: [

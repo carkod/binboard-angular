@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService, SymbolPriceTicker } from '../api.service';
+import { ApiService, SymbolPriceTicker } from '../services/api.service';
 import { MatTableDataSource, MatSnackBar } from '../../../node_modules/@angular/material';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatSidenav } from '../../../node_modules/@angular/material';
-import { DrawerService } from '../drawer.service';
+import { DrawerService } from '../services/drawer.service';
 
 @Component({
   selector: 'sidebar',

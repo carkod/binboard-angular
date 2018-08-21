@@ -1,6 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatSidenav } from '../../node_modules/@angular/material';
-import { DrawerService } from './drawer.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',

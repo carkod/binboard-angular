@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
-import { Observable, of, Subject, Observer } from 'rxjs';
-import { map, filter, reduce } from 'rxjs/operators';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { environment } from '../../environments/environment';
+import { Observer } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { WebSocketSubject } from 'rxjs/webSocket';
 
 export class MiniTicker24 {
   e: string;          // Event type

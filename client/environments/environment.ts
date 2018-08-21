@@ -18,6 +18,9 @@ export const environment = {
     ticker:'/api/v3/ticker/price', // Symbol Price only ticker -- retrieve all coins
     bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
   },
+  db: {
+    base: 'http://localhost:9000/api',
+  }
 };
 
 /*

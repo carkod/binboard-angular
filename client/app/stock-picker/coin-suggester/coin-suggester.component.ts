@@ -1,6 +1,6 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
-import { ApiService } from '../../api.service';
-import { FormControl, FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR } from '../../../../node_modules/@angular/forms';
+import { ApiService } from '../../services/api.service';
+import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '../../../../node_modules/@angular/forms';
 import { Observable } from '../../../../node_modules/rxjs';
 import { startWith, map } from '../../../../node_modules/rxjs/operators';
 
@@ -46,16 +46,12 @@ export class CoinSuggesterComponent implements ControlValueAccessor {
 
   private _filter(name: string): Ticker[] {
     const filterValue = name.toLowerCase();
-    this.propagateChange(this.options.filter(option => option.symbol.toLowerCase().indexOf(filterValue) === 0))
-    return this.options.filter(option => option.symbol.toLowerCase().indexOf(filterValue) === 0);
+    const value = this.options.filter(option => option.symbol.toLowerCase().indexOf(filterValue) === 0);
+    this.propagateChange(value[0].symbol);
+    return value;
   }
   
   writeValue(value): void {
-    console.log(value)
-    // if (value !== undefined) {
-    //   this._filter(value);
-    // }
-    
   }
   propagateChange = (_: any) => {
     console.log(_)
