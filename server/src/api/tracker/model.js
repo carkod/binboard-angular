@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-const trackingSchema = new Schema({
+const trackerSchema = new Schema({
   symbol: {
     type: String
   },
@@ -18,7 +18,7 @@ const trackingSchema = new Schema({
   }
 })
 
-trackingSchema.methods = {
+trackerSchema.methods = {
   view (full) {
     const view = {
       // simple view
@@ -37,7 +37,7 @@ trackingSchema.methods = {
   }
 }
 
-const model = mongoose.model('Tracking', trackingSchema)
+const model = mongoose.model('Tracker', trackerSchema)
 
 export const schema = model.schema
 export default model
