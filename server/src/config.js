@@ -24,7 +24,7 @@ const config = {
     env: process.env.NODE_ENV || 'development',
     root: path.join(__dirname, '..'),
     port: process.env.PORT || 9000,
-    ip: process.env.IP || '0.0.0.0',
+    ip: process.env.IP || 'localhost',
     apiRoot: process.env.API_ROOT || '',
     masterKey: requireProcessEnv('MASTER_KEY'),
     jwtSecret: requireProcessEnv('JWT_SECRET'),
@@ -39,7 +39,7 @@ const config = {
   test: { },
   development: {
     mongo: {
-      uri: 'mongodb://188.166.92.221',
+      uri: 'mongodb://carkod:48295620-j@188.166.92.221:27017/binboard',
       options: {
         debug: true
       }

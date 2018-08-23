@@ -1,36 +1,36 @@
 import { success, notFound } from '../../services/response/'
-import { Ticker24 } from '.'
+import { Tracking } from '.'
 
 export const create = ({ bodymen: { body } }, res, next) =>
-  Ticker24.create(body)
-    .then((ticker24) => ticker24.view(true))
+  Tracking.create(body)
+    .then((tracking) => tracking.view(true))
     .then(success(res, 201))
     .catch(next)
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
-  Ticker24.find(query, select, cursor)
-    .then((ticker24S) => ticker24S.map((ticker24) => ticker24.view()))
+  Tracking.find(query, select, cursor)
+    .then((trackings) => trackings.map((tracking) => tracking.view()))
     .then(success(res))
     .catch(next)
 
 export const show = ({ params }, res, next) =>
-  Ticker24.findById(params.id)
+  Tracking.findById(params.id)
     .then(notFound(res))
-    .then((ticker24) => ticker24 ? ticker24.view() : null)
+    .then((tracking) => tracking ? tracking.view() : null)
     .then(success(res))
     .catch(next)
 
 export const update = ({ bodymen: { body }, params }, res, next) =>
-  Ticker24.findById(params.id)
+  Tracking.findById(params.id)
     .then(notFound(res))
-    .then((ticker24) => ticker24 ? Object.assign(ticker24, body).save() : null)
-    .then((ticker24) => ticker24 ? ticker24.view(true) : null)
+    .then((tracking) => tracking ? Object.assign(tracking, body).save() : null)
+    .then((tracking) => tracking ? tracking.view(true) : null)
     .then(success(res))
     .catch(next)
 
 export const destroy = ({ params }, res, next) =>
-  Ticker24.findById(params.id)
+  Tracking.findById(params.id)
     .then(notFound(res))
-    .then((ticker24) => ticker24 ? ticker24.remove() : null)
+    .then((tracking) => tracking ? tracking.remove() : null)
     .then(success(res, 204))
     .catch(next)

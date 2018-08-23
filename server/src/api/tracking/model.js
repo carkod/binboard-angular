@@ -1,7 +1,13 @@
 import mongoose, { Schema } from 'mongoose'
 
-const ticker24Schema = new Schema({
+const trackingSchema = new Schema({
   symbol: {
+    type: String
+  },
+  interval: {
+    type: String
+  },
+  limit: {
     type: String
   }
 }, {
@@ -12,12 +18,14 @@ const ticker24Schema = new Schema({
   }
 })
 
-ticker24Schema.methods = {
+trackingSchema.methods = {
   view (full) {
     const view = {
       // simple view
       id: this.id,
       symbol: this.symbol,
+      interval: this.interval,
+      limit: this.limit,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
@@ -29,7 +37,7 @@ ticker24Schema.methods = {
   }
 }
 
-const model = mongoose.model('Ticker24', ticker24Schema)
+const model = mongoose.model('Tracking', trackingSchema)
 
 export const schema = model.schema
 export default model
