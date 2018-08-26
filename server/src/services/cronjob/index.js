@@ -12,14 +12,14 @@ const { tree } = schema;
 export function ticker24job() {
   const ticker24url = api.base + '/' + api.ticker24;
   // schedule tasks to be run on the server   
-  cron.schedule("* * * * *", function () {
+  cron.schedule("01 00 * * *", function () {
     request(ticker24url, function (error, response, resBody) {
       console.log('error:', error); // Print the error if one occurred
-      console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+      // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
       // console.log('body:', resBody); // Print the HTML for the Google homepage.
       
       body(tree);
-      create(resBody, response);
+      create(resBody, response.statusCode);
 
     });
   });
