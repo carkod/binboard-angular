@@ -38,6 +38,5 @@ trackerSchema.methods = {
 }
 
 const model = mongoose.model('Tracker', trackerSchema)
-
 export const schema = model.schema
 export default model

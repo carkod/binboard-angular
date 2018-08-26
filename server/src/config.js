@@ -34,6 +34,20 @@ const config = {
           safe: true
         }
       }
+    },
+    api: {
+      base: 'http://api.binance.com',
+      exchange: '/api/v1/exchangeInfo',
+      marketData: '/api/v1/depth',
+      recentTrades: '/api/v1/trades',
+      historicalTrades: '/api/v1/historicalTrades',
+      candlestick: '/api/v1/klines',
+      ticker24: '/api/v1/ticker/24hr',
+      ticker:'/api/v3/ticker/price', // Symbol Price only ticker -- retrieve all coins
+      bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
+    },
+    db: {
+      base: 'http://localhost:9000/api',
     }
   },
   test: { },
