@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 
 const ticker24Schema = new Schema({
-    symbol: { type: String },
+    symbol: { type: String, required: true, unique: true },
     priceChange: { type: String },
     priceChangePercent: { type: String },
     weightedAvgPrice: { type: String },

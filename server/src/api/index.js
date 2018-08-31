@@ -2,6 +2,7 @@ import { Router } from 'express'
 import user from './user'
 import auth from './auth'
 import tracker from './tracker'
+import ticker24 from './ticker24'
 
 const router = new Router()
 
@@ -31,5 +32,6 @@ const router = new Router()
 router.use('/users', user)
 router.use('/auth', auth)
 router.use('/tracker', tracker)
+router.use('/ticker24', ticker24)
 
 export default router

@@ -6,7 +6,7 @@ import { schema } from './model'
 export Tracker, { schema } from './model';
 
 const router = new Router()
-const { symbol, interval, limit } = schema.tree
+const { tree } = schema
 
 /**
  * @api {post} /tracker Create tracking
@@ -20,7 +20,7 @@ const { symbol, interval, limit } = schema.tree
  * @apiError 404 Tracker not found.
  */
 router.post('/',
-  body({ symbol, interval, limit }),
+  body(tree),
   create)
 
 /**
@@ -58,7 +58,7 @@ router.get('/:id',
  * @apiError 404 Tracker not found.
  */
 router.put('/:id',
-  body({ symbol, interval, limit }),
+  body(tree),
   update)
 
 /**

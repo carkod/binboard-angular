@@ -8,10 +8,11 @@ import { ticker24job } from './services/cronjob'
 const app = express(apiRoot, api)
 const server = http.createServer(app)
 
-mongoose.connect(mongo.uri)
+mongoose.connect(mongo.uri);
 mongoose.Promise = Promise
 
-ticker24job(app, server)
+// Cron jobs
+ticker24job();
 
 setImmediate(() => {
   server.listen(port, ip, () => {

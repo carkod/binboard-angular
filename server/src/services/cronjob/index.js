@@ -2,10 +2,10 @@ import cron from 'node-cron';
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { api } from '../../config';
-import { create, index, show, update, destroy } from './controller'
+import { create, update, destroy, upsert } from '../../api/ticker24/controller'
 import request from 'request'
-import Ticker24, { schema } from './model'
-export Ticker24, { schema } from './model'
+import Ticker24, { schema } from '../../api/ticker24/model';
+export Ticker24, { schema } from '../../api/ticker24/model';
 
 const { tree } = schema;
 
@@ -17,9 +17,9 @@ export function ticker24job() {
       console.log('error:', error); // Print the error if one occurred
       // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
       // console.log('body:', resBody); // Print the HTML for the Google homepage.
-      
+      response.status = response.statusCode;
       body(tree);
-      create(resBody, response.statusCode);
+      upsert(resBody, response);
 
     });
   });
