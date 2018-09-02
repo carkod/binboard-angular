@@ -40,7 +40,7 @@ export class CoinSuggesterComponent implements ControlValueAccessor {
 
   displayFn(coin?: Ticker): string | undefined {
     // this.propagateChange(coin);
-    console.log(coin)
+    // console.log(coin)
     return coin ? coin.symbol : undefined;
   }
 
@@ -62,6 +62,6 @@ export class CoinSuggesterComponent implements ControlValueAccessor {
   }
 
   registerOnTouched(value) {
-    console.log(value)
+    // console.log(value)
   }
 }

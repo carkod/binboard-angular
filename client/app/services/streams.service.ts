@@ -4,18 +4,6 @@ import { Observer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WebSocketSubject } from 'rxjs/webSocket';
 
-export class MiniTicker24 {
-  e: string;          // Event type
-  E: number;          // Event time
-  s: string;          // Symbol
-  c: string;          // Current day's close price
-  o: string;          // Open price
-  h: string;          // High price
-  l: string;          // Low price
-  v: string;          // Total traded base asset volume
-  q: string;          // Total traded quote asset volume
-}
-
 @Injectable({
   providedIn: 'root'
 })

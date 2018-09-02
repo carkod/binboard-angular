@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { CryptotableDataSource } from './cryptotable-datasource';
+import { DbService } from '../../services/db.service';
 
 export interface Actions {
   edit: string;
@@ -24,10 +25,19 @@ export class CryptotableComponent implements OnInit {
   };
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'price', 'change', 'recommend', 'actions'];
+  displayedColumns = ['symbol', 'price', 'change', 'changePercent', 'recommend', 'actions'];
+  
+  data: any;
+
+  constructor(public api: DbService) {}
 
   ngOnInit() {
-    this.dataSource = new CryptotableDataSource(this.paginator, this.sort);
+    this.data = [];
+    this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
+    this.api.getTrackedCoins().subscribe(data => {
+      this.data = data;
+      this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
+    })
   }
   
   edit() {
@@ -38,5 +48,8 @@ export class CryptotableComponent implements OnInit {
   }
   delete() {
 
+  }
+  log(...text) {
+    console.log(...text);
   }
 }

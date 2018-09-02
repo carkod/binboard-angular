@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { SinglePriceTicker } from '../models/services';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,32 +17,7 @@ function errorHandler(payload) {
   return payload;
 }
 
-export interface SymbolPriceTicker {
-  symbol: string,
-  price: string,
-}
 
-export class SinglePriceTicker {
-  symbol: string;
-  priceChange: string;
-  priceChangePercent: string;
-  weightedAvgPrice: string;
-  prevClosePrice: string;
-  lastPrice: string;
-  lastQty: string;
-  bidPrice: string;
-  askPrice: string;
-  openPrice: string;
-  highPrice: string;
-  lowPrice: string;
-  volume: string;
-  quoteVolume: string;
-  openTime: number;
-  closeTime: number;
-  firstId: number;   // First tradeId
-  lastId: number;    // Last tradeId
-  count: number;        // Trade count
-}
 
 @Injectable({
   providedIn: 'root'

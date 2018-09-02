@@ -1,20 +1,26 @@
 <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="symbol">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <a [routerLink]="['/stock-picker', row.id]">{{row.name}}</a>
+      {{log(row)}}
+      <a [routerLink]="['/stock-picker', row.id]">{{row.symbol}}</a>
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="price">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{row.price}}</mat-cell>
+    <mat-cell *matCellDef="let row">{{row.prevClosePrice}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="change">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Change</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.priceChange}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="changePercent">
     <mat-header-cell *matHeaderCellDef mat-sort-header>% Change</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{row.change}}</mat-cell>
+    <mat-cell *matCellDef="let row">{{row.priceChangePercent + ' %'}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="recommend">
@@ -52,5 +58,5 @@
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
 
-<mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="50" [pageSizeOptions]="[25, 50, 100, 250]">
+<mat-paginator #paginator [length]="dataSource.data ? dataSource.data.length : '50'" [pageIndex]="0" [pageSize]="50" [pageSizeOptions]="[25, 50, 100, 250]">
 </mat-paginator>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService, SymbolPriceTicker } from '../services/api.service';
+import { ApiService } from '../services/api.service';
 import { MatTableDataSource, MatSnackBar } from '../../../node_modules/@angular/material';
+import { SymbolPriceTicker } from '../models/services';
 
 @Component({
   selector: 'my-dashboard',

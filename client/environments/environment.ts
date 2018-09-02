@@ -19,7 +19,9 @@ export const environment = {
     bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
   },
   db: {
-    base: 'http://localhost:9000/api',
+    base: 'http://localhost:9000',
+    tracker: '/tracker',
+    ticker24: '/ticker24',
   }
 };
 

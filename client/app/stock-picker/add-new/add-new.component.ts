@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '../../../../node_modules/@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '../../../../node_modules/@angular/forms';
+import { DbService } from '../../services/db.service';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'add-new',
@@ -9,13 +11,13 @@ import { FormGroup, FormBuilder } from '../../../../node_modules/@angular/forms'
 export class AddNewComponent implements OnInit {
   options: FormGroup;
 
-  constructor(fb: FormBuilder) {
+  constructor(private api: DbService, fb: FormBuilder) {
     this.options = fb.group({
       // hideRequired: false,
       // floatLabel: 'auto',
-      symbol: '',
-      interval:'30m',
-      limit: '50',
+      symbol: ['', Validators.required],
+      // interval:'30m',
+      // limit: '50',
     });
   }
   ngOnInit() {
@@ -24,5 +26,12 @@ export class AddNewComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.options.value);
+    if (this.options.valid) {
+      this.api.getSingleCoinStats(this.options.value).pipe(mergeMap(stats => this.api.postNewCoin(stats))).subscribe(result => {
+        console.log(result)
+      })
+    } else {
+      console.log('form invalid')
+    }
   }
 }
