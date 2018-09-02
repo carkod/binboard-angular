@@ -37,17 +37,9 @@ trackerSchema.methods = {
       weightedAvgPrice: this.weightedAvgPrice,
       prevClosePrice: this.prevClosePrice,
       lastPrice: this.lastPrice,
-      lastQty: this.lastQty,
-      bidPrice: this.bidPrice,
-      askPrice: this.askPrice,
-      highPrice: this.highPrice,
-      lowPrice: this.lowPrice,
       quoteVolume: this.quoteVolume,
       openTime: this.openTime,
       closeTime: this.closeTime,
-      firstId: this.firstId,
-      lastId: this.lastId,
-      count: this.count,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
