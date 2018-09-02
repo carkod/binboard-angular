@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { MovingAverageService } from './moving-average.service';
 import { ApiService } from '../services/api.service';
 import { StreamsService } from '../services/streams.service';
@@ -12,12 +12,12 @@ import * as Plotly from 'plotly.js/dist/plotly.js';
 })
 export class CandlestickComponent implements OnInit {
   @ViewChild('chart') el: ElementRef;
+  @Input() symbolCode: string;
 
   // General
   graph;
   data;
   layout;
-  symbolCode: string;
   interval: string;
   limit: number;
   element;
@@ -42,7 +42,6 @@ export class CandlestickComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.symbolCode = 'ONTETH';
     this.interval = '30m';
     this.limit = 50;
     this.count = 0;

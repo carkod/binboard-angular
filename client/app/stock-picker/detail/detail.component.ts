@@ -1,5 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '../../../../node_modules/@angular/router';
+import { DbService } from '../../services/db.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'detail',
@@ -8,18 +12,20 @@ import { ActivatedRoute } from '../../../../node_modules/@angular/router';
 })
 export class DetailComponent implements OnInit, OnDestroy {
 
-  id: number;
+  id: any;
   private sub: any;
   symbol: string;
+  data: Object;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private db: DbService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
-      this.symbol = 'ONTENH'
-      // In a real app: dispatch action to load the details here.
-   });
+      
+      this.symbol = params['symbol'];
+      console.log(params);
+      this.db.getSingleCoinStats(this.symbol).subscribe(data => this.data = data);
+    });
   }
 
   ngOnDestroy() {

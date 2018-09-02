@@ -8,7 +8,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     .catch(next)
 
 export const show = ({ params }, res, next) =>
-  Ticker24.findOne({symbol: params.id})
+  Ticker24.findOne({symbol: params.symbol})
     .then(notFound(res))
     .then((ticker24) => ticker24 ? ticker24.view() : null)
     .then(success(res))

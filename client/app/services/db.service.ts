@@ -24,7 +24,7 @@ export class DbService {
     const coins = this.http.post(coinsUrl, content, httpOptions);
     return coins;
   }
-  getSingleCoinStats({ symbol }) {
+  getSingleCoinStats(symbol) {
     const coinsUrl = `${environment.db.base + environment.db.ticker24}/${symbol}`;
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;

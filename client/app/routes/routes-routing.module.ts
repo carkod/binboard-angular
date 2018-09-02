@@ -17,7 +17,7 @@ const routes: Routes = [
     data: { pageTitle: 'Currencies currently tracked' }
   },
   {
-    path: 'stock-picker/:id',
+    path: 'stock-picker/:symbol',
     component: DetailComponent,
     pathMatch: 'full',
     data: { pageTitle: 'Coin Analysis' }

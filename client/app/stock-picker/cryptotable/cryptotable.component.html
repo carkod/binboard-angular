@@ -4,8 +4,7 @@
   <ng-container matColumnDef="symbol">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{log(row)}}
-      <a [routerLink]="['/stock-picker', row.id]">{{row.symbol}}</a>
+      <a [routerLink]="['/stock-picker', row.symbol]">{{row.symbol}}</a>
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="price">
