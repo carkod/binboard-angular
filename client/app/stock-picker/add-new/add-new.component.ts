@@ -26,8 +26,9 @@ export class AddNewComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.options.value);
+    const {symbol} = this.options.value;
     if (this.options.valid) {
-      this.api.getSingleCoinStats(this.options.value).pipe(mergeMap(stats => this.api.postNewCoin(stats))).subscribe(result => {
+      this.api.getSingleCoinStats(symbol).pipe(mergeMap(stats => this.api.postNewCoin(stats))).subscribe(result => {
         console.log(result)
       })
     } else {

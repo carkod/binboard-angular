@@ -8,11 +8,15 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     .catch(next)
 
 export const show = ({ params }, res, next) =>
-  Ticker24.findOne({symbol: params.symbol})
+{
+  console.log(params)
+  return Ticker24.findOne({symbol: params.symbol})
     .then(notFound(res))
     .then((ticker24) => ticker24 ? ticker24.view() : null)
     .then(success(res))
     .catch(next)
+}
+  
 
 export const create = (body, res, next) => {
   body = JSON.parse(body);
