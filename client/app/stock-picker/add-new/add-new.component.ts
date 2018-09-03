@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '../../../../node_modules/@angular/forms';
 import { DbService } from '../../services/db.service';
 import { mergeMap } from 'rxjs/operators';
@@ -9,6 +9,7 @@ import { mergeMap } from 'rxjs/operators';
   styleUrls: ['./add-new.component.scss']
 })
 export class AddNewComponent implements OnInit {
+  @Output() addSymbol: EventEmitter<object> = new EventEmitter();
   options: FormGroup;
 
   constructor(private api: DbService, fb: FormBuilder) {
@@ -29,7 +30,10 @@ export class AddNewComponent implements OnInit {
     const {symbol} = this.options.value;
     if (this.options.valid) {
       this.api.getSingleCoinStats(symbol).pipe(mergeMap(stats => this.api.postNewCoin(stats))).subscribe(result => {
-        console.log(result)
+          this.addSymbol.emit(result);
+        },
+        error => {
+          throw error
       })
     } else {
       console.log('form invalid')

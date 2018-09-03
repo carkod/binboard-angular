@@ -9,9 +9,14 @@ import { ApiService } from '../services/api.service';
 })
 export class StockPickerComponent implements OnInit {
 
+  newCoin: object;
+
   constructor(private api: ApiService) { }
 
   ngOnInit() {
     
+  }
+  getNewCoin(event) {
+    this.newCoin = event;
   }
 }

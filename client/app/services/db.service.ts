@@ -46,5 +46,10 @@ export class DbService {
     // }));
     return coins;
   }
+  deleteTrackedCoin(symbol) {
+    const coinsUrl = `${environment.db.base + environment.db.ticker24}/${symbol}`;
+    const coins = this.http.delete(coinsUrl, httpOptions);
+    return coins;
+  }
 
 }

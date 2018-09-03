@@ -43,7 +43,7 @@ router.get('/',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Tracker not found.
  */
-router.get('/:id',
+router.get('/:symbol',
   show)
 
 /**
@@ -57,7 +57,7 @@ router.get('/:id',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Tracker not found.
  */
-router.put('/:id',
+router.put('/:symbol',
   body(tree),
   update)
 
@@ -68,7 +68,7 @@ router.put('/:id',
  * @apiSuccess (Success 204) 204 No Content.
  * @apiError 404 Tracker not found.
  */
-router.delete('/:id',
+router.delete('/:symbol',
   destroy)
 
 export default router
