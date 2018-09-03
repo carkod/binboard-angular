@@ -54,7 +54,6 @@ export class CoinSuggesterComponent implements ControlValueAccessor {
   writeValue(value): void {
   }
   propagateChange = (_: any) => {
-    console.log(_)
   };
 
   registerOnChange(fn) {

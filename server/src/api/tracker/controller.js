@@ -29,11 +29,8 @@ export const update = ({ bodymen: { body }, params }, res, next) =>
     .catch(next)
 
 export const destroy = ({ params }, res, next) =>
-{
-  console.log(params)
-  return Tracker.findOne({symbol: params.symbol})
+  Tracker.findOne({ symbol: params.symbol })
     .then(notFound(res))
     .then((Tracker) => Tracker ? Tracker.remove() : null)
     .then(success(res, 204))
     .catch(next)
-  }

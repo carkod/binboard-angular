@@ -51,7 +51,6 @@ export class CryptotableComponent implements OnInit, OnChanges {
   delete(symbol) {
     this.api.deleteTrackedCoin(symbol).subscribe(result => {
       this.resetData();
-      console.log(result);
     });
   }
   resetData() {
@@ -59,8 +58,5 @@ export class CryptotableComponent implements OnInit, OnChanges {
       this.data = data;
       this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
     })
-  }
-  log(...text) {
-    console.log(...text);
   }
 }

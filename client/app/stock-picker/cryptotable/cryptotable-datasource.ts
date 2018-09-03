@@ -2,7 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { Tracking, SinglePriceTicker } from '../../models/services';
+import { Tracking } from '../../models/services';
 
 // TODO: replace this with real data from your application
 // const EXAMPLE_DATA: Tracking[] = [
@@ -37,7 +37,6 @@ export class CryptotableDataSource extends DataSource<Tracking> {
 
   constructor(private paginator: MatPaginator, private sort: MatSort, public data) {
     super();
-    console.log(this.data);
   }
 
   /**

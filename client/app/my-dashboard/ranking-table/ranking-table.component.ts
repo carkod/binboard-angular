@@ -77,7 +77,5 @@ export class RankingTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dataSource.data = this.byVolume(data);
     }
   }
-  log(...text) {
-    console.log(...text);
-  }
+
 }
