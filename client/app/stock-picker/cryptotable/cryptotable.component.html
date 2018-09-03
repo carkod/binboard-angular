@@ -40,14 +40,14 @@
 
   <ng-container matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Actions</mat-header-cell>
-    <mat-cell *matCellDef="let actions">
+    <mat-cell *matCellDef="let actions; let row;">
       <button (click)="edit()" name="actions.edit" mat-button mat-icon-button color="orange">
         <mat-icon aria-label="actions.edit">edit</mat-icon>
       </button>
       <button (click)="view()" name="actions.view" mat-button mat-icon-button color="green">
         <mat-icon aria-label="actions.view">settings</mat-icon>
       </button>
-      <button (click)="delete()" name="actions.edit" mat-button mat-icon-button color="red">
+      <button (click)="delete(row.symbol)" name="actions.edit" mat-button mat-icon-button color="red">
         <mat-icon aria-label="actions.delete">delete_forever</mat-icon>
       </button>
     </mat-cell>

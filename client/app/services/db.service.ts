@@ -19,16 +19,17 @@ export class DbService {
 
   constructor(private http: HttpClient) { }
 
-  postNewCoin(content) {
-    const coinsUrl = `${environment.db.base + environment.db.tracker}`;
-    const coins = this.http.post(coinsUrl, content, httpOptions);
-    return coins;
-  }
   getSingleCoinStats(symbol) {
     const coinsUrl = `${environment.db.base + environment.db.ticker24}/${symbol}`;
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }
+  postNewCoin(content) {
+    const coinsUrl = `${environment.db.base + environment.db.tracker}`;
+    const coins = this.http.post(coinsUrl, content, httpOptions);
+    return coins;
+  }
+  
   getTrackedCoins(): Observable<any> {
     const coinsUrl = `${environment.db.base + environment.db.tracker}`;
     const coins = this.http.get<any>(coinsUrl, httpOptions);
@@ -47,7 +48,7 @@ export class DbService {
     return coins;
   }
   deleteTrackedCoin(symbol) {
-    const coinsUrl = `${environment.db.base + environment.db.ticker24}/${symbol}`;
+    const coinsUrl = `${environment.db.base + environment.db.tracker}/${symbol}`;
     const coins = this.http.delete(coinsUrl, httpOptions);
     return coins;
   }

@@ -15,7 +15,7 @@ export interface Actions {
   templateUrl: './cryptotable.component.html',
   styleUrls: ['./cryptotable.component.scss']
 })
-export class CryptotableComponent implements OnInit, AfterViewInit, OnChanges {
+export class CryptotableComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @Input() addNew;
@@ -37,22 +37,10 @@ export class CryptotableComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnInit() {
     this.data = [];
     this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
-    this.api.getTrackedCoins().subscribe(data => {
-      this.data = data;
-      this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
-    })
+    this.resetData();
   }
-
-  ngAfterViewInit() {
-    
-  }  
-
   ngOnChanges() {
-    if (this.data) {
-      this.data.push(this.newCoin)
-    }
-    
-    console.log(this.data, this.newCoin)
+    this.resetData();
   }
 
   edit() {
@@ -62,7 +50,16 @@ export class CryptotableComponent implements OnInit, AfterViewInit, OnChanges {
 
   }
   delete(symbol) {
-    this.api.deleteTrackedCoin(symbol).subscribe(result => console.log(result));
+    this.api.deleteTrackedCoin(symbol).subscribe(result => {
+      this.resetData();
+      console.log(result);
+    });
+  }
+  resetData() {
+    this.api.getTrackedCoins().subscribe(data => {
+      this.data = data;
+      this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
+    })
   }
   log(...text) {
     console.log(...text);
