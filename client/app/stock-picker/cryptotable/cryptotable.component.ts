@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, Input, Output } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { CryptotableDataSource } from './cryptotable-datasource';
 import { DbService } from '../../services/db.service';
@@ -18,7 +18,7 @@ export interface Actions {
 export class CryptotableComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @Input() addNew;
+  @Output() coinList;
   dataSource: CryptotableDataSource;
   actions: Actions = {
     edit: 'edit',
@@ -30,7 +30,6 @@ export class CryptotableComponent implements OnInit, OnChanges {
   displayedColumns = ['symbol', 'price', 'change', 'changePercent', 'recommend', 'actions'];
   
   data: any;
-  @Input() newCoin: object;
 
   constructor(public api: DbService) {}
 

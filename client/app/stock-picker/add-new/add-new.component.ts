@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '../../../../node_modules/@angular/forms';
 import { DbService } from '../../services/db.service';
 import { mergeMap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'add-new',
@@ -12,7 +13,7 @@ export class AddNewComponent implements OnInit {
   @Output() addSymbol: EventEmitter<object> = new EventEmitter();
   options: FormGroup;
 
-  constructor(private api: DbService, fb: FormBuilder) {
+  constructor(public snackBar: MatSnackBar, private api: DbService, fb: FormBuilder) {
     this.options = fb.group({
       // hideRequired: false,
       // floatLabel: 'auto',
@@ -23,6 +24,7 @@ export class AddNewComponent implements OnInit {
   }
   ngOnInit() {
 
+
   }
   onSubmit() {
     // TODO: Use EventEmitter with form value
@@ -30,10 +32,14 @@ export class AddNewComponent implements OnInit {
     const {symbol} = this.options.value;
     if (this.options.valid) {
       this.api.getSingleCoinStats(symbol).pipe(mergeMap(stats => this.api.postNewCoin(stats))).subscribe(result => {
-          this.addSymbol.emit(result);
+          if (result) {
+            this.snackBar.open('Added ' + symbol + ' to Tracking list', 'close', { duration: 3000 });
+          }
         },
         error => {
-          throw error
+          if (error.status === 500) {
+            this.snackBar.open('Coin Already exists', 'close', { duration: 3000 });
+          }
       })
     } else {
       console.log('form invalid')
