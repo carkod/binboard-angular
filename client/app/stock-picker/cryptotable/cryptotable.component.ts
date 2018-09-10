@@ -26,6 +26,8 @@ export class CryptotableComponent implements OnInit, OnChanges {
     view: 'view'
   };
 
+  refreshInterval: number;
+
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['symbol', 'price', 'change', 'changePercent', 'recommend', 'actions'];
   
@@ -34,9 +36,10 @@ export class CryptotableComponent implements OnInit, OnChanges {
   constructor(public api: DbService) {}
 
   ngOnInit() {
-    this.data = [];
+    this.data = []; this.refreshInterval = 15;
     this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
-    this.resetData();
+    setInterval(this.resetData(), this.refreshInterval * 60 * 1000);
+
   }
   ngOnChanges() {
     this.resetData();
