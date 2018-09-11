@@ -47,15 +47,26 @@ const config = {
       bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
     },
     db: {
-      base: 'http://localhost:9000/api',
+      base: 'http://localhost:9000',
+      exchange: '/api/exchangeInfo',
+      marketData: '/api/marketData',
+      recentTrades: '/api/recentTrades',
+      historicalTrades: '/api/historicalTrades',
+      candlestick: '/api/candlestick',
+      ticker24: '/api/ticker/ticker24',
+      ticker:'/api/v3/ticker/ticker', // Symbol Price only ticker -- retrieve all coins
+      bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
     }
   },
   test: { },
   development: {
     mongo: {
-      uri: 'mongodb://carkod:48295620-j@188.166.92.221:27017/binboard',
+      uri: 'mongodb://188.166.92.221:27017',
       options: {
-        debug: true
+        debug: true,
+        user: 'carkod',
+        pass: '48295620-j',
+        dbName: 'binboard',
       }
     }
   },
