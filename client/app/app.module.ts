@@ -25,6 +25,10 @@ import { CryptotableComponent } from './stock-picker/cryptotable/cryptotable.com
 import { DetailComponent } from './stock-picker/detail/detail.component';
 import { RankingTableComponent } from './my-dashboard/ranking-table/ranking-table.component';
 import { StreamsService } from './services/streams.service';
+import { TradesComponent } from './trades/trades.component';
+import { GlobalSettingsComponent } from './global-settings/global-settings.component';
+import { StatModelsComponent } from './stock-picker/stat-models/stat-models.component';
+import { StatDataComponent } from './stock-picker/stat-data/stat-data.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +45,10 @@ import { StreamsService } from './services/streams.service';
     CoinSuggesterComponent,
     DetailComponent,
     RankingTableComponent,
+    TradesComponent,
+    GlobalSettingsComponent,
+    StatModelsComponent,
+    StatDataComponent,
   ],
   imports: [
     BrowserModule,
