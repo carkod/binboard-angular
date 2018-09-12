@@ -72,7 +72,7 @@ const config = {
   },
   production: {
     ip: process.env.IP || undefined,
-    port: process.env.PORT || 8080,
+    port: 8080,
     mongo: {
       uri: process.env.MONGODB_URI || 'mongodb://carkod:482956270-j@localhost:27017/binboard'
     }
