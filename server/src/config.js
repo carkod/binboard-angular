@@ -61,12 +61,12 @@ const config = {
   test: { },
   development: {
     mongo: {
-      uri: 'http://api.carloswu.com',
+      uri: 'mongodb://188.166.92.221:27017',
       options: {
         debug: true,
-        user: 'carkod',
-        pass: '48295620-j',
-        dbName: 'binboard',
+        // user: 'carkod',
+        // pass: '48295620-j',
+        // dbName: 'binboard',
       }
     }
   },
