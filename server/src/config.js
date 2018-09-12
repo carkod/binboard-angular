@@ -61,7 +61,7 @@ const config = {
   test: { },
   development: {
     mongo: {
-      uri: 'http://api.carloswu.com',
+      uri: 'mongodb://localhost:27017',
       options: {
         debug: true,
         user: 'carkod',
@@ -74,7 +74,7 @@ const config = {
     ip: process.env.IP || undefined,
     port: process.env.PORT || 8080,
     mongo: {
-      uri: process.env.MONGODB_URI || 'mongodb://188.166.92.221'
+      uri: process.env.MONGODB_URI || 'mongodb://carkod:482956270-j@188.166.92.221:27017/binboard'
     }
   }
 }
