@@ -61,7 +61,7 @@ const config = {
   test: { },
   development: {
     mongo: {
-      uri: 'mongodb://localhost:27017/binboard',
+      uri: 'mongodb://carkod:48295620-j@localhost:27017/binboard',
       options: {
         debug: true,
         user: 'carkod',
