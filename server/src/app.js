@@ -3,7 +3,7 @@ import { env, mongo, port, ip, apiRoot } from './config'
 import mongoose from './services/mongoose'
 import express from './services/express'
 import api from './api'
-import { ticker24job } from './services/cronjob'
+import { ticker24job, candlestickjob, tickerjob, marketDatajob, bookTickerjob } from './services/cronjob'
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)
@@ -13,6 +13,11 @@ mongoose.Promise = Promise
 
 // Cron jobs
 ticker24job();
+marketDatajob();
+candlestickjob();
+tickerjob();
+bookTickerjob();
+candlestickjob();
 
 setImmediate(() => {
   server.listen(port, ip, () => {

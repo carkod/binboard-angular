@@ -54,14 +54,14 @@ const config = {
       historicalTrades: '/api/historicalTrades',
       candlestick: '/api/candlestick',
       ticker24: '/api/ticker/ticker24',
-      ticker:'/api/v3/ticker/ticker', // Symbol Price only ticker -- retrieve all coins
-      bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
+      ticker:'/api/ticker/ticker', // Symbol Price only ticker -- retrieve all coins
+      bookTicker: '/api/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
     }
   },
   test: { },
   development: {
     mongo: {
-      uri: 'mongodb://188.166.92.221:27017',
+      uri: 'http://api.carloswu.com',
       options: {
         debug: true,
         user: 'carkod',
