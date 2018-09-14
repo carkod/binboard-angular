@@ -47,7 +47,7 @@ const config = {
       bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
     },
     db: {
-      base: 'http://localhost:9000',
+      base: 'http://localhost:8080',
       exchange: '/api/exchangeInfo',
       marketData: '/api/marketData',
       recentTrades: '/api/recentTrades',
@@ -61,7 +61,7 @@ const config = {
   test: { },
   development: {
     mongo: {
-      uri: 'mongodb://188.166.92.221:27017',
+      uri: 'mongodb://carkod:48295620-j@localhost:27017/binboard',
       options: {
         debug: true,
         // user: 'carkod',
@@ -72,9 +72,9 @@ const config = {
   },
   production: {
     ip: process.env.IP || undefined,
-    port: process.env.PORT || 8080,
+    port: 8080,
     mongo: {
-      uri: process.env.MONGODB_URI || 'mongodb://188.166.92.221'
+      uri: process.env.MONGODB_URI || 'mongodb://carkod:482956270-j@188.166.92.221:27017/binboard'
     }
   }
 }
