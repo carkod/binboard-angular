@@ -74,7 +74,7 @@ const config = {
     ip: process.env.IP || undefined,
     port: 8080,
     mongo: {
-      uri: process.env.MONGODB_URI || 'mongodb://carkod:482956270-j@188.166.92.221:27017/binboard'
+      uri: process.env.MONGODB_URI || 'mongodb://carkod:48295620-j@188.166.92.221:27017/binboard'
     }
   }
 }
