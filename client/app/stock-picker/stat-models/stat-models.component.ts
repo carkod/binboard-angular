@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { StreamsService } from '../../services/streams.service';
 import { ApiService } from '../../services/api.service';
 import * as Plotly from 'plotly.js/dist/plotly.js';
+import { DbService } from '../../services/db.service';
 
 @Component({
   selector: 'stat-models',
@@ -38,7 +39,7 @@ export class StatModelsComponent implements OnInit {
   count;
 
 
-  constructor(private ws: StreamsService, private api: ApiService) { }
+  constructor(private db: DbService, private ws: StreamsService, private api: ApiService) { }
 
   
   ngOnInit() {

@@ -52,5 +52,16 @@ export class DbService {
     const coins = this.http.delete(coinsUrl, httpOptions);
     return coins;
   }
+  getCoinStats() {
+    const coinsUrl = `${environment.db.ticker}`;
+    let coins = this.http.get<any>(coinsUrl);
+    return coins;
+  }
+
+  getSinglCoinStats(symbol: string) {
+    const coinsUrl = `${environment.db.ticker}/${symbol}`;
+    const coins = this.http.get<any>(coinsUrl);
+    return coins;
+  }
 
 }

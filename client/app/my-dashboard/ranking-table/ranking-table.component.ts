@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, Input, OnDestroy } from '@
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 // import { RankingTableDataSource } from './ranking-table-datasource';
 import { ApiService } from '../../services/api.service';
+import { DbService } from '../../services/db.service';
 
 @Component({
   selector: 'ranking-table',
@@ -18,7 +19,7 @@ export class RankingTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, private db: DbService) {
 
   }
   ngAfterViewInit() {
@@ -31,7 +32,7 @@ export class RankingTableComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     const localData = JSON.parse(localStorage.getItem('getCoinStats'));
     if (!localData) {
-      this.api.getCoinStats().subscribe(data => {
+      this.db.getCoinStats().subscribe(data => {
         localStorage.setItem('getCoinStats', JSON.stringify(data));
         this.renderData(data);
       })
