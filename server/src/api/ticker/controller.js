@@ -3,7 +3,7 @@ import { Ticker } from '.'
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Ticker.find(query, select, cursor)
-    .then((tickers) => tickers.map((ticker) => ticker.view()))
+    .then((ticker) => ticker.map((ticker) => ticker.view()))
     .then(success(res))
     .catch(next)
 
