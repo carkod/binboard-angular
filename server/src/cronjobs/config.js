@@ -1,3 +1,3 @@
 export const config = {
-    cronUpdate: '01 * * * *'
+    cronUpdate: "* * * * *"
 } 

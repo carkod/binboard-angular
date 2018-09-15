@@ -1,15 +1,33 @@
-import { success, notFound } from '../../services/response/'
-import { Ticker } from '.'
+import config from '../../config'
+import request from 'request'
 
-export const index = ({ querymen: { query, select, cursor } }, res, next) =>
-  Ticker.find(query, select, cursor)
-    .then((ticker) => ticker.map((ticker) => ticker.view()))
-    .then(success(res))
-    .catch(next)
+const { base, ticker } = config.api
+export const show = ({ params }, res, next) => {
+  
+  const { symbol } = params
+  const tickerurl = `${base + ticker}?symbol=${symbol}`;
+  let data;
+  return request(tickerurl, function (error, response, resBody) {
+    console.log('error:', error); // Print the error if one occurred
+    // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    // console.log('body:', resBody); // Print the HTML for the Google homepage.
+    status = response.statusCode;
+    data = resBody
+    return res.status(200).json(data);
+  }) 
+}
 
-export const show = ({ params }, res, next) =>
-  Ticker.findById(params.id)
-    .then(notFound(res))
-    .then((ticker) => ticker ? ticker.view() : null)
-    .then(success(res))
-    .catch(next)
+export const index = ({ querymen: { query, select, cursor } }, res, next) => {
+  const tickerurl = `${base + ticker}`;
+  let data, status;
+  return request(tickerurl, function (error, response, resBody) {
+    console.log('error:', error); // Print the error if one occurred
+    // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    // console.log('body:', resBody); // Print the HTML for the Google homepage.
+    status = response.statusCode;
+    data = resBody
+    return res.status(200).json(data);
+  }) 
+}
+
+  

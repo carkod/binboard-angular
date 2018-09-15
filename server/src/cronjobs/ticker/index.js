@@ -12,14 +12,16 @@ export default function tickerjob() {
   const tickerurl = api.base + '/' + api.ticker;
   // schedule tasks to be run on the server   
   const time = config.cronUpdate;
+  
   cron.schedule(time, function () {
+    console.log(time)
     request(tickerurl, function (error, response, resBody) {
       console.log('error:', error); // Print the error if one occurred
       // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
       // console.log('body:', resBody); // Print the HTML for the Google homepage.
       response.status = response.statusCode;
       body(tree);
-      create(resBody, response);
+      upsert(resBody, response);
     });
   });
 }

@@ -1,16 +1,17 @@
 import { success, notFound } from '../../services/response/'
-import { Schema } from 'querymen';
 import mongoose from 'mongoose';
+import { Schema } from 'mongoose'
 
 const candlestickSchema = new Schema({}, {strict: false})
 const candlestick = mongoose.model('Candelstick', candlestickSchema)
 
 export const upsert = (body, res, next) => {
-  body = JSON.parse(body);
+  body = JSON.parse(body)
   const Candlestick = new candlestick(body);
-  return Candlestick.remove({})
-  .then(() => Candlestick.save() )
-  .then(success(res, 201))
+  console.log(body)
+  return Candlestick.save()
+  // .then(() => Candlestick.save() )
+  // .then(success(res, 201))
   .catch(next)
 } 
 

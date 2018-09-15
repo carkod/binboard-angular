@@ -1,5 +1,5 @@
 import { success, notFound } from '../../services/response/'
-import { Ticker } from '../../api/ticker/model'
+import Ticker from '../../api/ticker/model'
 
 export const create = (body, res, next) => {
   body = JSON.parse(body);
@@ -8,18 +8,9 @@ export const create = (body, res, next) => {
     // .then(success(res, 201))
     .catch(next);
 }
-// export const create = ({ bodymen: { body } }, res, next) =>
-// {
-// console.log(body);
-// return Ticker.create(body)
-//     .then((Ticker) => Ticker.view(true))
-//     .then(success(res, 201))
-//     .catch(next)
-// }
 
 export const upsert = (body, res, next) => {
   body = JSON.parse(body);
-  console.log(body)
   return Ticker.remove({})
   .then(() => Ticker.create(body) )
   // .then(success(res, 201))
