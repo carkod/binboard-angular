@@ -1,11 +1,11 @@
 import { success, notFound } from '../../services/response/'
-import { MarketData } from '.'
+import { MarketData } from '../../api/marketdata/model'
 
 export const create = (body, res, next) => {
   body = JSON.parse(body);
   return MarketData.create(body)
-    // .then((MarketData) => MarketData.view(true))
-    .then(success(res, 201))
+    .then((MarketData) => MarketData.view(true))
+    // .then(success(res, 201))
     .catch(next);
 }
 // export const create = ({ bodymen: { body } }, res, next) =>

@@ -1,11 +1,11 @@
 import { success, notFound } from '../../services/response/'
-import { Ticker } from '.'
+import { Ticker } from '../../api/ticker/model'
 
 export const create = (body, res, next) => {
   body = JSON.parse(body);
   return Ticker.create(body)
-    // .then((Ticker) => Ticker.view(true))
-    .then(success(res, 201))
+    .then((Ticker) => Ticker.view(true))
+    // .then(success(res, 201))
     .catch(next);
 }
 // export const create = ({ bodymen: { body } }, res, next) =>

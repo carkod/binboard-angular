@@ -5,13 +5,14 @@ import { api } from '../../config';
 import { create, update, destroy, upsert } from '../../api/candlestick/controller'
 import request from 'request'
 import { schema } from '../../api/candlestick/model';
-
+import { config } from '../config';
 const { tree } = schema;
 
 export default function candlestickjob() {
   const candlestickurl = api.base + '/' + api.candlestick;
   // schedule tasks to be run on the server   
-  cron.schedule("01 00 * * *", function () {
+  const time = config.cronUpdate
+  cron.schedule(time, function () {
     request(candlestickurl, function (error, response, resBody) {
       console.log('error:', error); // Print the error if one occurred
       // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
