@@ -1,8 +1,8 @@
 module.exports = {
     apps : [
         {
-          name: "Binboard API",
-          script: "src/index.js",
+          name: "Binboard",
+          script: "npm run dev",
           watch: true,
           env_production: {
               "PORT": 8081,
