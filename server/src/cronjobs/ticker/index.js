@@ -13,7 +13,7 @@ export default function tickerjob() {
   const tickerurl = api.base + '/' + api.ticker;
   // schedule tasks to be run on the server   
   
-  cron.schedule("* * * * *", function () {
+  cron.schedule("01 * * * *", function () {
     console.log(new Date());
     request(tickerurl, function (error, response, resBody) {
       console.log('error:', error); // Print the error if one occurred
