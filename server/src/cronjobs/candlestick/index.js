@@ -18,7 +18,7 @@ export default function candlestickjob() {
       // console.log('body:', resBody); // Print the HTML for the Google homepage.
       response.status = response.statusCode;
       body(tree);
-      upsert(resBody, response);
+      create(resBody, response);
 
     });
   });
