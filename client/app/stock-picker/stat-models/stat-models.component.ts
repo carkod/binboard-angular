@@ -47,7 +47,7 @@ export class StatModelsComponent implements OnInit {
     this.limit = 50;
     this.count = 0;
 
-    this.api.getCandlestick(this.symbolCode, this.interval, this.limit).subscribe(d => {
+    this.db.getCandlestick(this.symbolCode, this.interval, this.limit).subscribe(d => {
       this.apiData = d;
       console.log(this.apiData)
       let element = this.el.nativeElement;

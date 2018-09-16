@@ -3,6 +3,7 @@ import { MovingAverageService } from './moving-average.service';
 import { ApiService } from '../services/api.service';
 import { StreamsService } from '../services/streams.service';
 import * as Plotly from 'plotly.js/dist/plotly.js';
+import { DbService } from '../services/db.service';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class CandlestickComponent implements OnInit {
   updateTime: Object;
   count;
 
-  constructor(private ws: StreamsService, private api: ApiService, private maService: MovingAverageService) {
+  constructor(private ws: StreamsService, private api: DbService, private maService: MovingAverageService) {
   }
 
   ngOnInit() {
@@ -47,10 +48,11 @@ export class CandlestickComponent implements OnInit {
     this.count = 0;
 
     this.api.getCandlestick(this.symbolCode, this.interval, this.limit).subscribe(d => {
+      console.log(d);
       this.apiData = d;
       let element = this.el.nativeElement;
       Plotly.newPlot(element, this.renderData(d), this.renderLayout(d))
-      // console.log(this.apiData);
+      
     }, error => {
       console.error('candlestick data error: ', error)
     });
