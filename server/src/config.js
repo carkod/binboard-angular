@@ -25,7 +25,8 @@ const config = {
     root: path.join(__dirname, '..'),
     port: process.env.PORT || 9000,
     ip: process.env.IP || 'localhost',
-    apiRoot: process.env.API_ROOT || '',
+    apiRoot: process.env.API_ROOT || '/api',
+    // apiRoot: '../api',
     masterKey: requireProcessEnv('MASTER_KEY'),
     jwtSecret: requireProcessEnv('JWT_SECRET'),
     mongo: {
@@ -37,7 +38,7 @@ const config = {
     },
     api: {
       base: 'http://api.binance.com',
-      exchange: '/api/v1/exchangeInfo',
+      exchangeInfo: '/api/v1/exchangeInfo',
       marketData: '/api/v1/depth',
       recentTrades: '/api/v1/trades',
       historicalTrades: '/api/v1/historicalTrades',
@@ -49,7 +50,7 @@ const config = {
 
     },
     db: {
-      base: 'http://localhost:8080',
+      base: 'http://api.carloswu.com',
       exchange: '/api/exchangeInfo',
       marketData: '/api/marketData',
       recentTrades: '/api/recentTrades',
@@ -62,6 +63,7 @@ const config = {
   },
   test: { },
   development: {
+    API_ROOT: '/api',
     mongo: {
       uri: 'mongodb://carkod:48295620-j@localhost:27017/binboard',
       options: {
