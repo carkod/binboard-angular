@@ -21,6 +21,7 @@ export class DbService {
 
   getSingleCoinStats(symbol) {
     const coinsUrl = `${environment.db.base + environment.db.ticker24}/${symbol}`;
+    console.log(coinsUrl)
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }
@@ -53,14 +54,24 @@ export class DbService {
     return coins;
   }
   getCoinStats() {
-    const coinsUrl = `${environment.db.ticker}`;
+    const coinsUrl = `${environment.db.ticker24}`;
     let coins = this.http.get<any>(coinsUrl);
     return coins;
   }
 
   getSinglCoinStats(symbol: string) {
-    const coinsUrl = `${environment.db.ticker}/${symbol}`;
+    const coinsUrl = `${environment.db.ticker24}/${symbol}`;
     const coins = this.http.get<any>(coinsUrl);
+    return coins;
+  }
+  getExchange() {
+    const coinsUrl = `${environment.db.exchangeInfo}`;
+    let coins = this.http.get<any>(coinsUrl);
+    return coins;
+  }
+  getTicker() {
+    const coinsUrl = `${environment.db.ticker}`;
+    let coins = this.http.get<any>(coinsUrl);
     return coins;
   }
 

@@ -20,7 +20,7 @@ export const environment = {
   },
   db: {
     base: 'http://localhost:9000',
-    exchange: '/api/exchangeInfo',
+    exchangeInfo: '/api/exchangeInfo',
     marketData: '/api/marketData',
     recentTrades: '/api/recentTrades',
     historicalTrades: '/api/historicalTrades',

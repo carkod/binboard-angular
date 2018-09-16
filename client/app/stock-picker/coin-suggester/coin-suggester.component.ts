@@ -3,10 +3,9 @@ import { ApiService } from '../../services/api.service';
 import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '../../../../node_modules/@angular/forms';
 import { Observable } from '../../../../node_modules/rxjs';
 import { startWith, map } from '../../../../node_modules/rxjs/operators';
+import { DbService } from '../../services/db.service';
 
-export interface Ticker {
-  symbol: string, price: string
-}
+export interface Ticker { symbol: string, price: string }
 
 @Component({
   selector: 'coin-suggester',
@@ -26,8 +25,9 @@ export class CoinSuggesterComponent implements ControlValueAccessor {
   options: Ticker[];
   filteredOptions: Observable<Ticker[]>;
 
-  constructor(private api: ApiService) { 
-    this.api.getCoins(100).subscribe(coinData => {
+  constructor(private db: DbService) { 
+    this.db.getTicker().subscribe(coinData => {
+      coinData = JSON.parse(coinData);
       this.options = coinData;
       this.filteredOptions = this.myControl.valueChanges
       .pipe(

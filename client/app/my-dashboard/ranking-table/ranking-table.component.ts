@@ -9,7 +9,7 @@ import { DbService } from '../../services/db.service';
   templateUrl: './ranking-table.component.html',
   styleUrls: ['./ranking-table.component.scss']
 })
-export class RankingTableComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RankingTableComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource();
@@ -22,24 +22,17 @@ export class RankingTableComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private api: ApiService, private db: DbService) {
 
   }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+
   ngOnInit() {
     /**
      * Dataset is too large, convert to JSON and store in Web Local Storage
      */
     const localData = JSON.parse(localStorage.getItem('getCoinStats'));
-    if (!localData) {
-      this.db.getCoinStats().subscribe(data => {
-        localStorage.setItem('getCoinStats', JSON.stringify(data));
-        this.renderData(data);
-      })
-    } else {
-      this.renderData(localData);
-    }
-    setInterval(localStorage.removeItem('getCoinStats'), 1800000);
+    this.db.getCoinStats().subscribe(data => {
+      // localStorage.setItem('getCoinStats', JSON.stringify(data));
+      this.renderData(data);
+    })
+    // setInterval(localStorage.removeItem('getCoinStats'), 1800000);
 
   }
 
@@ -77,6 +70,9 @@ export class RankingTableComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.dataSource.data = this.byVolume(data);
     }
+  }
+  log(...text) {
+    console.log(...text);
   }
 
 }

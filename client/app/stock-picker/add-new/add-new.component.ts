@@ -13,7 +13,7 @@ export class AddNewComponent implements OnInit {
   @Output() addSymbol: EventEmitter<object> = new EventEmitter();
   options: FormGroup;
 
-  constructor(public snackBar: MatSnackBar, private api: DbService, fb: FormBuilder) {
+  constructor(public snackBar: MatSnackBar, private db: DbService, fb: FormBuilder) {
     this.options = fb.group({
       // hideRequired: false,
       // floatLabel: 'auto',
@@ -31,7 +31,7 @@ export class AddNewComponent implements OnInit {
     console.warn(this.options.value);
     const {symbol} = this.options.value;
     if (this.options.valid) {
-      this.api.getSingleCoinStats(symbol).pipe(mergeMap(stats => this.api.postNewCoin(stats))).subscribe(result => {
+      this.db.getSingleCoinStats(symbol).pipe(mergeMap(stats => this.db.postNewCoin(stats))).subscribe(result => {
           if (result) {
             this.snackBar.open('Added ' + symbol + ' to Tracking list', 'close', { duration: 3000 });
           }

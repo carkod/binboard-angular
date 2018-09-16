@@ -5,7 +5,9 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>{{title | uppercase}}</mat-header-cell>
 
       <mat-cell *matCellDef="let row">
+          {{log(row)}}
         <span *ngIf="title === 'priceChangePercent'">
+            
           <span 
           [ngClass]="{'caret-down': row[title].trim().charAt(0) === '-', 'caret-up': row[title].trim().charAt(0) !== '-'}">
             &#9660;

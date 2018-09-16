@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '../../../node_modules/@angular/router';
 import { DrawerService } from '../services/drawer.service';
 import { ApiService } from '../services/api.service';
+import { DbService } from '../services/db.service';
 
 @Component({
   selector: 'top-toolbar',
@@ -11,13 +12,13 @@ import { ApiService } from '../services/api.service';
 export class TopToolbarComponent implements OnInit {
 
   pageTitle: any;
-  constructor(private api: ApiService, private route: ActivatedRoute, private drawerService: DrawerService) { }
+  constructor(private db: DbService, private route: ActivatedRoute, private drawerService: DrawerService) { }
 
   ngOnInit() {
     this.route.data.subscribe(d => {
       this.pageTitle = d.pageTitle;
     });
-    this.api.getExchange().subscribe(info => {
+    this.db.getExchange().subscribe(info => {
       // console.log(info);
     })
     

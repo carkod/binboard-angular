@@ -33,12 +33,13 @@ export class CryptotableComponent implements OnInit, OnChanges {
   
   data: any;
 
-  constructor(public api: DbService) {}
+  constructor(public db: DbService) {}
 
   ngOnInit() {
     this.data = []; this.refreshInterval = 15;
     this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
-    setInterval(this.resetData(), this.refreshInterval * 60 * 1000);
+    this.resetData();
+    // setInterval(this.resetData(), this.refreshInterval * 60 * 1000);
 
   }
   ngOnChanges() {
@@ -52,12 +53,14 @@ export class CryptotableComponent implements OnInit, OnChanges {
 
   }
   delete(symbol) {
-    this.api.deleteTrackedCoin(symbol).subscribe(result => {
+    this.db.deleteTrackedCoin(symbol).subscribe(result => {
+      console.log(result);
       this.resetData();
     });
   }
   resetData() {
-    this.api.getTrackedCoins().subscribe(data => {
+    this.db.getTrackedCoins().subscribe(data => {
+      debugger;
       this.data = data;
       this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
     })

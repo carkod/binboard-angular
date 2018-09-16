@@ -24,7 +24,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       this.symbol = params['symbol'];
       this.db.getSingleCoinStats(this.symbol).subscribe(data => this.data = data);
     });
-  }
+  } 
 
   ngOnDestroy() {
     this.sub.unsubscribe();

@@ -1,5 +1,5 @@
 {
-  "/api/*": {
+  "localhost:9000/api/*": {
     "target": "http://api.carloswu.com",
     "secure": true,
     "logLevel": "debug",
