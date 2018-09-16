@@ -60,9 +60,10 @@ export class CryptotableComponent implements OnInit, OnChanges {
   }
   resetData() {
     this.db.getTrackedCoins().subscribe(data => {
-      debugger;
+      console.log(data);
+      // data = JSON.parse(data);
       this.data = data;
       this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
-    })
+    });
   }
 }

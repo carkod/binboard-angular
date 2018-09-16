@@ -32,8 +32,16 @@ export class DbService {
   }
   
   getTrackedCoins(): Observable<any> {
-    const coinsUrl = `${environment.db.base + environment.db.tracker}`;
-    const coins = this.http.get<any>(coinsUrl, httpOptions);
+    const coinsUrl = `${environment.db.tracker}`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        // 'Authorization': 'my-auth-token'
+      })
+    };
+    const coins = this.http.get(coinsUrl, httpOptions);
+    
     // const coins = this.http.get<any>(coinsUrl, httpOptions).pipe(map(res => {
     //   return {
     //     name: res.symbol,
@@ -46,6 +54,7 @@ export class DbService {
     //     closeTime: res.closeTime
     //   }
     // }));
+    // return coins;
     return coins;
   }
   deleteTrackedCoin(symbol) {

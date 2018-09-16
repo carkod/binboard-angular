@@ -20,15 +20,15 @@ export const environment = {
   },
   db: {
     base: 'http://localhost:9000',
-    exchangeInfo: '/api/exchangeInfo',
+    exchangeInfo: '/api/exchangeInfo', // Proxy for api.exchange
     marketData: '/api/marketData',
     recentTrades: '/api/recentTrades',
     historicalTrades: '/api/historicalTrades',
-    candlestick: '/api/candlestick',
+    candlestick: '/api/candlestick', // requires parameters symbol and interval
     ticker24: '/api/ticker24',
     ticker:'/api/ticker', // Symbol Price only ticker -- retrieve all coins
     bookTicker: '/api/bookTicker', // Best price/qty on the order book for a symbol or symbols.
-    tracker: '/api/tracker',
+    tracker: '/api/tracker', // Own API, not a proxy
   }
 };
 
