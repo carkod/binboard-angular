@@ -45,6 +45,8 @@ const config = {
       ticker24: '/api/v1/ticker/24hr',
       ticker:'/api/v3/ticker/price', // Symbol Price only ticker -- retrieve all coins
       bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
+      allOrders: '/api/v3/allOrders' // GET /api/v3/allOrders (HMAC SHA256)
+
     },
     db: {
       base: 'http://localhost:8080',

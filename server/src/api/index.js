@@ -5,6 +5,7 @@ import tracker from './tracker'
 import ticker24 from './ticker24'
 import ticker from './ticker'
 import candlestick from './candlestick'
+import bookTicker from './bookticker'
 
 const router = new Router()
 
@@ -37,5 +38,6 @@ router.use('/tracker', tracker)
 router.use('/ticker24', ticker24)
 router.use('/ticker', ticker)
 router.use('/candlestick', candlestick)
+router.use('/bookticker', bookTicker)
 
 export default router

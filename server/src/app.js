@@ -4,8 +4,6 @@ import mongoose from './services/mongoose'
 import express from './services/express'
 import api from './api'
 import { ticker24job } from './services/cronjob'
-import tickerjob from './cronjobs/ticker'
-import candlestickjob from './cronjobs/candlestick'
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)
@@ -15,9 +13,6 @@ mongoose.Promise = Promise
 
 // Cron jobs
 ticker24job();
-// tickerjob();
-// candlestickjob();
-// bookTickerjob();
 
 
 setImmediate(() => {
