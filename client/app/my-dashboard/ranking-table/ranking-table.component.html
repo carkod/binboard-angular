@@ -6,13 +6,13 @@
 
       <mat-cell *matCellDef="let row">
         <span *ngIf="title === 'priceChangePercent'">
-            
           <span [ngClass]="{'caret-down': row[title].trim().charAt(0) === '-', 'caret-up': row[title].trim().charAt(0) !== '-'}">
             &#9660;
           </span>
         </span>
         {{row[title]}}
         <span *ngIf="title === 'priceChangePercent'"> %</span>
+        
       </mat-cell>
     </ng-container>
 

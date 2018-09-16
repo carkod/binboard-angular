@@ -54,14 +54,15 @@ export class RankingTableComponent implements OnInit, OnDestroy {
   }
   byVolume(data) {
     const sorted = data.sort((a, b) => {
-      const first = parseInt(a.volume);
-      const second = parseInt(b.volume);
+      const first = parseInt(a.quoteVolume);
+      const second = parseInt(b.quoteVolume);
       if (first < second) {
         return 1
       } else {
         return -1
       }
     });
+    console.log(sorted)
     return sorted;
   }
   renderData(data) {
