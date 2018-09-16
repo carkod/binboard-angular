@@ -52,7 +52,6 @@ export class StatModelsComponent implements OnInit {
       console.log(this.apiData)
       let element = this.el.nativeElement;
       Plotly.newPlot(element)
-      // console.log(this.apiData);
     }, error => {
       console.error('candlestick data error: ', error)
     });

@@ -48,7 +48,6 @@ export class CandlestickComponent implements OnInit {
     this.count = 0;
 
     this.api.getCandlestick(this.symbolCode, this.interval, this.limit).subscribe(d => {
-      console.log(d);
       this.apiData = d;
       let element = this.el.nativeElement;
       Plotly.newPlot(element, this.renderData(d), this.renderLayout(d))
@@ -59,7 +58,6 @@ export class CandlestickComponent implements OnInit {
 
     this.ws.candlestickStream(this.symbolCode, this.interval).subscribe(sd => {
       let element = this.el.nativeElement;
-      // console.log(sd);
       this.updateGraph(element, sd);
       
     });
