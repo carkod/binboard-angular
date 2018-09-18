@@ -20,18 +20,18 @@ export class DbService {
   constructor(private http: HttpClient) { }
 
   getSingleCoinStats(symbol) {
-    const coinsUrl = `${environment.db.ticker24}/${symbol}`;
+    const coinsUrl = `${environment.db.base + environment.db.ticker24}/${symbol}`;
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }
   postNewCoin(content) {
-    const coinsUrl = `${environment.db.tracker}`;
+    const coinsUrl = `${environment.db.base + environment.db.tracker}`;
     const coins = this.http.post(coinsUrl, content, httpOptions);
     return coins;
   }
 
   getTrackedCoins(): Observable<any> {
-    const coinsUrl = `${environment.db.tracker}`;
+    const coinsUrl = `${environment.db.base + environment.db.tracker}`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -62,23 +62,23 @@ export class DbService {
     return coins;
   }
   getCoinStats() {
-    const coinsUrl = `${environment.db.ticker24}`;
+    const coinsUrl = `${environment.db.base + environment.db.ticker24}`;
     let coins = this.http.get<any>(coinsUrl);
     return coins;
   }
 
   getExchange() {
-    const coinsUrl = `${environment.db.exchangeInfo}`;
+    const coinsUrl = `${environment.db.base + environment.db.exchangeInfo}`;
     let coins = this.http.get<any>(coinsUrl);
     return coins;
   }
   getTicker() {
-    const coinsUrl = `${environment.db.ticker}`;
+    const coinsUrl = `${environment.db.base + environment.db.ticker}`;
     let coins = this.http.get<any>(coinsUrl);
     return coins;
   }
   getCandlestick(symbol: string, interval: string, limit: number) {
-    const candlestickUrl = `${environment.db.candlestick}/${symbol}/${interval}/${limit}`;
+    const candlestickUrl = `${environment.db.base + environment.db.candlestick}/${symbol}/${interval}/${limit}`;
     let klines = {
       openPrices: [],
       closePrices: [],

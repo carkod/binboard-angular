@@ -17,7 +17,7 @@ export class MyDashboardComponent implements OnInit{
 
   constructor(private snackbar: MatSnackBar, private api: ApiService) {}
   ngOnInit() {
-    
+   
   }
   clearLocal() {
     localStorage.removeItem('getCoinStats');

@@ -19,7 +19,7 @@ export const environment = {
     bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
   },
   db: {
-    base: 'http://localhost:9000',
+    base: 'http://api.carloswu.com',
     exchangeInfo: '/api/exchangeInfo', // Proxy for api.exchange
     marketData: '/api/marketData',
     recentTrades: '/api/recentTrades',
