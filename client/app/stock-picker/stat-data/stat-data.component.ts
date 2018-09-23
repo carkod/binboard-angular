@@ -35,7 +35,7 @@ export class StatDataComponent implements OnInit {
     // Define a model for linear regression.
     this.linearModel = tf.sequential();
     // this.linearModel.add(flatten())
-    this.linearModel.add(tf.layers.dense({ units: 1, inputShape: [2] }));
+    this.linearModel.add(tf.layers.dense({ units: 1, inputShape:[1]}));
 
     // Prepare the model for training: Specify the loss and the optimizer.
     this.linearModel.compile({ loss: 'meanSquaredError', optimizer: 'sgd' });
@@ -47,8 +47,8 @@ export class StatDataComponent implements OnInit {
     // const xs = tf.tensor2d([537628399999, 1537630199999, 1537631999999, 1537633799999], [50, 1]);
     // const ys = tf.tensor2d([0.00238173, 0.0023151, 0.0023555, 0.00233285], [50, 1]);
 
-    const xs = tf.tensor(convertTimeToNumber);
-    const ys = tf.tensor(convertString);
+    const xs = tf.tensor1d(convertTimeToNumber);
+    const ys = tf.tensor1d(convertString);
 
     console.log(xs, ys)
 
@@ -63,7 +63,7 @@ export class StatDataComponent implements OnInit {
     const currentTime = new Date().getTime();
     const currentPrice = 0.024;
     const predictArray = [currentTime, currentPrice]
-    const output = this.linearModel.predict(tf.tensor(predictArray)) as any;
+    const output = this.linearModel.predict(tf.tensor(predictArray, [2, 1])) as any;
     console.log(Array.from(output.dataSync()))
     // this.prediction = Array.from(output.dataSync())[0]
     
