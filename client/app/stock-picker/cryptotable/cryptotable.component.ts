@@ -19,6 +19,7 @@ export class CryptotableComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @Output() coinList;
+  @Input() updateNewCoin;
   dataSource: CryptotableDataSource;
   actions: Actions = {
     edit: 'edit',
@@ -63,5 +64,8 @@ export class CryptotableComponent implements OnInit, OnChanges {
       this.data = data;
       this.dataSource = new CryptotableDataSource(this.paginator, this.sort, this.data);
     });
+  }
+  updateCoin(symbol) {
+    this.resetData();
   }
 }

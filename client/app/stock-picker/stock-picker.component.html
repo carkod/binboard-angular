@@ -2,12 +2,12 @@
   <top-toolbar></top-toolbar>
   <div class="grid-container">
     <div class="column-left">
-      <cryptotable></cryptotable>
+      <cryptotable [updateNewCoin]="newCoin"></cryptotable>
     </div>
     <div class="column-right">
       <mat-card>
         <mat-card-title>Add new coin to track: </mat-card-title>
-        <add-new></add-new>
+        <add-new (addSymbol)="getNewCoin($event)"></add-new>
       </mat-card>
       <mat-card>
         <mat-card-title>View settings: </mat-card-title>

@@ -33,6 +33,7 @@ export class AddNewComponent implements OnInit {
     if (this.options.valid) {
       this.db.getSingleCoinStats(symbol).pipe(mergeMap(stats => this.db.postNewCoin(stats))).subscribe(result => {
           if (result) {
+            this.addSymbol.emit(symbol)
             this.snackBar.open('Added ' + symbol + ' to Tracking list', 'close', { duration: 3000 });
           }
         },

@@ -10,6 +10,7 @@ export class TradesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

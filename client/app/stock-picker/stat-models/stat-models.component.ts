@@ -49,7 +49,6 @@ export class StatModelsComponent implements OnInit {
 
     this.db.getCandlestick(this.symbolCode, this.interval, this.limit).subscribe(d => {
       this.apiData = d;
-      console.log(this.apiData)
       let element = this.el.nativeElement;
       Plotly.newPlot(element)
     }, error => {
