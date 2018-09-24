@@ -35,10 +35,12 @@ export class StatDataComponent implements OnInit {
     // Define a model for linear regression.
     this.linearModel = tf.sequential();
     // this.linearModel.add(flatten())
-    this.linearModel.add(tf.layers.dense({ units: 1, inputShape:[1]}));
+    this.linearModel.add(tf.layers.dense({ units: 50, inputShape:[1], activation: 'relu'}));
+    this.linearModel.add(tf.layers.dense({ units: 50, inputShape:[50], activation: 'relu'}));
+    this.linearModel.add(tf.layers.dense({ units: 1, inputShape:[50], activation: 'relu'}));
 
     // Prepare the model for training: Specify the loss and the optimizer.
-    this.linearModel.compile({ loss: 'meanSquaredError', optimizer: 'sgd' });
+    this.linearModel.compile({ loss: 'meanSquaredError', optimizer: 'adam' });
 
 
     // Training data
@@ -53,7 +55,9 @@ export class StatDataComponent implements OnInit {
     console.log(xs, ys)
 
     // Train
-    await this.linearModel.fit(xs, ys)
+    await this.linearModel.fit(xs, ys, {
+      epochs: 25,
+    })
 
     console.log('model trained!')
   }
