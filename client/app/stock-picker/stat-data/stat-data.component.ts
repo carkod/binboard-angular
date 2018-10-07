@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import * as tf from '@tensorflow/tfjs';
-import { ApiService } from '../../services/api.service';
 import { DbService } from '../../services/db.service';
-import { flatten } from '@tensorflow/tfjs-layers/dist/exports_layers';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -66,7 +64,7 @@ export class StatDataComponent implements OnInit {
       batchSize: 5,
       epochs: 125,
     })
-
+    
     console.log('model trained!')
   }
 
