@@ -1,53 +1,39 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as tf from '@tensorflow/tfjs';
-import { ApiService } from '../../services/api.service';
-import { DbService } from '../../services/db.service';
-import { flatten } from '@tensorflow/tfjs-layers/dist/exports_layers';
-import { DatePipe } from '@angular/common';
+import { DbService } from './db.service';
 
-@Component({
-  selector: 'stat-data',
-  templateUrl: './stat-data.component.html',
-  styleUrls: ['./stat-data.component.scss'],
-  providers: [DatePipe]
+@Injectable({
+  providedIn: 'root'
 })
-export class StatDataComponent implements OnInit {
-
-  @Input() symbol;
-  @Output() givePrediction = new EventEmitter();
-  @Input() interval: string;
-  @ViewChild('price') price;
+export class LinearRegressionService {
 
   linearModel: tf.Sequential;
-  prediction: any;
-  data;
+  xs: Array<any> = [];
+  ys: Array<any> = [];
+  volume: Array<any> = [];
+  bestfit: Array<any> = [];
+  private db: DbService;
 
-  constructor(private db: DbService, private date: DatePipe) { }
-
-  ngOnInit() {
-    this.db.getCandlestick(this.symbol, this.interval, 50).subscribe(d => {
-      console.log(d)
-      this.data = d;
-      this.train();
-    }, error => {
-      console.error('candlestick data error: ', error)
-    });
-    
+  constructor(
+    private symbol: string, 
+    private interval: string,
+    private limit: number,
+    private data: any
+    ) { 
   }
 
-
   async train() {
+
     // Define a model for linear regression.
     this.linearModel = tf.sequential();
-    // this.linearModel.add(flatten())
-    this.linearModel.add(tf.layers.dense({ units: 128, inputShape:[1]}));
-    this.linearModel.add(tf.layers.dense({ units: 128, inputShape:[128], activation: 'sigmoid'}));
-    this.linearModel.add(tf.layers.dense({ units: 1, inputShape:[128]}));
 
-    // Prepare the model for training: Specify the loss and the optimizer.
-    this.linearModel.compile({ loss: 'binaryCrossentropy', optimizer: 'adam'});
-
-
+    // const optimizer = tf.train.adam(0.03);
+    this.linearModel.add(tf.layers.dense({units: 250, inputShape: [1]})); // layer 1
+    this.linearModel.add(tf.layers.dense({units: 250, inputShape: [250]})); // layer 3
+    this.linearModel.add(tf.layers.dense({units: 1, inputShape: [250]})); // output layer
+    this.linearModel.compile({optimizer: 'adam', loss: 'meanSquaredError'}); // compile with params
+    
+    this.db.getCandlestick(this.symbol)
     // Training data
     const convertString = this.data.closePrices.map(Number);
     const convertTimeToNumber = this.data.closeTime.map(date => {

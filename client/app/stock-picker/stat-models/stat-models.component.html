@@ -9,7 +9,7 @@
     <div class="column-right">
       <mat-card>
         <mat-card-title>right column </mat-card-title>
-        <stat-data [symbol]="symbolCode"></stat-data>
+        <stat-data [symbol]="symbolCode" (givePrediction)="getPrediction($event)" [interval]="interval"></stat-data>
       </mat-card>
 
     </div>

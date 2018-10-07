@@ -1,5 +1,5 @@
 TensorFlow says {{ prediction }}
 
-<!-- <input type="number" name="time" (change)="generateArray($event.target.value)"> -->
-<button type="button" (click)="predict()">Predict</button>
+<input type="number" name="time" #price>
+<button type="button" (click)="predict(price)">Predict</button>
 
