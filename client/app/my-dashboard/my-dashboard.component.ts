@@ -14,26 +14,27 @@ import { DbService } from '../services/db.service';
 export class MyDashboardComponent implements OnInit{
   pageElements: Array<any>;
   dataSource: MatTableDataSource<SymbolPriceTicker>;
+  accountData;
+  serverTime: number;
   
 
-  constructor(private snackbar: MatSnackBar, private api: ApiService, private db: DbService) {}
+  constructor(private snackbar: MatSnackBar, private db: DbService) {}
 
   ngOnInit() {
     let timestamp = +new Date;
-    let recvWindow = 5000;
+    let recvWindow = 20000;
     this.db.getServerTime().subscribe(serverTime => {
-      this.db.getAccount(timestamp, recvWindow).subscribe(data => {
-        console.log('account', data)
-      })
-      // if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= recvWindow) {
-      //   console.log('request processed');
-      //   this.api.getAccount(timestamp, recvWindow).subscribe(data => {
-      //     console.log('account', data)
-      //   })
+      this.serverTime = +JSON.parse(serverTime).serverTime;
+      console.log(timestamp, this.serverTime, recvWindow);
+      if (timestamp < (this.serverTime + 1000) && (this.serverTime - timestamp) <= recvWindow) {
+        this.db.getAccount(timestamp, recvWindow).subscribe(data => {
+          this.accountData = JSON.parse(data);
+          console.log('account', this.accountData)
+        })
         
-      // } else {
-      //   console.log('recvWindow delay, request not processed');
-      // }
+      } else {
+        console.log('recvWindow delay, request not processed');
+      }
     })
   }
 
