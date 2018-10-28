@@ -29,6 +29,7 @@ import { TradesComponent } from './trades/trades.component';
 import { GlobalSettingsComponent } from './global-settings/global-settings.component';
 import { StatModelsComponent } from './stock-picker/stat-models/stat-models.component';
 import { StatDataComponent } from './stock-picker/stat-data/stat-data.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { StatDataComponent } from './stock-picker/stat-data/stat-data.component'
     GlobalSettingsComponent,
     StatModelsComponent,
     StatDataComponent,
+    OrdersComponent,
   ],
   imports: [
     BrowserModule,

@@ -71,3 +71,7 @@ export interface Global {
     interval?: string;
     limit?: number;
 }
+
+export interface NewOrder {
+  
+}

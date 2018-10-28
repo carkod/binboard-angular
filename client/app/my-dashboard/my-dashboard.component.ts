@@ -16,9 +16,26 @@ export class MyDashboardComponent implements OnInit{
   
 
   constructor(private snackbar: MatSnackBar, private api: ApiService) {}
+
   ngOnInit() {
-   
+    let timestamp = new Date().getMilliseconds();
+    let recvWindow = 5000;
+    this.api.getServerTime().subscribe(serverTime => {
+      if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= recvWindow) {
+        console.log('request processed');
+        this.api.getAccount(timestamp, recvWindow).subscribe(data => {
+
+        })
+        
+      } else {
+        console.log('recvWindow delay, request not processed');
+      }
+    })
+    // this.api.getAccount().subscribe(data => {
+    //   console.log(data);
+    // })
   }
+
   clearLocal() {
     localStorage.removeItem('getCoinStats');
     this.snackbar.open('Local Coin data removed!', 'Undo', {

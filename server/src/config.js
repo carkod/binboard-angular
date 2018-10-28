@@ -46,8 +46,10 @@ const config = {
       ticker24: '/api/v1/ticker/24hr',
       ticker:'/api/v3/ticker/price', // Symbol Price only ticker -- retrieve all coins
       bookTicker: '/api/v3/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
-      allOrders: '/api/v3/allOrders' // GET /api/v3/allOrders (HMAC SHA256)
-
+      allOrders: '/api/v3/allOrders', // GET /api/v3/allOrders (HMAC SHA256)
+      account: '/api/v3/account',
+      myTrades: '/api/v3/myTrades',
+      serverTime: '/api/v1/time',
     },
     db: {
       base: 'http://api.carloswu.com',
