@@ -8,6 +8,7 @@ import candlestick from './candlestick'
 import bookTicker from './bookticker'
 import exchangeInfo from './exchange-info'
 import account from './account'
+import serverTime from './server-time'
 
 const router = new Router()
 
@@ -42,6 +43,7 @@ router.use('/ticker', ticker)
 router.use('/candlestick', candlestick)
 router.use('/bookticker', bookTicker)
 router.use('/exchangeInfo', exchangeInfo)
+router.use('/server-time', serverTime)
 router.use('/account', account)
 
 export default router

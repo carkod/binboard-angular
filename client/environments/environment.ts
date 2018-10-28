@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  apiKey: 'OF1K2rb8m0ML0J1gqKKagBkn9PIch1y87HeJ04WNFTt1FKh9t7aivgXnROpAnmax',
+  secretKey: 'PlOXYEvPNZ5BxftUJQZ3nbnFogbKMvURAYu9dpfQpwn9zSdkQIwIMOJ1Jp4K8RTp',
   ws: {
     base: 'wss://stream.binance.com:9443/ws/',
   },
@@ -23,7 +25,8 @@ export const environment = {
     serverTime: '/api/v1/time',
   },
   db: {
-    base: 'http://api.carloswu.com',
+    // base: 'http://api.carloswu.com',
+    base: 'http://localhost:8080',
     exchangeInfo: '/api/exchangeInfo', // Proxy for api.exchange
     marketData: '/api/marketData',
     recentTrades: '/api/recentTrades',
@@ -36,7 +39,7 @@ export const environment = {
     allOrders: '/api/allOrders',
     account: '/api/account',
     myTrades: '/api/myTrades',
-    serverTime: '/api/time',
+    serverTime: '/api/server-time',
   }
 };
 

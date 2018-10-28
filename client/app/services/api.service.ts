@@ -7,7 +7,8 @@ import { SinglePriceTicker } from '../models/services';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    // 'Authorization': 'my-auth-token'
+    'X-MBX-APIKEY': environment.apiKey,
+    'secretKey': environment.secretKey,
   })
 };
 
@@ -110,11 +111,12 @@ export class ApiService {
   }
   getExchange() {
     const coinsUrl = `${environment.api.exchange}`;
-    const coins = this.http.get<any>(coinsUrl);
+    const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
 
   getServerTime() {
+    debugger;
     const coinsUrl = `${environment.api.serverTime}`;
     const coins = this.http.get<any>(coinsUrl);
     return coins;
@@ -122,7 +124,7 @@ export class ApiService {
   
   getAccount(timestamp, recvWindow) {
     const coinsUrl = `${environment.api.account}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}`;
-    const coins = this.http.get<any>(coinsUrl);
+    const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
 

@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
-import { SinglePriceTicker } from '../models/services';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': 'my-auth-token'
+    'X-MBX-APIKEY': environment.apiKey,
+    'secretKey': environment.secretKey,
   })
 };
 
@@ -32,13 +32,6 @@ export class DbService {
 
   getTrackedCoins(): Observable<any> {
     const coinsUrl = `${environment.db.base + environment.db.tracker}`;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        // 'Authorization': 'my-auth-token'
-      })
-    };
     const coins = this.http.get(coinsUrl, httpOptions);
 
     // const coins = this.http.get<any>(coinsUrl, httpOptions).pipe(map(res => {
@@ -98,12 +91,22 @@ export class DbService {
         const date = new Date(r[6]);
         // const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
         klines.closeTime.push(date);
-          
       }
-      
       return klines
     }));
     return dataPoints;
+  }
+
+  getServerTime() {
+    const coinsUrl = `${environment.db.base}${environment.db.serverTime}`;
+    const coins = this.http.get<any>(coinsUrl);
+    return coins;
+  }
+  
+  getAccount(timestamp, recvWindow?) {
+    const coinsUrl = `${environment.db.base}${environment.db.account}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}`;
+    const coins = this.http.get<any>(coinsUrl, httpOptions);
+    return coins;
   }
 
 }
