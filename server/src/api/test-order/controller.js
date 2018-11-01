@@ -1,7 +1,18 @@
-  export const create = ({ body }, res, next) => {
-    console.log('hello');
-    const { timestamp, recvWindow } = body;
-    const queryString = `timestamp=${timestamp}&recvWindow=${recvWindow}`;
+import config from '../../config'
+import request from 'request'
+import crypto from 'crypto'
+
+const { base, account } = config.api
+
+const signature = (queryStrings, secretKey) => {
+  const convert = crypto.createHmac('sha256', secretKey);
+  return convert.update(queryStrings).digest('hex');
+}
+
+  
+  export const create = (result, res, next) => {
+    const { timestamp, recvWindow } = result.query;
+    const queryString = `timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}`;
     const secretKey = res.req.headers['secretkey'];
     const apiKey = res.req.headers['x-mbx-apikey'];
     const headers = {

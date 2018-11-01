@@ -11,6 +11,6 @@ const router = new Router()
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Test order not found.
  */
-router.post('/', create)
+router.post('/', create);
 
 export default router

@@ -108,5 +108,11 @@ export class DbService {
     const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
+  
+  testOrder(timestamp = +new Date, recvWindow?) {
+    const coinsUrl = `${environment.db.base}${environment.db.testOrder}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}`;
+    const coins = this.http.post(coinsUrl, {}, httpOptions);
+    return coins;
+  }
 
 }

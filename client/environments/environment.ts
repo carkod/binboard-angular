@@ -23,6 +23,7 @@ export const environment = {
     account: '/api/account',
     myTrades: '/api/myTrades',
     serverTime: '/api/v1/time',
+    testOrder: ''
   },
   db: {
     // base: 'http://api.carloswu.com',
@@ -40,6 +41,7 @@ export const environment = {
     account: '/api/account',
     myTrades: '/api/myTrades',
     serverTime: '/api/server-time',
+    testOrder: '/api/test-order',
   }
 };
 
