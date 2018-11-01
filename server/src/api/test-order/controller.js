@@ -20,12 +20,11 @@ const signature = (queryStrings, secretKey) => {
      'Content-type': 'application/x-www-form-urlencoded',
     }
     const url = `${base + account}?${queryString}&signature=${signature(queryString, secretKey)}`;
-    
     const options = {
       url: url,
       headers: headers
     }
-    let data, status;
+    let data;
     return request(options, function (error, response, resBody) {
       console.log('error:', error); // Print the error if one occurred
       status = response.statusCode;
