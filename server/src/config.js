@@ -50,6 +50,9 @@ const config = {
       account: '/api/v3/account',
       myTrades: '/api/v3/myTrades',
       serverTime: '/api/v1/time',
+      testOrder: '/api/v3/order/test',
+      order: '/api/v3/order',
+      openOrders: '/api/v3/openOrders',
     },
     db: {
       base: 'http://api.carloswu.com',
@@ -61,6 +64,11 @@ const config = {
       ticker24: '/api/ticker/ticker24',
       ticker:'/api/ticker/ticker', // Symbol Price only ticker -- retrieve all coins
       bookTicker: '/api/ticker/bookTicker', // Best price/qty on the order book for a symbol or symbols.
+      testOrder: '/api/test-order',
+      order: '/api/order',
+      openOrders: '/api/open-orders',
+      account: '/api/account',
+      myTrades: '/api/my-trades',
     }
   },
   test: { },

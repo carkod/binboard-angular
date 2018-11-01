@@ -9,6 +9,9 @@ import bookTicker from './bookticker'
 import exchangeInfo from './exchange-info'
 import account from './account'
 import serverTime from './server-time'
+import testOrder from './test-order'
+import order from './order'
+import myTrades from './my-trades'
 
 const router = new Router()
 
@@ -45,5 +48,8 @@ router.use('/bookticker', bookTicker)
 router.use('/exchangeInfo', exchangeInfo)
 router.use('/server-time', serverTime)
 router.use('/account', account)
+router.use('/test-order', testOrder)
+router.use('/order', order)
+router.use('/my-trades', myTrades)
 
 export default router

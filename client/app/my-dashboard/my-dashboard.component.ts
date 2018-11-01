@@ -3,6 +3,7 @@ import { ApiService } from '../services/api.service';
 import { MatTableDataSource, MatSnackBar } from '../../../node_modules/@angular/material';
 import { SymbolPriceTicker } from '../models/services';
 import { DbService } from '../services/db.service';
+import { BalanceService } from '../services/balance.service';
 
 @Component({
   selector: 'my-dashboard',
@@ -16,26 +17,11 @@ export class MyDashboardComponent implements OnInit{
   dataSource: MatTableDataSource<SymbolPriceTicker>;
   accountData;
   serverTime: number;
-  
 
-  constructor(private snackbar: MatSnackBar, private db: DbService) {}
+  constructor(private snackbar: MatSnackBar, private balance: BalanceService) {}
 
   ngOnInit() {
-    let timestamp = +new Date;
-    let recvWindow = 20000;
-    this.db.getServerTime().subscribe(serverTime => {
-      this.serverTime = +JSON.parse(serverTime).serverTime;
-      console.log(timestamp, this.serverTime, recvWindow);
-      if (timestamp < (this.serverTime + 1000) && (this.serverTime - timestamp) <= recvWindow) {
-        this.db.getAccount(timestamp, recvWindow).subscribe(data => {
-          this.accountData = JSON.parse(data);
-          console.log('account', this.accountData)
-        })
-        
-      } else {
-        console.log('recvWindow delay, request not processed');
-      }
-    })
+    console.log(this.balance.getData()); 
   }
 
   clearLocal() {
