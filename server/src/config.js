@@ -15,7 +15,6 @@ if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv-safe')
   dotenv.load({
     path: path.join(__dirname, '../.env'),
-    sample: path.join(__dirname, '../.env.example')
   })
 }
 
