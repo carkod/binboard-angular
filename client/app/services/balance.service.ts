@@ -22,7 +22,6 @@ export class BalanceService {
     let recvWindow = 20000;
     this.db.getServerTime().subscribe(serverTime => {
       this.serverTime = +JSON.parse(serverTime).serverTime;
-      console.log(timestamp, this.serverTime, recvWindow);
       if (timestamp < (this.serverTime + 1000) && (this.serverTime - timestamp) <= recvWindow) {
         this.db.getAccount(timestamp, recvWindow).subscribe(data => {
           this.accountData = JSON.parse(data);
