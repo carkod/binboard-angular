@@ -21,7 +21,8 @@ export class MyDashboardComponent implements OnInit{
   constructor(private snackbar: MatSnackBar, private balance: BalanceService) {}
 
   ngOnInit() {
-    console.log(this.balance.getData()); 
+    console.log(this.balance.getData());
+    
   }
 
   clearLocal() {

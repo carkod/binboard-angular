@@ -72,12 +72,14 @@ export interface Global {
   limit?: number;
 }
 
-export interface NewOrder {
-
-}
-
 export interface IBalance {
   asset: string,
   free: string,
   locked: string,
+}
+
+export interface IBalances {
+  asset: string,
+  free: string,
+  locked: string
 }
