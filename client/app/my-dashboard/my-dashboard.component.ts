@@ -21,7 +21,10 @@ export class MyDashboardComponent implements OnInit{
   constructor(private snackbar: MatSnackBar, private balance: BalanceService) {}
 
   ngOnInit() {
-    console.log(this.balance.getData());
+    this.balance.loadData().subscribe(res => {
+      console.log(res);
+    })
+    
     
   }
 
