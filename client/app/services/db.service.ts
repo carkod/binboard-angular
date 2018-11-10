@@ -115,4 +115,9 @@ export class DbService {
     return coins;
   }
 
+  getMyTrades(symbol: string, timestamp = +new Date, recvWindow?: Number, startTime?: Number, endTime?: Number, fromId?: Number, limit?: Number) {
+    const coinsUrl = `${environment.db.base}${environment.db.myTrades}?symbol=${symbol}&timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
+    const coins = this.http.get(coinsUrl, httpOptions);
+    return coins;
+  }
 }

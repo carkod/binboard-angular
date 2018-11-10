@@ -39,7 +39,7 @@ export const environment = {
     tracker: '/api/tracker', // Own API, not a proxy
     allOrders: '/api/allOrders',
     account: '/api/account',
-    myTrades: '/api/myTrades',
+    myTrades: '/api/my-trades',
     serverTime: '/api/server-time',
     testOrder: '/api/test-order',
   }

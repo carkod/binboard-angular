@@ -72,14 +72,16 @@ export interface Global {
   limit?: number;
 }
 
-export interface IBalance {
+export interface IBalances {
   asset: string,
   free: string,
   locked: string,
 }
 
-export interface IBalances {
+export interface ITotalBalance {
+  symbol: string,
+  price: string,
   asset: string,
   free: string,
-  locked: string
+  locked?: string,
 }

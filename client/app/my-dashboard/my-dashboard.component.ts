@@ -15,17 +15,19 @@ import { BalanceService } from '../services/balance.service';
 export class MyDashboardComponent implements OnInit{
   pageElements: Array<any>;
   dataSource: MatTableDataSource<SymbolPriceTicker>;
-  accountData;
-  serverTime: number;
 
-  constructor(private snackbar: MatSnackBar, private balance: BalanceService) {}
+  constructor(private snackbar: MatSnackBar, private balance: BalanceService, private db: DbService) {}
 
   ngOnInit() {
     this.balance.loadData().subscribe(res => {
-      console.log(res);
+      // console.log(res);
+    });
+    this.balance.getBaseAssets().subscribe(quote => {
+      // console.log(quote);
     })
-    
-    
+    this.db.getMyTrades('BNB', 20000).subscribe(trades => {
+      console.log(trades)
+    })
   }
 
   clearLocal() {
