@@ -30,6 +30,8 @@ import { GlobalSettingsComponent } from './global-settings/global-settings.compo
 import { StatModelsComponent } from './stock-picker/stat-models/stat-models.component';
 import { StatDataComponent } from './stock-picker/stat-data/stat-data.component';
 import { OrdersComponent } from './orders/orders.component';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkTreeModule } from '@angular/cdk/tree';
 
 @NgModule({
   declarations: [
@@ -80,13 +82,15 @@ import { OrdersComponent } from './orders/orders.component';
     MatCheckboxModule,
     MatRadioModule,
     MatChipsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    CdkTableModule,
+    CdkTreeModule
   ],
   providers: [
-    DatePipe, 
-    ApiService, 
-    DrawerService, 
-    StreamsService, 
+    DatePipe,
+    ApiService,
+    DrawerService,
+    StreamsService,
     MatSnackBar
   ],
   bootstrap: [AppComponent]

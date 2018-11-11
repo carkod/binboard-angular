@@ -29,44 +29,44 @@ export class BalanceService {
     this.totalBalance = [];
   }
 
-  loadData(): Observable<any> {
+  retrieveBalances(): Observable<any> {
+    return this.getAccount();
+  }
+
+  getBalances() : Observable<Object> {
+    return this.db.getTicker().pipe(concatMap(prices => {
+      const arr = JSON.parse(prices);
+      this.balances.forEach(element => {
+        const matchBaseCoin = arr.find(x => {
+          return x.symbol === (element.asset + this.baseCoin);
+        });
+        if (matchBaseCoin !== undefined) {
+          this.tickerPrices.push(matchBaseCoin);
+        }
+      });
+      return this.balances;
+    }))
+  }
+
+  getAccount(): Observable<any> {
+    return this.db.getAccount(this.timestamp, this.recvWindow).pipe(mergeMap(data => {
+      this.accountData = JSON.parse(data);
+      this.balances = this.accountData.balances.filter(x => parseFloat(x.free) > 0.0000000);
+      return this.getBalances();
+    }));
+  }
+
+  retrieveServerTime(): Observable<any> {
     return this.db.getServerTime().pipe(concatMap(serverTime => {
       this.serverTime = +JSON.parse(serverTime).serverTime;
       if (this.timestamp < (this.serverTime + 1000) && (this.serverTime - this.timestamp) <= this.recvWindow) {
-        return this.db.getAccount(this.timestamp, this.recvWindow).pipe(concatMap(data => {
-          this.accountData = JSON.parse(data);
-          this.balances = this.accountData.balances.filter(x => parseFloat(x.free) > 0.0000000);
-          console.log(this.balances);
-          return this.db.getTicker().pipe(concatMap(prices => {
-            const arr = JSON.parse(prices);
-            this.balances.forEach(element => {
-              const matchBaseCoin = arr.find(x => {
-                return x.symbol === (element.asset + this.baseCoin);
-              });
-              if (matchBaseCoin !== undefined) {
-                this.tickerPrices.push(matchBaseCoin);
-              }
-            });
-            this.totalBalance = this.balances.map(x => {
-              for (const item of this.tickerPrices) {
-                let newObj;
-                if (item.symbol.indexOf(x.asset) === 0) {
-                  return {
-                    symbol: item.symbol,
-                    price: item.price,
-                    asset: x.asset,
-                    free: x.free,
-                  }
-                }
-              }
-            });
-
-            console.log(this.totalBalance)
-            return this.tickerPrices;
-          }))
-        }));
+        return this.getAccount();
       }
     }))
+  }
+
+  getMyTrades() {
+    // this.db.getMyTrades()
   }
 
   // private getBaseCoinPrice(balances) {
