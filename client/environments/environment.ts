@@ -42,6 +42,7 @@ export const environment = {
     myTrades: '/api/my-trades',
     serverTime: '/api/server-time',
     testOrder: '/api/test-order',
+    openOrders: '/api/open-orders',
   }
 };
 

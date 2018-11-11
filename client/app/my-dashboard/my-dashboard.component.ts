@@ -19,14 +19,17 @@ export class MyDashboardComponent implements OnInit{
   constructor(private snackbar: MatSnackBar, private balance: BalanceService, private db: DbService) {}
 
   ngOnInit() {
-    this.balance.loadData().subscribe(res => {
-      // console.log(res);
-    });
-    this.balance.getBaseAssets().subscribe(quote => {
-      // console.log(quote);
-    })
-    this.db.getMyTrades('BNB', 20000).subscribe(trades => {
-      console.log(trades)
+    // this.balance.loadData().subscribe(res => {
+    //   // console.log(res);
+    // });
+    // this.balance.getBaseAssets().subscribe(quote => {
+    //   // console.log(quote);
+    // })
+    // this.db.getMyTrades('BNBETH').subscribe(trades => {
+    //   console.log(trades);
+    // });
+    this.db.getOpenOrders('BNBETH', 20000).subscribe(orders => {
+      console.log(orders);
     })
   }
 
