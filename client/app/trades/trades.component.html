@@ -5,27 +5,7 @@
       <h1 class="default-h1">Current trades</h1>
     </div>
     <div class="table-content">
-
-      <table class="example-table">
-        <tr>
-          <th *ngFor="let column of displayedColumns">
-            {{column}}
-          </th>
-        </tr>
-
-        <tr *ngFor="let row of currentTrades">
-          <td>
-            {{row.asset}}
-          </td>
-          <td>
-            {{row.free}}
-          </td>
-        </tr>
-
-      </table>
-      <!-- <table [displayedColumns]="['symbol', 'prevClosePrice', 'priceChange', 'priceChangePercent']"></table> -->
-      <!-- <table [displayedColumns]="['symbol', 'prevClosePrice', 'priceChange', 'priceChangePercent']" [data]="currentTrades"></table> -->
-      <!-- <listing></listing> -->
+      <listing-table [data]="currentTrades" [displayedColumns]="displayedColumns"></listing-table>
     </div>
   </mat-card>
 </div>
