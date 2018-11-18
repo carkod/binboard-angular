@@ -26,14 +26,9 @@ export class ListingTableComponent implements OnInit, OnChanges {
     if (changes.data && !changes.data.firstChange) {
       const { currentValue } = changes.data;
       this.isLoadingResults = false;
-      debugger;
       this.data = currentValue;
       
     }
-  }
-
-  log(...text) {
-    console.log(...text);
   }
 
 }

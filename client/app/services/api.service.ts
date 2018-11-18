@@ -116,7 +116,6 @@ export class ApiService {
   }
 
   getServerTime() {
-    debugger;
     const coinsUrl = `${environment.api.serverTime}`;
     const coins = this.http.get<any>(coinsUrl);
     return coins;

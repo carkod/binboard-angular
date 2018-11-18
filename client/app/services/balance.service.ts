@@ -10,14 +10,15 @@ import { debug } from 'util';
 })
 export class BalanceService {
 
-  accountData;
-  timestamp;
+  accountData: any;
+  timestamp: Number;
   recvWindow;
   serverTime: number;
   balances: Array<IBalances>;
-  baseCoin: Array<String>;
+  baseCoin: String;
   tickerPrices: Array<any>;
   totalBalance: Array<any>;
+  quoteAssets: Array<any>;
 
   getServerTimeSubs$: Observable<any>;
   getAccountSubs$: Observable<any>;
@@ -25,93 +26,82 @@ export class BalanceService {
   constructor(private db: DbService) {
     this.timestamp = +new Date;
     this.recvWindow = 20000;
-    this.baseCoin = [];
+    this.baseCoin = 'BTC';
     this.tickerPrices = [];
     this.totalBalance = [];
+    this.quoteAssets = [];
   }
 
-  loadData(): Observable<any> {
-    return this.getAccount()
+  async getBtcAmout() {
+    await this.getTotalBalance();
+    const total = this.totalBalance.reduce((a, c) => a + c);
+    return total;
   }
 
-  getBalances() : Observable<Object> {
-    return this.db.getTicker().pipe(mergeMap(prices => {
-      const arr = JSON.parse(prices);
-      this.balances.forEach(element => {
-        const matchBaseCoin = arr.find(x => {
-          return x.symbol === (element.asset + this.baseCoin);
-        });
-        if (matchBaseCoin !== undefined) {
-          this.tickerPrices.push(matchBaseCoin);
-        }
+  async getTotalBalance(): Promise<any> {
+    await this.getAccount();
+    // await this.getAllQuoteAssets();
+    const getTickerPrices = await this.db.getTicker().toPromise();
+    const allTickers = JSON.parse(getTickerPrices);
+    this.balances.forEach(element => {
+      const matchBaseCoin = allTickers.find(x => {
+        return x.symbol === (element.asset + this.baseCoin);
       });
-      return this.balances;
-    }))
-  }
-
-  getAccount(): Observable<any> {
-    return this.db.getAccount(this.timestamp, this.recvWindow).pipe(map(data => {
-      this.accountData = JSON.parse(data);
-      this.balances = this.accountData.balances.filter(x => parseFloat(x.free) > 0.0000000);
-      return this.balances;
-    }));
-  }
-
-  retrieveServerTime(): Observable<any> {
-    return this.db.getServerTime().pipe(mergeMap(serverTime => {
-      this.serverTime = +JSON.parse(serverTime).serverTime;
-      if (this.timestamp < (this.serverTime + 1000) && (this.serverTime - this.timestamp) <= this.recvWindow) {
-        return this.getAccount();
+      if (matchBaseCoin !== undefined) {
+        this.tickerPrices.push(matchBaseCoin);
       }
-    }))
-  }
 
-  getMyTrades() {
-    // this.db.getMyTrades()
-  }
-
-  // private getBaseCoinPrice(balances) {
-  //   return this.db.getTicker().pipe(mergeMap(prices => {
-  //     const arr = JSON.parse(prices);
-  //     this.balances.forEach(element => {
-  //       const matchBaseCoin = arr.find(x => {
-  //         return x.symbol === (element.asset + this.baseCoin);
-  //       });
-  //       if (matchBaseCoin !== undefined) {
-  //         this.tickerPrices.push(matchBaseCoin);
-  //       }
-  //     });
-  //     return this.tickerPrices;
-  //   }))
-
-  // }
-
-  getBaseAssets(): Observable<String> {
-    return this.db.getExchange().pipe(map(info => {
-      const { symbols } = JSON.parse(info);
-      let exchanges = symbols.reduce(function (allQuotes, { quoteAsset }) {
-        const findObj = allQuotes.findIndex(x => x === quoteAsset);
-        if (allQuotes.length === 0 || findObj === -1) {
-          allQuotes.push(quoteAsset);
+    });
+    
+    this.balances.forEach((element, i) => {
+      let count = i;
+      this.tickerPrices.forEach(x => {
+        const check = x.symbol.indexOf(element.asset)
+        if (check !== undefined && check > -1 && count < (this.balances.length-1)) {
+          count = i++
+          const newObj = {
+            symbol: x.symbol,
+            price: x.price,
+            asset: element.asset,
+            free: element.free,
+            total: (+x.price) * (+element.free),
+          }
+          if (newObj !== undefined) {
+            this.totalBalance.push(newObj)
+          }
         }
-        return allQuotes;
-      }, []);
-      this.baseCoin = exchanges;
-      return exchanges;
-    }));
+      })
+    });
+    return this.totalBalance;
+  }
 
-    // return this.db.getExchange().subscribe(info => {
-    //   const { symbols } = JSON.parse(info);
-    //   let exchanges = symbols.reduce(function (allQuotes, { quoteAsset }) {
-    //     const findObj = allQuotes.findIndex(x => x === quoteAsset);
-    //     if (allQuotes.length === 0 || findObj === -1) {
-    //       allQuotes.push(quoteAsset);
-    //     }
-    //     return allQuotes;
-    //   }, []);
-    //   console.log('exchange info::', exchanges);
-    //   return exchanges;
-    // });
+  async getAccount(): Promise<any> {
+    await this.retrieveServerTime();
+    const getAccountData = await this.db.getAccount(this.timestamp, this.recvWindow).toPromise();
+    const accountData = JSON.parse(getAccountData);
+    this.balances = accountData.balances.filter(x => parseFloat(x.free) > 0.0000000);
+    return this.balances;
+  }
+
+  async retrieveServerTime(): Promise<any> {
+    const serverTime: string = await this.db.getServerTime().toPromise();
+    this.serverTime = +JSON.parse(serverTime).serverTime;
+    if (this.timestamp < (this.serverTime + 1000) && (this.serverTime - +this.timestamp) <= this.recvWindow) {
+      return this.serverTime;
+    }
+    console.warn('recv window failed, increase order trade window?');
+    return false;
+  }
+
+  async getAllQuoteAssets(): Promise<any> {
+    const callExchangeInfo = await this.db.getExchange().toPromise();
+    let symbols = JSON.parse(callExchangeInfo).symbols;
+    symbols.forEach((element) => {
+      if (this.quoteAssets.indexOf(element.quoteAsset) === -1) {
+        this.quoteAssets.push(element.quoteAsset);
+      }
+    });
+    return this.quoteAssets;
   }
 
 }

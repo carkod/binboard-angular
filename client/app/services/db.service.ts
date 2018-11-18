@@ -119,14 +119,13 @@ export class DbService {
   getMyTrades(symbol: string, recvWindow?: Number, startTime?: Number, endTime?: Number, fromId?: Number, limit?: Number) {
     const timestamp = +new Date;
     const coinsUrl = `${environment.db.base}${environment.db.myTrades}?symbol=${symbol}&timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
-    console.log(coinsUrl)
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }
 
-  getOpenOrders(symbol: string, recvWindow?: Number) {
+  getOpenOrders(symbol?: string, recvWindow?: Number) {
     const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.openOrders}?symbol=${symbol}&timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}`;
+    const coinsUrl = `${environment.db.base}${environment.db.openOrders}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}${symbol !== undefined ? '&symbol=' + symbol : ''}`;
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }

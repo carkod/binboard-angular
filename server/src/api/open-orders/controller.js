@@ -14,7 +14,7 @@ const signature = (queryStrings, secretKey) => {
 
 export const index = ({query}, res, next) => {
   const { timestamp, recvWindow, symbol } = query;
-  const queryString = `symbol=${symbol}&timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : ''}`;
+  const queryString = `${symbol ? 'symbol=' : ''}&timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : ''}`;
   const secretKey = res.req.headers['secretkey'];
   const apiKey = res.req.headers['x-mbx-apikey'];
   const headers = {

@@ -22,10 +22,10 @@ export class TradesComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit() {
     this.currentTrades = [];
     this.displayedColumns = ['asset', 'free'];
-    this.balances.getAccount().subscribe(data =>  {
-      this.currentTrades = data;
+    this.balances.getTotalBalance().then(data => {
+      console.log(data);
     });
-
+    
   }
 
   ngOnDestroy() {
