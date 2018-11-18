@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { DbService } from './db.service';
 import { Observable } from 'rxjs';
 import { IBalances, ITotalBalance } from '../models/services';
-import { mergeMap, concatMap, map, switchMap, mergeAll } from 'rxjs/operators';
-import { debug } from 'util';
+import { environment } from 'client/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +18,7 @@ export class BalanceService {
   tickerPrices: Array<any>;
   totalBalance: Array<any>;
   quoteAssets: Array<any>;
+  total: any;
 
   getServerTimeSubs$: Observable<any>;
   getAccountSubs$: Observable<any>;
@@ -32,10 +32,16 @@ export class BalanceService {
     this.quoteAssets = [];
   }
 
+  async getEurAmount() {
+    await this.getBtcAmout();
+    const euroPrice = await fetch(environment.other.euro);
+    return euroPrice;
+  }
+
   async getBtcAmout() {
     await this.getTotalBalance();
-    const total = this.totalBalance.reduce((a, c) => a + c.total, 0);
-    return total;
+    this.total = this.totalBalance.reduce((a, c) => a + c.total, 0);
+    return this.total;
   }
 
   async getTotalBalance(): Promise<any> {

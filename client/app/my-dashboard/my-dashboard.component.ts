@@ -22,6 +22,11 @@ export class MyDashboardComponent implements OnInit{
   ngOnInit() {
     this.balance.getBtcAmout().then(data => {
       this.totalBalance = data + ' BTC';
+    });
+    this.balance.getEurAmount().then(euroPrice => {
+      console.log(euroPrice)
+      // const parseData = JSON.parse(euroPrice);
+      // this.euroBalance
     })
   }
 
