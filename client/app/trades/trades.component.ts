@@ -13,7 +13,9 @@ import { mergeMap } from 'rxjs/operators';
 export class TradesComponent implements OnInit, OnDestroy, OnChanges {
 
   currentTrades: Array<any>;
-  displayedColumns: Array<String>;
+  currentTradesProps: Array<String>;
+  displayedColumns: Array<String> = ['asset', 'free', 'price', 'symbol', 'total'];
+  totalBalance: String;
 
   balancesSubscription: Subscription;
 
@@ -21,11 +23,13 @@ export class TradesComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
     this.currentTrades = [];
-    this.displayedColumns = ['asset', 'free'];
     this.balances.getTotalBalance().then(data => {
+      this.currentTrades = data
       console.log(data);
     });
-    
+    this.balances.getBtcAmout().then(data => {
+      this.totalBalance = data + ' BTC';
+    })
   }
 
   ngOnDestroy() {

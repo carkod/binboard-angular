@@ -34,7 +34,7 @@ export class BalanceService {
 
   async getBtcAmout() {
     await this.getTotalBalance();
-    const total = this.totalBalance.reduce((a, c) => a + c);
+    const total = this.totalBalance.reduce((a, c) => a + c.total, 0);
     return total;
   }
 

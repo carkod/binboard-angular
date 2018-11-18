@@ -32,7 +32,7 @@ import { StatDataComponent } from './stock-picker/stat-data/stat-data.component'
 import { OrdersComponent } from './orders/orders.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
-import { ListingTableComponent } from './listing-table/listing-table.component';
+import { ListingTableComponent } from './trades/listing-table/listing-table.component';
 
 @NgModule({
   declarations: [

@@ -15,21 +15,13 @@ import { BalanceService } from '../services/balance.service';
 export class MyDashboardComponent implements OnInit{
   pageElements: Array<any>;
   dataSource: MatTableDataSource<SymbolPriceTicker>;
+  totalBalance: String;
 
   constructor(private snackbar: MatSnackBar, private balance: BalanceService, private db: DbService) {}
 
   ngOnInit() {
-    // this.balance.loadData().subscribe(res => {
-    //   // console.log(res);
-    // });
-    // this.balance.getBaseAssets().subscribe(quote => {
-    //   // console.log(quote);
-    // })
-    // this.db.getMyTrades('BNBETH').subscribe(trades => {
-    //   console.log(trades);
-    // });
-    this.db.getOpenOrders('BNBETH', 20000).subscribe(orders => {
-      console.log(orders);
+    this.balance.getBtcAmout().then(data => {
+      this.totalBalance = data + ' BTC';
     })
   }
 

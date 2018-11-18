@@ -1,7 +1,7 @@
 <top-toolbar></top-toolbar>
-<div class="balance">
-  
-</div>
+<mat-card>
+  <h1 class="default-h1" style="color: #F0B90B; text-align: center">{{totalBalance}}</h1>
+</mat-card>
 <div class="tables">
   <mat-card>
     <div class="table-title">
@@ -14,11 +14,11 @@
     </div>
   </mat-card>
   <mat-card>
-      <div class="table-title">
-          <h1 class="default-h1">Most Active</h1>
-          <button mat-raised-button color="accent" class="btn" (click)="clearLocal()">Clear Local Data</button>
-          <small>* high volume coins</small>
-        </div>
+    <div class="table-title">
+      <h1 class="default-h1">Most Active</h1>
+      <button mat-raised-button color="accent" class="btn" (click)="clearLocal()">Clear Local Data</button>
+      <small>* high volume coins</small>
+    </div>
     <div class="table-content">
       <ranking-table [rank]="'most-active'" [displayedColumns]="['symbol', 'prevClosePrice', 'quoteVolume']"></ranking-table>
     </div>
