@@ -26,8 +26,8 @@ export const environment = {
     testOrder: ''
   },
   db: {
-    // base: 'http://api.carloswu.com',
-    base: 'http://localhost:8080',
+    base: 'http://api.carloswu.com',
+    // base: 'http://localhost:8080',
     exchangeInfo: '/api/exchangeInfo', // Proxy for api.exchange
     marketData: '/api/marketData',
     recentTrades: '/api/recentTrades',

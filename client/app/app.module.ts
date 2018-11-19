@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatAutocompleteModule, MatCheckboxModule, MatRadioModule, MatChipsModule, MatSnackBar, MatSnackBarModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatAutocompleteModule, MatCheckboxModule, MatRadioModule, MatChipsModule, MatSnackBar, MatSnackBarModule, MatProgressSpinnerModule, MatTabsModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -33,6 +33,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { ListingTableComponent } from './trades/listing-table/listing-table.component';
+import { BuyComponent } from './orders/buy/buy.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ListingTableComponent } from './trades/listing-table/listing-table.comp
     StatDataComponent,
     OrdersComponent,
     ListingTableComponent,
+    BuyComponent,
 
   ],
   imports: [
@@ -88,7 +90,8 @@ import { ListingTableComponent } from './trades/listing-table/listing-table.comp
     MatSnackBarModule,
     CdkTableModule,
     CdkTreeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule
   ],
   providers: [
     DatePipe,

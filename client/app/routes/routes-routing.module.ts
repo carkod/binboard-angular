@@ -6,6 +6,7 @@ import { StockPickerComponent } from '../stock-picker/stock-picker.component';
 import { DetailComponent } from '../stock-picker/detail/detail.component';
 import { TradesComponent } from '../trades/trades.component';
 import { GlobalSettingsComponent } from '../global-settings/global-settings.component';
+import { OrdersComponent } from '../orders/orders.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,12 @@ const routes: Routes = [
     component: DetailComponent,
     pathMatch: 'full',
     data: { pageTitle: 'Coin Analysis' }
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent,
+    pathMatch: 'full',
+    data: { pageTitle: 'Orders' }
   },
   {
     path: 'trades',
