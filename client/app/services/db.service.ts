@@ -33,20 +33,6 @@ export class DbService {
   getTrackedCoins(): Observable<any> {
     const coinsUrl = `${environment.db.base + environment.db.tracker}`;
     const coins = this.http.get(coinsUrl, httpOptions);
-
-    // const coins = this.http.get<any>(coinsUrl, httpOptions).pipe(map(res => {
-    //   return {
-    //     name: res.symbol,
-    //     symbol: res.symbol,
-    //     id: res.id,
-    //     price: res.lastPrice,
-    //     change: res.priceChange,
-    //     changePercent: res.priceChangePercent,
-    //     recommend: res.recommend,
-    //     closeTime: res.closeTime
-    //   }
-    // }));
-    // return coins;
     return coins;
   }
   deleteTrackedCoin(symbol) {
@@ -127,6 +113,11 @@ export class DbService {
     const timestamp = +new Date;
     const coinsUrl = `${environment.db.base}${environment.db.openOrders}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}${symbol !== undefined ? '&symbol=' + symbol : ''}`;
     const coins = this.http.get(coinsUrl, httpOptions);
+    return coins;
+  }
+  getBookOrder(symbol: string, limit: Number) {
+    const coinsUrl = `${environment.db.base}${environment.db.orderBook}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : 10}`;
+    const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
 }

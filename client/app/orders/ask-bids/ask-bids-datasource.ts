@@ -4,13 +4,13 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
-export interface BidsTableItem {
+export interface AskBidsItem {
   name: string;
   id: number;
 }
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: BidsTableItem[] = [
+const EXAMPLE_DATA: AskBidsItem[] = [
   {id: 1, name: 'Hydrogen'},
   {id: 2, name: 'Helium'},
   {id: 3, name: 'Lithium'},
@@ -34,12 +34,12 @@ const EXAMPLE_DATA: BidsTableItem[] = [
 ];
 
 /**
- * Data source for the BidsTable view. This class should
+ * Data source for the AskBids view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class BidsTableDataSource extends DataSource<BidsTableItem> {
-  data: BidsTableItem[] = EXAMPLE_DATA;
+export class AskBidsDataSource extends DataSource<AskBidsItem> {
+  data: AskBidsItem[] = EXAMPLE_DATA;
 
   constructor(private paginator: MatPaginator, private sort: MatSort) {
     super();
@@ -50,7 +50,7 @@ export class BidsTableDataSource extends DataSource<BidsTableItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<BidsTableItem[]> {
+  connect(): Observable<AskBidsItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -77,7 +77,7 @@ export class BidsTableDataSource extends DataSource<BidsTableItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: BidsTableItem[]) {
+  private getPagedData(data: AskBidsItem[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -86,7 +86,7 @@ export class BidsTableDataSource extends DataSource<BidsTableItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: BidsTableItem[]) {
+  private getSortedData(data: AskBidsItem[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

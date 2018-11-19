@@ -1,21 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { BidsTableDataSource } from './bids-table-datasource';
+import { BuyBidsDataSource } from './buy-bids-datasource';
 
 @Component({
-  selector: 'app/orders/bids-table',
-  templateUrl: './bids-table.component.html',
-  styleUrls: ['./bids-table.component.css']
+  selector: 'app/orders/buy-bids',
+  templateUrl: './buy-bids.component.html',
+  styleUrls: ['./buy-bids.component.css']
 })
-export class BidsTableComponent implements OnInit {
+export class BuyBidsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: BidsTableDataSource;
+  dataSource: BuyBidsDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name'];
 
   ngOnInit() {
-    this.dataSource = new BidsTableDataSource(this.paginator, this.sort);
+    this.dataSource = new BuyBidsDataSource(this.paginator, this.sort);
   }
 }
