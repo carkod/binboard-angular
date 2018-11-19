@@ -34,6 +34,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { ListingTableComponent } from './trades/listing-table/listing-table.component';
 import { BuyComponent } from './orders/buy/buy.component';
+import { BidsTableComponent } from './orders/bids-table/bids-table.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { BuyComponent } from './orders/buy/buy.component';
     OrdersComponent,
     ListingTableComponent,
     BuyComponent,
+    BidsTableComponent,
 
   ],
   imports: [
