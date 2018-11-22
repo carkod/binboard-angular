@@ -15,18 +15,23 @@ import { BalanceService } from '../services/balance.service';
 export class MyDashboardComponent implements OnInit{
   pageElements: Array<any>;
   dataSource: MatTableDataSource<SymbolPriceTicker>;
-  totalBalance: String;
+  totalBalance: Number;
+  euroPrice: Number;
+  totalEuros: Number;
 
   constructor(private snackbar: MatSnackBar, private balance: BalanceService, private db: DbService) {}
 
   ngOnInit() {
+    this.loadBalanceAmount();
+  }
+
+  private loadBalanceAmount() {
     this.balance.getBtcAmout().then(data => {
-      this.totalBalance = data + ' BTC';
+      this.totalBalance = +data;
     });
-    this.balance.getEurAmount().then(euroPrice => {
-      console.log(euroPrice)
-      // const parseData = JSON.parse(euroPrice);
-      // this.euroBalance
+    this.balance.getEurAmount().then(res => {
+      this.euroPrice = +res.BTCEUR.last;
+      this.totalEuros = +this.totalBalance * +this.euroPrice;
     })
   }
 

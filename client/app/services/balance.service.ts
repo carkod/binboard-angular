@@ -34,8 +34,8 @@ export class BalanceService {
 
   async getEurAmount() {
     await this.getBtcAmout();
-    const euroPrice = await fetch(environment.other.euro);
-    return euroPrice;
+    let euroPrice = await fetch(environment.other.euro);
+    return euroPrice.json();
   }
 
   async getBtcAmout() {
