@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BuyOptions } from 'client/app/models/components';
+import { DbService } from 'client/app/services/db.service';
 
 @Component({
   selector: 'buy',
@@ -13,9 +14,10 @@ export class BuyComponent implements OnInit {
     {value: 'market', viewValue: 'Market order'},
     {value: 'stop', viewValue: 'Stop-Limit'}
   ]
-  constructor() { }
+  constructor(private db: DbService) { }
 
   ngOnInit() {
+    // this.db.getBookOrder()
   }
 
 }

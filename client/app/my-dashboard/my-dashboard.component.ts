@@ -15,9 +15,9 @@ import { BalanceService } from '../services/balance.service';
 export class MyDashboardComponent implements OnInit{
   pageElements: Array<any>;
   dataSource: MatTableDataSource<SymbolPriceTicker>;
-  totalBalance: Number;
+  totalBalance: Number = 0;
   euroPrice: Number;
-  totalEuros: Number;
+  totalEuros: Number = 0;
 
   constructor(private snackbar: MatSnackBar, private balance: BalanceService, private db: DbService) {}
 
@@ -32,6 +32,7 @@ export class MyDashboardComponent implements OnInit{
     this.balance.getEurAmount().then(res => {
       this.euroPrice = +res.BTCEUR.last;
       this.totalEuros = +this.totalBalance * +this.euroPrice;
+      this.totalEuros = +this.totalEuros.toFixed(2);
     })
   }
 
