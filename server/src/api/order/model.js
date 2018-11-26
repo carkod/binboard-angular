@@ -1,43 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
 const orderSchema = new Schema({
-  symbol: {
-    type: String
-  },
-  orderId: {
-    type: String
-  },
-  clientOrderId: {
-    type: String
-  },
-  transactTime: {
-    type: String
-  },
-  price: {
-    type: String
-  },
-  origQty: {
-    type: String
-  },
-  executedQty: {
-    type: String
-  },
-  cummulativeQuoteQty: {
-    type: String
-  },
-  status: {
-    type: String
-  },
-  timeInForce: {
-    type: String
-  },
-  type: {
-    type: String
-  },
-  side: {
-    type: String
-  },
-  fills: Array
 }, {
   timestamps: true,
   toJSON: {

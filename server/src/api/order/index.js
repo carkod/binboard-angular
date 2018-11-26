@@ -29,7 +29,7 @@ const { symbol, orderId, clientOrderId, transactTime, price, origQty, executedQt
  * @apiError 404 Order not found.
  */
 router.post('/',
-  body({ symbol, orderId, clientOrderId, transactTime, price, origQty, executedQty, cummulativeQuoteQty, status, timeInForce, type, side }),
+  query(),
   create)
 
 /**
@@ -54,30 +54,6 @@ router.get('/',
  */
 router.get('/:id',
   show)
-
-/**
- * @api {put} /order/:id Update order
- * @apiName UpdateOrder
- * @apiGroup Order
- * @apiParam symbol Order's symbol.
- * @apiParam orderId Order's orderId.
- * @apiParam clientOrderId Order's clientOrderId.
- * @apiParam transactTime Order's transactTime.
- * @apiParam price Order's price.
- * @apiParam origQty Order's origQty.
- * @apiParam executedQty Order's executedQty.
- * @apiParam cummulativeQuoteQty Order's cummulativeQuoteQty.
- * @apiParam status Order's status.
- * @apiParam timeInForce Order's timeInForce.
- * @apiParam type Order's type.
- * @apiParam side Order's side.
- * @apiSuccess {Object} order Order's data.
- * @apiError {Object} 400 Some parameters may contain invalid values.
- * @apiError 404 Order not found.
- */
-router.put('/:id',
-  body({ symbol, orderId, clientOrderId, transactTime, price, origQty, executedQty, cummulativeQuoteQty, status, timeInForce, type, side }),
-  update)
 
 /**
  * @api {delete} /order/:id Delete order

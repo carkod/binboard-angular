@@ -120,9 +120,9 @@ export class DbService {
     const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
-  newOrder(symbol: string, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number, recvWindow?: number) {
+  newOrder(symbol: string, side: string, type: string, quantity: number, price?: Number, recvWindow?: number, timeInForce?: String, stopPrice?: Number) {
     const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.order}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}&${symbol}&${type}&${side}&${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+    const coinsUrl = `${environment.db.base}${environment.db.order}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
     const coins = this.http.post(coinsUrl, {}, httpOptions);
     return coins;
   }
