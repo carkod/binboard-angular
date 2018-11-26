@@ -1,35 +1,52 @@
-<mat-grid-list cols="3" rowHeight="4:1">
-  <mat-grid-tile>
-    <mat-form-field>
-      <mat-select placeholder="Order type">
-        <mat-option *ngFor="let option of options" [value]="option.value">
-          {{option.viewValue}}
-        </mat-option>
-      </mat-select>
-      <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
-    </mat-form-field>
-  </mat-grid-tile>
+<form class="buy-container" [formGroup]="buyForm" (ngSubmit)="onSubmit()">
+  <mat-grid-list cols="3" rowHeight="6:1">
+    <mat-grid-tile>
+      <coin-suggester formControlName="symbol"></coin-suggester>
+    </mat-grid-tile>
 
-  <!-- Table width bids goes here -->
-  <mat-grid-tile rowspan="4" colspan="2">
-    <buy-bids></buy-bids>
-  </mat-grid-tile>
+    <!-- Table width bids goes here -->
+    <mat-grid-tile rowspan="6" colspan="2">
+      <buy-bids></buy-bids>
+    </mat-grid-tile>
 
-  <mat-grid-tile>
-    <mat-form-field appearance="outline">
-      <input matInput placeholder="Price" type="number" class="example-left-align">
-    </mat-form-field>
-  </mat-grid-tile>
 
-  <mat-grid-tile>
-    <mat-form-field appearance="outline">
-      <input matInput placeholder="Quantity" type="number" class="example-left-align">
-    </mat-form-field>
-  </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <mat-select matNativeControl placeholder="Order type">
+          <mat-option *ngFor="let option of options" [value]="option.value">
+            {{option.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+      </mat-form-field>
+    </mat-grid-tile>
 
-  <mat-grid-tile>
-    <mat-form-field appearance="outline">
-      <input matInput   placeholder="Total" type="number" class="example-left-align">
-    </mat-form-field>
-  </mat-grid-tile>
-</mat-grid-list>
+
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <input formControlName="price" matInput placeholder="Price" type="number" class="example-left-align">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <input formControlName="quantity" matInput placeholder="Quantity" type="number" class="example-left-align">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-list>
+        <mat-divider></mat-divider>
+        <mat-list-item>{{'Total: '}}</mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </mat-grid-tile>
+
+
+    <mat-grid-tile>
+      <button mat-button type="submit">Send order</button>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+</form>

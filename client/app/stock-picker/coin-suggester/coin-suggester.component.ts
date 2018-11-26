@@ -1,5 +1,4 @@
-import { Component, OnInit, forwardRef } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { Component } from '@angular/core';
 import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '../../../../node_modules/@angular/forms';
 import { Observable } from '../../../../node_modules/rxjs';
 import { startWith, map } from '../../../../node_modules/rxjs/operators';
