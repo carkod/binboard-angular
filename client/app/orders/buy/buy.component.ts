@@ -30,7 +30,6 @@ export class BuyComponent implements OnInit {
     quantity: null,
     type: null,
     side: 'BUY',
-    timestamp: +new Date(),
   };
 
   constructor(private db: DbService, private fb: FormBuilder, private snackBar: MatSnackBar) {
@@ -57,16 +56,16 @@ export class BuyComponent implements OnInit {
       this.newOrder.side = 'BUY';
       console.log('form valid, sending...', this.newOrder);
 
-      // this.db.getSingleCoinStats(symbol).pipe(mergeMap(stats => this.db.postNewCoin(stats))).subscribe(result => {
-      //     if (result) {
-      //       this.snackBar.open('Added ' + symbol + ' to Tracking list', 'close', { duration: 3000 });
-      //     }
-      //   },
-      //   error => {
-      //     if (error.status === 500) {
-      //       this.snackBar.open('Coin Already exists', 'close', { duration: 3000 });
-      //     }
-      // })
+      this.db.postNewCoin(symbol).pipe(mergeMap(stats => this.db.postNewCoin(stats))).subscribe(result => {
+          if (result) {
+            this.snackBar.open('Added ' + symbol + ' to Tracking list', 'close', { duration: 3000 });
+          }
+        },
+        error => {
+          if (error.status === 500) {
+            this.snackBar.open('Coin Already exists', 'close', { duration: 3000 });
+          }
+      })
     } else {
       console.log('form invalid', this.buyForm)
     }

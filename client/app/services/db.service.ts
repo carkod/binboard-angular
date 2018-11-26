@@ -120,9 +120,10 @@ export class DbService {
     const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
-  postNewOrder() {
-    const coinsUrl = `${environment.db.base}${environment.db.orderBook}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : 10}`;
-    const coins = this.http.get<any>(coinsUrl, httpOptions);
+  newOrder(symbol: string, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number, recvWindow?: number) {
+    const timestamp = +new Date;
+    const coinsUrl = `${environment.db.base}${environment.db.order}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}&${symbol}&${type}&${side}&${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+    const coins = this.http.post(coinsUrl, {}, httpOptions);
     return coins;
   }
 }
