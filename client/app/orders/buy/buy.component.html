@@ -12,7 +12,7 @@
 
     <mat-grid-tile>
       <mat-form-field>
-        <mat-select matNativeControl placeholder="Order type">
+        <mat-select formControlName="orderType" placeholder="Order type">
           <mat-option *ngFor="let option of options" [value]="option.value">
             {{option.viewValue}}
           </mat-option>
@@ -47,6 +47,7 @@
       <button mat-button type="submit">Send order</button>
     </mat-grid-tile>
 
+    <p></p>
   </mat-grid-list>
 
 </form>

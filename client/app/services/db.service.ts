@@ -120,4 +120,9 @@ export class DbService {
     const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
+  postNewOrder() {
+    const coinsUrl = `${environment.db.base}${environment.db.orderBook}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : 10}`;
+    const coins = this.http.get<any>(coinsUrl, httpOptions);
+    return coins;
+  }
 }

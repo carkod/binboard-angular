@@ -45,6 +45,7 @@ export const environment = {
     testOrder: '/api/test-order',
     openOrders: '/api/open-orders',
     orderBook: '/api/depth',
+    order: '/api/order',
   },
   other: {
     euro: 'https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC&fiat=EUR'
