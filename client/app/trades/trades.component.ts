@@ -25,7 +25,6 @@ export class TradesComponent implements OnInit, OnDestroy, OnChanges {
     this.currentTrades = [];
     this.balances.getTotalBalance().then(data => {
       this.currentTrades = data
-      console.log(data);
     });
     this.balances.getBtcAmout().then(data => {
       this.totalBalance = data + ' BTC';
