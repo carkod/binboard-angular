@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { BuyOptions, NewOrder } from 'client/app/models/components';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { BuyOptions, NewOrder, TimeInForce } from 'client/app/models/components';
 import { DbService } from 'client/app/services/db.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { mergeMap } from 'rxjs/operators';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { mergeMap, concatMap, map, switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -22,6 +22,12 @@ export class BuyComponent implements OnInit {
     { value: 'LIMIT_MAKER', viewValue: 'Stop-Loss' }
   ]
 
+  timeInForceOptions: TimeInForce[] = [
+    { value: 'GTC', viewValue: 'Good Till Cancel' },
+    { value: 'IOC', viewValue: 'Immediate Or Cancel' },
+    { value: 'FOK', viewValue: 'Fill Or Kill' },
+  ]
+
   buyForm: FormGroup;
   symbol: string;
   newOrder: NewOrder = {
@@ -32,18 +38,40 @@ export class BuyComponent implements OnInit {
     side: 'BUY',
   };
 
-  constructor(private db: DbService, private fb: FormBuilder, private snackBar: MatSnackBar) {
-    this.buyForm = this.fb.group({
-      symbol: [null, Validators.required],
-      price: [null, Validators.required],
-      orderType: [null, Validators.required],
-      quantity: [null, Validators.required],
-    });
+  constructor(private db: DbService, private snackBar: MatSnackBar) {
+    this.buildForm();
   }
 
   ngOnInit() {
-
     // this.db.getBookOrder()
+    this.buyForm.get('orderType').valueChanges.subscribe(orderType => {
+      // If it is a limit order turn on Time in force
+      if (orderType.indexOf('LIMIT') === 0) {
+        this.buyForm.get('timeInForce').enable();
+      } else {
+        this.buyForm.get('timeInForce').disable();
+        console.log(this.buyForm.get('timeInForce'))
+      }
+
+      // If stop loss or take profit turn on stop price
+      if (orderType.indexOf('STOP_LOSS') === 0 || orderType.indexOf('TAKE_PROFIT') === 0) {
+        this.buyForm.get('stopPrice').enable();
+      } else {
+        this.buyForm.get('stopPrice').disable();
+      }
+    });
+
+  }
+
+  buildForm() {
+    this.buyForm = new FormGroup({
+      symbol: new FormControl(null, Validators.required),
+      price: new FormControl(null, Validators.required),
+      orderType: new FormControl('LIMIT', Validators.required),
+      quantity: new FormControl(null, Validators.required),
+      timeInForce: new FormControl(null),
+      stopPrice: new FormControl({value: null, disabled: true}),
+    });
   }
 
   onSubmit() {
@@ -52,6 +80,7 @@ export class BuyComponent implements OnInit {
       const side = 'BUY';
       this.db.newOrder(symbol, side, orderType, quantity, price).subscribe(result => {
           if (result) {
+            console.log(result);
             this.snackBar.open('Successfully sent order', 'close', { duration: 3000 });
           }
         },

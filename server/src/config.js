@@ -36,7 +36,7 @@ const config = {
       }
     },
     api: {
-      base: 'http://api.binance.com',
+      base: 'https://api.binance.com',
       exchangeInfo: '/api/v1/exchangeInfo',
       marketData: '/api/v1/depth',
       recentTrades: '/api/v1/trades',

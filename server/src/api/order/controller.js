@@ -18,7 +18,7 @@ const signature = (queryStrings, secretKey) => {
 
 export const create = ({ query }, res, next) => {
   const { timestamp, recvWindow, type, symbol, side, quantity, price, timeInForce, stopPrice } = query;
-  const queryString = `timestamp=${timestamp}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${recvWindow ? '&recvWindow=' + recvWindow : 5000}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+  const queryString = `timestamp=${timestamp}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${recvWindow ? '&recvWindow=' + recvWindow : 20000}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
   const secretKey = res.req.headers['secretkey'];
   const apiKey = res.req.headers['x-mbx-apikey'];
   const headers = {
@@ -31,6 +31,7 @@ export const create = ({ query }, res, next) => {
   }
   let data, status;
   return request.post(options, function (error, response, resBody) {
+    console.log(response);
     console.log('error:', error); // Print the error if one occurred
     status = response.statusCode;
     data = resBody

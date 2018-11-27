@@ -3,6 +3,11 @@ export interface BuyOptions {
     viewValue: string;
 }
 
+export interface TimeInForce {
+    value: string;
+    viewValue: string;
+}
+
 export interface NewOrder {
     symbol: String;
     side: String;
