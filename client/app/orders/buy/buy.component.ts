@@ -2,8 +2,10 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { BuyOptions, NewOrder, TimeInForce } from 'client/app/models/components';
 import { DbService } from 'client/app/services/db.service';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { mergeMap, concatMap, map, switchMap } from 'rxjs/operators';
+import { mergeMap, concatMap, map, switchMap, mergeAll, combineLatest, mapTo } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
+import { Observable } from 'rxjs/internal/Observable';
+import { forkJoin, concat, merge, zip } from 'rxjs';
 
 @Component({
   selector: 'buy',
@@ -38,6 +40,10 @@ export class BuyComponent implements OnInit {
     side: 'BUY',
   };
 
+  total: Number = 0;
+  price: Number = 0;;
+  quantity: Number = 0;;
+
   constructor(private db: DbService, private snackBar: MatSnackBar) {
     this.buildForm();
   }
@@ -50,7 +56,6 @@ export class BuyComponent implements OnInit {
         this.buyForm.get('timeInForce').enable();
       } else {
         this.buyForm.get('timeInForce').disable();
-        console.log(this.buyForm.get('timeInForce'))
       }
 
       // If stop loss or take profit turn on stop price
@@ -61,6 +66,12 @@ export class BuyComponent implements OnInit {
       }
     });
 
+    this.buyForm.get('price').valueChanges.subscribe(price => this.price = price);
+    this.buyForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);;
+  }
+
+  ngOnChanges(c) {
+    console.log(c);
   }
 
   buildForm() {
@@ -92,6 +103,7 @@ export class BuyComponent implements OnInit {
       })
     } else {
       console.log('form invalid', this.buyForm)
+      this.snackBar.open('Invalid form fields, cannot be submitted', 'close', { duration: 3000 });
     }
   }
 
