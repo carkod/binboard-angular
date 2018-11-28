@@ -80,8 +80,8 @@ export class BuyComponent implements OnInit {
       price: new FormControl(null, Validators.required),
       orderType: new FormControl('LIMIT', Validators.required),
       quantity: new FormControl(null, Validators.required),
-      timeInForce: new FormControl(null),
-      stopPrice: new FormControl({value: null, disabled: true}),
+      timeInForce: new FormControl('GTC'),
+      stopPrice: new FormControl({ value: null, disabled: true }),
     });
   }
 
@@ -89,7 +89,7 @@ export class BuyComponent implements OnInit {
     if (this.buyForm.valid) {
       const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.buyForm.value;
       const side = 'BUY';
-      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice ).subscribe(result => {
+      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe(result => {
         // Handle errors in interceptor
         console.log(result);
       })
