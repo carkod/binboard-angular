@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatAutocompleteModule, MatCheckboxModule, MatRadioModule, MatChipsModule, MatSnackBar, MatSnackBarModule, MatProgressSpinnerModule, MatTabsModule, MatSelectModule } from '@angular/material';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatAutocompleteModule, MatCheckboxModule, MatRadioModule, MatChipsModule, MatSnackBar, MatSnackBarModule, MatProgressSpinnerModule, MatTabsModule, MatSelectModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ListingComponent } from './listing/listing.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CandlestickComponent } from './candlestick/candlestick.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ApiService } from './services/api.service';
@@ -36,6 +36,7 @@ import { ListingTableComponent } from './trades/listing-table/listing-table.comp
 import { BuyComponent } from './orders/buy/buy.component';
 import { AskBidsComponent } from './orders/ask-bids/ask-bids.component';
 import { BuyBidsComponent } from './orders/buy-bids/buy-bids.component';
+import { BinanceErrorsService } from './services/binance-errors.service';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,8 @@ import { BuyBidsComponent } from './orders/buy-bids/buy-bids.component';
     MatSelectModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: BinanceErrorsService, multi: true },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
     DatePipe,
     ApiService,
     DrawerService,

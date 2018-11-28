@@ -87,19 +87,11 @@ export class BuyComponent implements OnInit {
 
   onSubmit() {
     if (this.buyForm.valid) {
-      const { symbol, price, orderType, quantity } = this.buyForm.value;
+      const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.buyForm.value;
       const side = 'BUY';
-      this.db.newOrder(symbol, side, orderType, quantity, price).subscribe(result => {
-          if (result) {
-            console.log(result);
-            this.snackBar.open('Successfully sent order', 'close', { duration: 3000 });
-          }
-        },
-        error => {
-          if (error.status === 500) {
-            console.log(error)
-            // this.snackBar.open('Coin Already exists', 'close', { duration: 3000 });
-          }
+      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice ).subscribe(result => {
+        // Handle errors in interceptor
+        console.log(result);
       })
     } else {
       console.log('form invalid', this.buyForm)
