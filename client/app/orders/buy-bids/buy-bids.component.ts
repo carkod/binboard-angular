@@ -19,7 +19,7 @@ export class BuyBidsComponent implements OnInit {
   orders: any;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['Bid Price', 'Bid Quantity'];
+  displayedColumns = ['price', 'quantity'];
 
   constructor(
     private db: DbService,
@@ -29,9 +29,8 @@ export class BuyBidsComponent implements OnInit {
 
   ngOnInit() {
     this.db.getOrderBook(this.symbol, this.limit).subscribe(orders => {
-      debugger;
-      this.orders = orders;
-      
+      const parseData = JSON.parse(orders);
+      this.orders = parseData.bids;
     })
     this.dataSource = new BuyBidsDataSource(this.paginator, this.sort, this.orders);
   }
