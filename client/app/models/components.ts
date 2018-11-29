@@ -20,3 +20,11 @@ export interface NewOrder {
     icebergQty?: Number;
     newOrderRespType?: String;
 }
+
+export interface BidsTicker {
+    symbol: String,
+    bidPrice: String,
+    bidQty: String,
+    askPrice: String,
+    askQty: String,
+}    

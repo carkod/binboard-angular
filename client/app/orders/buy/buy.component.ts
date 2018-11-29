@@ -1,11 +1,8 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BuyOptions, NewOrder, TimeInForce } from 'client/app/models/components';
 import { DbService } from 'client/app/services/db.service';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { mergeMap, concatMap, map, switchMap, mergeAll, combineLatest, mapTo } from 'rxjs/operators';
+import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { Observable } from 'rxjs/internal/Observable';
-import { forkJoin, concat, merge, zip } from 'rxjs';
 
 @Component({
   selector: 'buy',
@@ -31,15 +28,7 @@ export class BuyComponent implements OnInit {
   ]
 
   buyForm: FormGroup;
-  symbol: string;
-  newOrder: NewOrder = {
-    symbol: null,
-    price: null,
-    quantity: null,
-    type: null,
-    side: 'BUY',
-  };
-
+  symbol: String;
   total: Number = 0;
   price: Number = 0;;
   quantity: Number = 0;;
@@ -49,29 +38,27 @@ export class BuyComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.db.getBookOrder()
-    this.buyForm.get('orderType').valueChanges.subscribe(orderType => {
-      // If it is a limit order turn on Time in force
-      if (orderType.indexOf('LIMIT') === 0) {
-        this.buyForm.get('timeInForce').enable();
-      } else {
-        this.buyForm.get('timeInForce').disable();
-      }
-
-      // If stop loss or take profit turn on stop price
-      if (orderType.indexOf('STOP_LOSS') === 0 || orderType.indexOf('TAKE_PROFIT') === 0) {
-        this.buyForm.get('stopPrice').enable();
-      } else {
-        this.buyForm.get('stopPrice').disable();
-      }
-    });
-
+    this.symbol = 'ONTETH';
+    this.buyForm.get('orderType').valueChanges.subscribe(orderType => this.dynamicFields(orderType));
     this.buyForm.get('price').valueChanges.subscribe(price => this.price = price);
-    this.buyForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);;
+    this.buyForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
+    this.buyForm.get('symbol').valueChanges.subscribe(symbol => this.symbol = symbol);
   }
 
-  ngOnChanges(c) {
-    console.log(c);
+  dynamicFields(orderType: String) {
+    // If it is a limit order turn on Time in force
+    if (orderType.indexOf('LIMIT') === 0) {
+      this.buyForm.get('timeInForce').enable();
+    } else {
+      this.buyForm.get('timeInForce').disable();
+    }
+
+    // If stop loss or take profit turn on stop price
+    if (orderType.indexOf('STOP_LOSS') === 0 || orderType.indexOf('TAKE_PROFIT') === 0) {
+      this.buyForm.get('stopPrice').enable();
+    } else {
+      this.buyForm.get('stopPrice').disable();
+    }
   }
 
   buildForm() {
@@ -95,7 +82,7 @@ export class BuyComponent implements OnInit {
       })
     } else {
       console.log('form invalid', this.buyForm)
-      this.snackBar.open('Invalid form fields, cannot be submitted', 'close', { duration: 3000 });
+      this.snackBar.open('Invalid form fields, cannot be submitted', 'close');
     }
   }
 

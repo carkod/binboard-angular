@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { BuyBidsDataSource } from './buy-bids-datasource';
 import { DbService } from 'client/app/services/db.service';
+import { BidsTicker } from 'client/app/models/components';
 
 @Component({
   selector: 'app/orders/buy-bids',
@@ -11,12 +12,14 @@ import { DbService } from 'client/app/services/db.service';
 export class BuyBidsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: BuyBidsDataSource;
-  limit: Number;
   @Input() symbol: string;
 
+  dataSource: BuyBidsDataSource;
+  limit: Number;
+  orders: any;
+
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['Bid Price', 'Bid Quantity'];
 
   constructor(
     private db: DbService,
@@ -25,9 +28,11 @@ export class BuyBidsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.db.getBookOrder(this.symbol, this.limit).subscribe(orders => {
-
+    this.db.getOrderBook(this.symbol, this.limit).subscribe(orders => {
+      debugger;
+      this.orders = orders;
+      
     })
-    this.dataSource = new BuyBidsDataSource(this.paginator, this.sort);
+    this.dataSource = new BuyBidsDataSource(this.paginator, this.sort, this.orders);
   }
 }

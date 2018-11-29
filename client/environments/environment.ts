@@ -44,7 +44,7 @@ export const environment = {
     serverTime: '/api/server-time',
     testOrder: '/api/test-order',
     openOrders: '/api/open-orders',
-    orderBook: '/api/depth',
+    orderBook: '/api/order-book',
     order: '/api/order',
   },
   other: {

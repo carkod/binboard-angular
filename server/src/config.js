@@ -52,6 +52,7 @@ const config = {
       testOrder: '/api/v3/order/test',
       order: '/api/v3/order',
       openOrders: '/api/v3/openOrders',
+      orderBook: '/api/v1/depth',
     },
     db: {
       base: 'http://api.carloswu.com',
@@ -68,6 +69,7 @@ const config = {
       openOrders: '/api/open-orders',
       account: '/api/account',
       myTrades: '/api/my-trades',
+      orderBook: '/api/order-book'
     }
   },
   test: { },
