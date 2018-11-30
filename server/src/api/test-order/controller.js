@@ -12,7 +12,7 @@ const signature = (queryStrings, secretKey) => {
   
   export const create = (result, res, next) => {
     const { timestamp, recvWindow } = result.query;
-    const queryString = `timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}`;
+    const queryString = `timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}`;
     const secretKey = res.req.headers['secretkey'];
     const apiKey = res.req.headers['x-mbx-apikey'];
     const headers = {

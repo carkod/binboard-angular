@@ -18,7 +18,7 @@ const signature = (queryStrings, secretKey) => {
 
 export const create = ({ query }, res, next) => {
   const { timestamp, recvWindow, type, symbol, side, quantity, price, timeInForce, stopPrice } = query;
-  const queryString = `timestamp=${timestamp}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${recvWindow ? '&recvWindow=' + recvWindow : 20000}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+  const queryString = `timestamp=${timestamp}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${recvWindow ? '&recvWindow=' + recvWindow : ''}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
   const secretKey = res.req.headers['secretkey'];
   const apiKey = res.req.headers['x-mbx-apikey'];
   const headers = {
@@ -41,7 +41,7 @@ export const create = ({ query }, res, next) => {
 
 export const index = ({ query }, res, next) => {
   const { timestamp, recvWindow, type } = query;
-  const queryString = `timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : 5000}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+  const queryString = `timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : ''}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
   const secretKey = res.req.headers['secretkey'];
   const apiKey = res.req.headers['x-mbx-apikey'];
   const headers = {

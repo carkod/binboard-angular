@@ -18,7 +18,7 @@ export const show = ({ params }, res, next) =>
 
 export const index = ({query}, res, next) => {
   const { timestamp, recvWindow } = query;
-  const queryString = `timestamp=${timestamp}&recvWindow=20000`;
+  const queryString = `timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : ''}`;
   const secretKey = res.req.headers['secretkey'];
   const apiKey = res.req.headers['x-mbx-apikey'];
   const headers = {

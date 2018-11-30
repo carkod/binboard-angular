@@ -43,7 +43,7 @@ export class BuyComponent implements OnInit {
     this.buyForm.get('price').valueChanges.subscribe(price => this.price = price);
     this.buyForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
     this.buyForm.get('symbol').valueChanges.subscribe(symbol => this.symbol = symbol);
-  }
+  } 
 
   dynamicFields(orderType: String) {
     // If it is a limit order turn on Time in force

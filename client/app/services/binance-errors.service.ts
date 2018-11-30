@@ -14,12 +14,11 @@ export class BinanceErrorsService implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
     return next.handle(request).pipe(tap((event: HttpEvent<any>) => {
-      if (event instanceof HttpResponse) {
+      if (event instanceof HttpResponse && typeof event.body === 'string') {
         const parseEvent = JSON.parse(event.body);
         if (parseEvent.code !== undefined) {
           this.snackBar.open(parseEvent.msg, 'close', { verticalPosition: 'bottom' });
         }
-        return parseEvent;
       }
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
