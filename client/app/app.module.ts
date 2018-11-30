@@ -35,8 +35,8 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 import { ListingTableComponent } from './trades/listing-table/listing-table.component';
 import { BuyComponent } from './orders/buy/buy.component';
 import { AskBidsComponent } from './orders/ask-bids/ask-bids.component';
-import { BuyBidsComponent } from './orders/buy-bids/buy-bids.component';
 import { BinanceErrorsService } from './services/binance-errors.service';
+import { BidaskTableComponent } from './orders/bidask-table/bidask-table.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +61,7 @@ import { BinanceErrorsService } from './services/binance-errors.service';
     ListingTableComponent,
     BuyComponent,
     AskBidsComponent,
-    BuyBidsComponent,
+    BidaskTableComponent,
 
   ],
   imports: [
