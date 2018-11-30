@@ -1,76 +1,75 @@
-<form class="buy-container" [formGroup]="buyForm" (ngSubmit)="onSubmit()">
-  <mat-grid-list cols="2" rowHeight="6:1">
-    <mat-grid-tile>
-      <coin-suggester formControlName="symbol"></coin-suggester>
-    </mat-grid-tile>
+<div class="buy-container">
+  <div class="left">
+    <form class="buy-form" [formGroup]="buyForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="column">
+          <coin-suggester formControlName="symbol"></coin-suggester>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-select formControlName="orderType" placeholder="Order type">
+              <mat-option *ngFor="let option of options" [value]="option.value">
+                {{option.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-    <!-- Table width bids goes here -->
-    <mat-grid-tile rowspan="6">
-      <bidask-table [symbol]="symbol" class="bids"></bidask-table>
-    </mat-grid-tile>
-
-
-    <mat-grid-tile>
-      <div class="tiles">
-        <mat-form-field>
-          <mat-select formControlName="orderType" placeholder="Order type">
-            <mat-option *ngFor="let option of options" [value]="option.value">
-              {{option.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <!-- Only if order type === limited -->
-        <mat-form-field>
-          <mat-select formControlName="timeInForce" placeholder="Time in Force">
-            <mat-option *ngFor="let option of timeInForceOptions" [value]="option.value">
-              {{option.viewValue}}
-            </mat-option>
-          </mat-select>
-          <mat-hint align="end">TIF only applies to Limit orders</mat-hint>
-        </mat-form-field>
       </div>
-    </mat-grid-tile>
-
-
-    <mat-grid-tile>
-      <div class="tiles">
-        <mat-form-field appearance="outline">
-          <mat-label>Price</mat-label>
-          <input formControlName="price" matInput placeholder="Price" type="number">
-          <mat-error *ngIf="!buyForm.hasError('required')">Price is required</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Stop Price</mat-label>
-          <input formControlName="stopPrice" matInput placeholder="Stop Price" type="number">
-          <mat-error *ngIf="!buyForm.hasError('required')">Stop Price is required</mat-error>
-        </mat-form-field>
+      <div class="form-row">
+        <div class="column">
+          <!-- Only if order type === limited -->
+          <mat-form-field>
+            <mat-select formControlName="timeInForce" placeholder="Time in Force">
+              <mat-option *ngFor="let option of timeInForceOptions" [value]="option.value">
+                {{option.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-hint align="end">TIF only applies to Limit orders</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field appearance="outline">
+            <mat-label>Price</mat-label>
+            <input formControlName="price" matInput placeholder="Price" type="number">
+            <mat-error *ngIf="!buyForm.hasError('required')">Price is required</mat-error>
+          </mat-form-field>
+        </div>
       </div>
-    </mat-grid-tile>
 
-    <mat-grid-tile>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Quantity</mat-label>
-          <input formControlName="quantity" matInput type="number">
-          <mat-error *ngIf="!buyForm.hasError('required')">Quantity is required</mat-error>
-        </mat-form-field>
-      </p>
-    </mat-grid-tile>
+      <div class="form-row">
+        <div class="column">
+          <mat-form-field appearance="outline">
+            <mat-label>Stop Price</mat-label>
+            <input formControlName="stopPrice" matInput placeholder="Stop Price" type="number">
+            <mat-error *ngIf="!buyForm.hasError('required')">Stop Price is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input formControlName="quantity" matInput type="number">
+            <mat-error *ngIf="!buyForm.hasError('required')">Quantity is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
-    <mat-grid-tile>
-      <mat-list>
-        <mat-divider></mat-divider>
-        <mat-list-item>Total: {{price * quantity}}</mat-list-item>
-        <mat-divider></mat-divider>
-      </mat-list>
-    </mat-grid-tile>
+      <div class="form-row">
+        <div class="column">
+          <mat-list>
+            <mat-divider></mat-divider>
+            <mat-list-item>Total: {{price * quantity}}</mat-list-item>
+            <mat-divider></mat-divider>
+          </mat-list>
+        </div>
+        <div class="column">
+          <button mat-button type="submit">Send order</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="right">
+    <bidask-table [symbol]="symbol" class="bids"></bidask-table>
+  </div>
 
-
-    <mat-grid-tile>
-      <button mat-button type="submit">Send order</button>
-    </mat-grid-tile>
-
-    <p></p>
-  </mat-grid-list>
-
-</form>
+</div>

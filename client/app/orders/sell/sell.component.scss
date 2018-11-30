@@ -1,16 +1,15 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .example-container > * {
-    width: 100%;
-  }
-
-.tiles {
-  width: 100%;
+.sell-container {
   display: flex;
+  justify-content: space-evenly;
+  .left, .right {
+    flex: 1 100%;
+  }
+  .form-row {
+    display: flex;
     justify-content: space-evenly;
+    align-items: center;
+    margin: 40px 0;
+  }
 }
 
 .bids {

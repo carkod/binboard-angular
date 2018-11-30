@@ -15,12 +15,13 @@ export class BidaskTableComponent implements OnInit {
   asks: Array<String>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['price', 'quantity'];
+  bidColumns = ['price', 'quantity'];
+  askColumns = ['price', 'quantity'];
 
   constructor(
     private db: DbService,
   ) {
-    this.limit = 20;
+    this.limit = 5;
   }
 
   ngOnInit() {
