@@ -1,6 +1,5 @@
 
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
 import { DbService } from 'client/app/services/db.service';
 
 @Component({
@@ -9,12 +8,11 @@ import { DbService } from 'client/app/services/db.service';
   styleUrls: ['./bidask-table.component.scss']
 })
 export class BidaskTableComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
   @Input() symbol: string;
 
   limit: Number;
-  orders: any;
+  bids: Array<String>;
+  asks: Array<String>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['price', 'quantity'];
@@ -28,7 +26,8 @@ export class BidaskTableComponent implements OnInit {
   ngOnInit() {
     this.db.getOrderBook(this.symbol, this.limit).subscribe(orders => {
       const parseData = JSON.parse(orders);
-      this.orders = parseData.bids;
+      this.bids = parseData.bids;
+      this.asks = parseData.asks;
     })
   }
 }

@@ -7,16 +7,16 @@ import { TIME_IN_FORCE, ORDER_TYPES } from 'client/app/models/static';
 
 
 @Component({
-  selector: 'ask',
-  templateUrl: './ask.component.html',
-  styleUrls: ['./ask.component.scss']
+  selector: 'sell',
+  templateUrl: './sell.component.html',
+  styleUrls: ['./sell.component.scss']
 })
-export class AskComponent implements OnInit {
+export class SellComponent implements OnInit {
 
   options: OrderTypes[] = ORDER_TYPES;
   timeInForceOptions: TimeInForce[] = TIME_IN_FORCE;
 
-  askForm: FormGroup;
+  sellForm: FormGroup;
   symbol: String;
   total: Number = 0;
   price: Number = 0;;
@@ -28,30 +28,30 @@ export class AskComponent implements OnInit {
 
   ngOnInit() {
     this.symbol = 'ONTETH';
-    this.askForm.get('orderType').valueChanges.subscribe(orderType => this.dynamicFields(orderType));
-    this.askForm.get('price').valueChanges.subscribe(price => this.price = price);
-    this.askForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
-    this.askForm.get('symbol').valueChanges.subscribe(symbol => this.symbol = symbol);
+    this.sellForm.get('orderType').valueChanges.subscribe(orderType => this.dynamicFields(orderType));
+    this.sellForm.get('price').valueChanges.subscribe(price => this.price = price);
+    this.sellForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
+    this.sellForm.get('symbol').valueChanges.subscribe(symbol => this.symbol = symbol);
   } 
 
   dynamicFields(orderType: String) {
     // If it is a limit order turn on Time in force
     if (orderType.indexOf('LIMIT') === 0) {
-      this.askForm.get('timeInForce').enable();
+      this.sellForm.get('timeInForce').enable();
     } else {
-      this.askForm.get('timeInForce').disable();
+      this.sellForm.get('timeInForce').disable();
     }
 
     // If stop loss or take profit turn on stop price
     if (orderType.indexOf('STOP_LOSS') === 0 || orderType.indexOf('TAKE_PROFIT') === 0) {
-      this.askForm.get('stopPrice').enable();
+      this.sellForm.get('stopPrice').enable();
     } else {
-      this.askForm.get('stopPrice').disable();
+      this.sellForm.get('stopPrice').disable();
     }
   }
 
   buildForm() {
-    this.askForm = new FormGroup({
+    this.sellForm = new FormGroup({
       symbol: new FormControl(null, Validators.required),
       price: new FormControl(null, Validators.required),
       orderType: new FormControl('LIMIT', Validators.required),
@@ -62,15 +62,15 @@ export class AskComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.askForm.valid) {
-      const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.askForm.value;
+    if (this.sellForm.valid) {
+      const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.sellForm.value;
       const side = 'SELL';
       this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe(result => {
         // Handle errors in interceptor
         console.log(result);
       })
     } else {
-      console.log('form invalid', this.askForm)
+      console.log('form invalid', this.sellForm)
       this.snackBar.open('Invalid form fields, cannot be submitted', 'close');
     }
   }

@@ -37,6 +37,7 @@ import { BuyComponent } from './orders/buy/buy.component';
 import { AskBidsComponent } from './orders/ask-bids/ask-bids.component';
 import { BinanceErrorsService } from './services/binance-errors.service';
 import { BidaskTableComponent } from './orders/bidask-table/bidask-table.component';
+import { SellComponent } from './orders/sell/sell.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { BidaskTableComponent } from './orders/bidask-table/bidask-table.compone
     BuyComponent,
     AskBidsComponent,
     BidaskTableComponent,
-
+    SellComponent,
   ],
   imports: [
     BrowserModule,
