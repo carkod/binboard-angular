@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderTypes, NewOrder, TimeInForce } from 'client/app/models/components';
+import { OrderTypes, TimeInForce } from 'client/app/models/components';
 import { DbService } from 'client/app/services/db.service';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { TIME_IN_FORCE, ORDER_TYPES } from 'client/app/models/static';
+import { BalanceService } from 'client/app/services/balance.service';
 
 @Component({
   selector: 'buy',
@@ -21,11 +22,14 @@ export class BuyComponent implements OnInit {
   price: Number = 0;;
   quantity: Number = 0;;
 
-  constructor(private db: DbService, private snackBar: MatSnackBar) {
+  constructor(private db: DbService, private snackBar: MatSnackBar, private balances: BalanceService) {
     this.buildForm();
   }
 
   ngOnInit() {
+    this.balances.getTotalBalance().then(data => {
+      console.log(data);
+    })
     this.symbol = 'ONTETH';
     this.buyForm.get('orderType').valueChanges.subscribe(orderType => this.dynamicFields(orderType));
     this.buyForm.get('price').valueChanges.subscribe(price => this.price = price);

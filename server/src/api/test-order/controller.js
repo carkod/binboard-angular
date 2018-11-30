@@ -2,7 +2,7 @@ import config from '../../config'
 import request from 'request'
 import crypto from 'crypto'
 
-const { base, account } = config.api
+const { base, testOrder } = config.api
 
 const signature = (queryStrings, secretKey) => {
   const convert = crypto.createHmac('sha256', secretKey);
@@ -19,7 +19,7 @@ const signature = (queryStrings, secretKey) => {
      'X-MBX-APIKEY': apiKey,
      'Content-type': 'application/x-www-form-urlencoded',
     }
-    const url = `${base + account}?${queryString}&signature=${signature(queryString, secretKey)}`;
+    const url = `${base + testOrder}?${queryString}&signature=${signature(queryString, secretKey)}`;
     const options = {
       url: url,
       headers: headers
