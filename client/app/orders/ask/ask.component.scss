@@ -1,0 +1,18 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+
+.tiles {
+  width: 100%;
+  display: flex;
+    justify-content: space-evenly;
+}
+
+.bids {
+  width: 100%;
+}

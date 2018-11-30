@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BuyOptions, NewOrder, TimeInForce } from 'client/app/models/components';
+import { OrderTypes, NewOrder, TimeInForce } from 'client/app/models/components';
 import { DbService } from 'client/app/services/db.service';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { TIME_IN_FORCE, ORDER_TYPES } from 'client/app/models/static';
 
 @Component({
   selector: 'buy',
@@ -11,21 +12,8 @@ import { MatSnackBar } from '@angular/material';
 })
 export class BuyComponent implements OnInit {
 
-  options: BuyOptions[] = [
-    { value: 'LIMIT', viewValue: 'Limit order' },
-    { value: 'MARKET', viewValue: 'Market order' },
-    { value: 'STOP_LOSS', viewValue: 'Stop-Loss' },
-    { value: 'STOP_LOSS_LIMIT', viewValue: 'Stop-Limit' },
-    { value: 'TAKE_PROFIT', viewValue: 'Take profit order' },
-    { value: 'TAKE_PROFIT_LIMIT', viewValue: 'Take profit limit' },
-    { value: 'LIMIT_MAKER', viewValue: 'Stop-Loss' }
-  ]
-
-  timeInForceOptions: TimeInForce[] = [
-    { value: 'GTC', viewValue: 'Good Till Cancel' },
-    { value: 'IOC', viewValue: 'Immediate Or Cancel' },
-    { value: 'FOK', viewValue: 'Fill Or Kill' },
-  ]
+  options: OrderTypes[] = ORDER_TYPES;
+  timeInForceOptions: TimeInForce[] = TIME_IN_FORCE;
 
   buyForm: FormGroup;
   symbol: String;

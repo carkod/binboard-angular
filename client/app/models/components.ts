@@ -1,4 +1,4 @@
-export interface BuyOptions {
+export interface OrderTypes {
     value: string;
     viewValue: string;
 }
@@ -27,4 +27,4 @@ export interface BidsTicker {
     bidQty: String,
     askPrice: String,
     askQty: String,
-}    
+}
