@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '../../../../node_modules/@angular/forms';
-import { Observable } from '../../../../node_modules/rxjs';
-import { startWith, map } from '../../../../node_modules/rxjs/operators';
 import { DbService } from '../../services/db.service';
+import { startWith, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 
 export interface Ticker { symbol: string, price: string }
 

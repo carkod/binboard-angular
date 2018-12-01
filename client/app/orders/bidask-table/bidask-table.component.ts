@@ -41,7 +41,7 @@ export class BidaskTableComponent implements OnInit, OnChanges {
       const parseData = JSON.parse(orders);
       this.bids = parseData.bids;
       this.asks = parseData.asks;
-      // this.isLoadingResults = false;
+      this.isLoadingResults = false;
     });
   }
 }

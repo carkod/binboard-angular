@@ -4,6 +4,9 @@
   .left, .right {
     flex: 1 100%;
   }
+  .right {
+    position: relative;
+  }
   .form-row {
     display: flex;
     justify-content: space-evenly;
