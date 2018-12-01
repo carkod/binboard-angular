@@ -40,7 +40,7 @@ export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges {
 
   ngOnChanges(c: SimpleChanges) {
     const { defaultSymbol } = c;
-    if (defaultSymbol.currentValue !== defaultSymbol.previousValue) {
+    if (defaultSymbol.currentValue !== undefined && this.defaultSymbol === undefined) {
       // this.defaultSymbol = defaultSymbol;
       this.myControl.setValue(defaultSymbol.currentValue);
     }

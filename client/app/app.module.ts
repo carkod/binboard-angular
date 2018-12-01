@@ -34,10 +34,10 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { ListingTableComponent } from './trades/listing-table/listing-table.component';
 import { BuyComponent } from './orders/buy/buy.component';
-import { AskBidsComponent } from './orders/ask-bids/ask-bids.component';
 import { BinanceErrorsService } from './services/binance-errors.service';
 import { BidaskTableComponent } from './orders/bidask-table/bidask-table.component';
 import { SellComponent } from './orders/sell/sell.component';
+import { OpenOrdersComponent } from './orders/open-orders/open-orders.component';
 
 @NgModule({
   declarations: [
@@ -61,9 +61,9 @@ import { SellComponent } from './orders/sell/sell.component';
     OrdersComponent,
     ListingTableComponent,
     BuyComponent,
-    AskBidsComponent,
     BidaskTableComponent,
     SellComponent,
+    OpenOrdersComponent,
   ],
   imports: [
     BrowserModule,
