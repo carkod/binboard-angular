@@ -3,7 +3,7 @@
       <form class="sell-form" [formGroup]="sellForm" (ngSubmit)="onSubmit()">
         <div class="form-row">
           <div class="column">
-            <coin-suggester formControlName="symbol"></coin-suggester>
+            <coin-suggester [defaultSymbol]="symbol" formControlName="symbol"></coin-suggester>
           </div>
           <div class="column">
             <mat-form-field>

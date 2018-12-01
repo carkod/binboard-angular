@@ -4,6 +4,7 @@ import { DbService } from 'client/app/services/db.service';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { TIME_IN_FORCE, ORDER_TYPES } from 'client/app/models/static';
+import { BalanceService } from 'client/app/services/balance.service';
 
 
 @Component({
@@ -22,12 +23,12 @@ export class SellComponent implements OnInit {
   price: Number = 0;;
   quantity: Number = 0;;
 
-  constructor(private db: DbService, private snackBar: MatSnackBar) {
-    this.buildForm();
+  constructor(private db: DbService, private snackBar: MatSnackBar, private balances: BalanceService) {
+    this.getDefaultSymbol();
   }
 
   ngOnInit() {
-    this.symbol = 'ONTETH';
+    this.buildForm(); 
     this.sellForm.get('orderType').valueChanges.subscribe(orderType => this.dynamicFields(orderType));
     this.sellForm.get('price').valueChanges.subscribe(price => this.price = price);
     this.sellForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
@@ -58,6 +59,15 @@ export class SellComponent implements OnInit {
       quantity: new FormControl(null, Validators.required),
       timeInForce: new FormControl('GTC'),
       stopPrice: new FormControl({ value: null, disabled: true }),
+    });
+  }
+  getDefaultSymbol () {
+    this.balances.getTotalBalance().then(balance => {
+      const quoteAssets = balance;
+      this.balances.getAllQuoteAssets().then(quote => {
+        const firstAsset = quoteAssets.find(x => !quote.includes(x.asset));
+        this.symbol = firstAsset.symbol;
+      })
     });
   }
 

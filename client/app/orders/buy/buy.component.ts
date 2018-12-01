@@ -67,7 +67,6 @@ export class BuyComponent implements OnInit {
       this.balances.getAllQuoteAssets().then(quote => {
         const firstAsset = quoteAssets.find(x => !quote.includes(x.asset));
         this.symbol = firstAsset.symbol;
-        console.log(firstAsset.symbol)
       })
     });
   }

@@ -92,11 +92,7 @@ export class BalanceService {
   async retrieveServerTime(): Promise<any> {
     const serverTime: string = await this.db.getServerTime().toPromise();
     this.serverTime = +JSON.parse(serverTime).serverTime;
-    if (this.timestamp < (this.serverTime + 1000) && (this.serverTime - +this.timestamp) <= this.recvWindow) {
-      return this.serverTime;
-    }
-    console.warn('recv window failed, increase order trade window?');
-    return false;
+    return this.serverTime;
   }
 
   async getAllQuoteAssets(): Promise<any> {

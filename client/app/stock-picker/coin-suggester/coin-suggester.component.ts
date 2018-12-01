@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DbService } from '../../services/db.service';
 import { startWith, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -18,14 +18,14 @@ export interface Ticker { symbol: string, price: string }
     }
   ]
 })
-export class CoinSuggesterComponent implements ControlValueAccessor {
+export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges {
 
   @Input() defaultSymbol: String;
   myControl = new FormControl();
   options: Ticker[];
   filteredOptions: Observable<Ticker[]>;
 
-  constructor(private db: DbService) { 
+  constructor(private db: DbService) {
     this.db.getTicker().subscribe(coinData => {
       coinData = JSON.parse(coinData);
       this.options = coinData;
@@ -38,9 +38,16 @@ export class CoinSuggesterComponent implements ControlValueAccessor {
     });
   }
 
+  ngOnChanges(c: SimpleChanges) {
+    const { defaultSymbol } = c;
+    if (defaultSymbol.currentValue !== defaultSymbol.previousValue) {
+      // this.defaultSymbol = defaultSymbol;
+      this.myControl.setValue(defaultSymbol.currentValue);
+    }
+  }
+
   displayFn(coin?: Ticker): string | undefined {
-    // this.propagateChange(coin);
-    // console.log(coin)
+    this.propagateChange(coin);
     return coin ? coin.symbol : undefined;
   }
 
@@ -52,6 +59,7 @@ export class CoinSuggesterComponent implements ControlValueAccessor {
   }
   
   writeValue(value): void {
+    console.log(value)
   }
   propagateChange = (_: any) => {
   };
@@ -62,5 +70,9 @@ export class CoinSuggesterComponent implements ControlValueAccessor {
 
   registerOnTouched(value) {
     // console.log(value)
+  }
+
+  log(...text) {
+    console.log(...text);
   }
 }
