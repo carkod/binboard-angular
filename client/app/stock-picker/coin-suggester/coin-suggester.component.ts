@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '../../../../node_modules/@angular/forms';
 import { Observable } from '../../../../node_modules/rxjs';
 import { startWith, map } from '../../../../node_modules/rxjs/operators';
@@ -20,6 +20,7 @@ export interface Ticker { symbol: string, price: string }
 })
 export class CoinSuggesterComponent implements ControlValueAccessor {
 
+  @Input() defaultSymbol: String;
   myControl = new FormControl();
   options: Ticker[];
   filteredOptions: Observable<Ticker[]>;

@@ -23,19 +23,16 @@ export class BuyComponent implements OnInit {
   quantity: Number = 0;;
 
   constructor(private db: DbService, private snackBar: MatSnackBar, private balances: BalanceService) {
-    this.buildForm();
+    this.getDefaultSymbol();
   }
 
   ngOnInit() {
-    this.balances.getTotalBalance().then(data => {
-      console.log(data);
-    })
-    this.symbol = 'ONTETH';
+    this.buildForm(); 
     this.buyForm.get('orderType').valueChanges.subscribe(orderType => this.dynamicFields(orderType));
     this.buyForm.get('price').valueChanges.subscribe(price => this.price = price);
     this.buyForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
     this.buyForm.get('symbol').valueChanges.subscribe(symbol => this.symbol = symbol);
-  } 
+  }
 
   dynamicFields(orderType: String) {
     // If it is a limit order turn on Time in force
@@ -55,12 +52,23 @@ export class BuyComponent implements OnInit {
 
   buildForm() {
     this.buyForm = new FormGroup({
-      symbol: new FormControl(null, Validators.required),
+      symbol: new FormControl('', Validators.required),
       price: new FormControl(null, Validators.required),
       orderType: new FormControl('LIMIT', Validators.required),
       quantity: new FormControl(null, Validators.required),
       timeInForce: new FormControl('GTC'),
       stopPrice: new FormControl({ value: null, disabled: true }),
+    });
+  }
+
+  getDefaultSymbol () {
+    this.balances.getTotalBalance().then(balance => {
+      const quoteAssets = balance;
+      this.balances.getAllQuoteAssets().then(quote => {
+        const firstAsset = quoteAssets.find(x => !quote.includes(x.asset));
+        this.symbol = firstAsset.symbol;
+        console.log(firstAsset.symbol)
+      })
     });
   }
 
