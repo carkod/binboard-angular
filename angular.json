@@ -23,11 +23,11 @@
               "client/assets"
             ],
             "styles": [
-              "client/styles",
-              "client/styles.scss",
               {
                 "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
-              }
+              },
+              "client/styles/",
+              "client/styles.scss"
             ],
             "scripts": []
           },
