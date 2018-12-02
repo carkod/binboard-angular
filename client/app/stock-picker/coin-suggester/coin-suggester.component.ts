@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { DbService } from '../../services/db.service';
 import { startWith, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -18,7 +18,7 @@ export interface Ticker { symbol: string, price: string }
     }
   ]
 })
-export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges {
+export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges, OnInit {
 
   @Input() defaultSymbol: String;
   myControl = new FormControl();
@@ -38,10 +38,15 @@ export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges {
     });
   }
 
+  ngOnInit() {
+  }
+
   ngOnChanges(c: SimpleChanges) {
     const { defaultSymbol } = c;
-    if (defaultSymbol.currentValue !== undefined && this.defaultSymbol === undefined) {
+    debugger;
+    if (defaultSymbol.currentValue !== undefined) {
       // this.defaultSymbol = defaultSymbol;
+      console.log(defaultSymbol.currentValue)
       this.myControl.setValue(defaultSymbol.currentValue);
     }
   }
@@ -59,7 +64,6 @@ export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges {
   }
   
   writeValue(value): void {
-    console.log(value)
   }
   propagateChange = (_: any) => {
   };
