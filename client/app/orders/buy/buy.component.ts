@@ -5,6 +5,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { TIME_IN_FORCE, ORDER_TYPES } from 'client/app/models/static';
 import { BalanceService } from 'client/app/services/balance.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'buy',
@@ -27,7 +28,7 @@ export class BuyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.buildForm(); 
+    this.buildForm();
     this.buyForm.get('orderType').valueChanges.subscribe(orderType => this.dynamicFields(orderType));
     this.buyForm.get('price').valueChanges.subscribe(price => this.price = price);
     this.buyForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
@@ -61,7 +62,7 @@ export class BuyComponent implements OnInit {
     });
   }
 
-  getDefaultSymbol () {
+  getDefaultSymbol() {
     this.balances.getTotalBalance().then(balance => {
       const quoteAssets = balance;
       this.balances.getAllQuoteAssets().then(quote => {
