@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/cor
 import { DbService } from '../../services/db.service';
 import { startWith, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, FormGroup } from '@angular/forms';
 
 export interface Ticker { symbol: string, price: string }
 
@@ -21,17 +21,20 @@ export interface Ticker { symbol: string, price: string }
 export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges, OnInit {
 
   @Input() defaultSymbol: String;
-  myControl = new FormControl();
+  myControl: FormControl = new FormControl();
   options: Ticker[];
   filteredOptions: Observable<Ticker[]>;
+  symbol: String;
+  stopSymbolBindingCount = 0;
 
   constructor(private db: DbService) {
     this.db.getTicker().subscribe(coinData => {
       coinData = JSON.parse(coinData);
       this.options = coinData;
+      const findDefault = this.options.find(x => x.symbol === 'ONTETH')
       this.filteredOptions = this.myControl.valueChanges
       .pipe(
-        startWith<string | Ticker>(''),
+        // startWith<string | Ticker>(''),
         map(value => typeof value === 'string' ? value : value.symbol),
         map(symbol => symbol ? this._filter(symbol) : this.options.slice())
       );
@@ -43,20 +46,21 @@ export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges, 
 
   ngOnChanges(c: SimpleChanges) {
     const { defaultSymbol } = c;
-    debugger;
-    if (defaultSymbol.currentValue !== undefined) {
-      // this.defaultSymbol = defaultSymbol;
-      console.log(defaultSymbol.currentValue)
-      this.myControl.setValue(defaultSymbol.currentValue);
+    if (defaultSymbol.currentValue !== undefined && defaultSymbol.previousValue !== defaultSymbol.currentValue && this.stopSymbolBindingCount < 1) {
+      // this.displayFn(defaultSymbol.currentValue)
+      this.myControl.setValue(defaultSymbol.currentValue)
+      // Only execute setvalue for the first input binding (need better solution)
+      this.stopSymbolBindingCount++;
     }
   }
 
-  displayFn(coin?: Ticker): string | undefined {
-    this.propagateChange(coin);
-    return coin ? coin.symbol : undefined;
+  displayFn(coin?: any): string | undefined {
+    if (coin !== null) {
+      return this.symbol = coin;   
+    }
   }
 
-  private _filter(name: string): Ticker[] {
+  private _filter(name: string): any {
     const filterValue = name.toLowerCase();
     const value = this.options.filter(option => option.symbol.toLowerCase().indexOf(filterValue) === 0);
     this.propagateChange(value[0].symbol);
