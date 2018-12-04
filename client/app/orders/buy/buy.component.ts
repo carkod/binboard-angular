@@ -49,6 +49,13 @@ export class BuyComponent implements OnInit {
     } else {
       this.buyForm.get('stopPrice').disable();
     }
+
+    // If market order no price
+    if (orderType === 'MARKET') {
+      this.buyForm.get('price').disable();
+    } else {
+      this.buyForm.get('price').enable();
+    }
   }
 
   buildForm() {
