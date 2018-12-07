@@ -34,15 +34,7 @@ const routes: Routes = [
     path: 'orders',
     component: OrdersComponent,
     // pathMatch: 'full',
-    data: { pageTitle: 'Orders', children: [
-      { path: '', redirectTo: 'funds', pathMatch: 'full'},
-      { path: 'buy', component: BuyComponent},
-      { path: 'sell', component: SellComponent},
-      { path: 'funds', component: FundsComponent},
-      { path: 'open-orders', component: OpenOrdersComponent},
-      { path: 'order-history', component: OrderHistoryComponent},
-      { path: 'trade-history', component: TradeHistoryComponent},
-    ]}
+    data: { pageTitle: 'Orders' }
   },
   {
     path: 'settings',
