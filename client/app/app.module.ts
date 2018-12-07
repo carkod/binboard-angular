@@ -40,6 +40,8 @@ import { SellComponent } from './orders/sell/sell.component';
 import { OpenOrdersComponent } from './orders/open-orders/open-orders.component';
 import { GlobalComponent } from './global-settings/global/global.component';
 import { RoundDecimalsPipe } from './pipes/round-decimals.pipe';
+import { UsersComponent } from './users/users.component';
+import { TestOrderComponent } from './orders/test-order/test-order.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import { RoundDecimalsPipe } from './pipes/round-decimals.pipe';
     OpenOrdersComponent,
     GlobalComponent,
     RoundDecimalsPipe,
+    UsersComponent,
+    TestOrderComponent,
   ],
   imports: [
     BrowserModule,

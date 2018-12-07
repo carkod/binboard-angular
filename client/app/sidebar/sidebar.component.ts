@@ -19,10 +19,4 @@ export class SidebarComponent implements OnInit {
     this.drawerService.setDrawer(this.drawer);
   }
 
-  triggerTest() {
-    this.db.testOrder().subscribe(res => {
-      console.log('test order result ', res);
-    })
-  }
-  
   }

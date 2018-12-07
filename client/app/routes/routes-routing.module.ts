@@ -35,13 +35,19 @@ const routes: Routes = [
     path: 'trades',
     component: TradesComponent,
     pathMatch: 'full',
-    data: { pageTitle: 'Coin Analysis' }
+    data: { pageTitle: 'Trades' }
   },
   {
     path: 'settings',
     component: GlobalSettingsComponent,
     pathMatch: 'full',
-    data: { pageTitle: 'Coin Analysis' }
+    data: { pageTitle: 'Application settings' }
+  },
+  {
+    path: 'users',
+    component: GlobalSettingsComponent,
+    pathMatch: 'full',
+    data: { pageTitle: 'Accounts management' }
   },
   {
     path: '',
