@@ -3,7 +3,7 @@ module.exports = {
         {
           name: "Binboard",
           script: "src/index.js",
-          watch: true,
+          watch: false,
           env_production: {
               "PORT": 8081,
               "NODE_ENV": "production",

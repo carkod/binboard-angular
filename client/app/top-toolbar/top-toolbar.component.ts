@@ -11,7 +11,7 @@ import { BalanceService } from '../services/balance.service';
 })
 export class TopToolbarComponent implements OnInit {
 
-  pageTitle: any;
+  pageTitle: String;
   totalBalance: Number = 0;
   euroPrice: Number = 0;
   totalEuros: Number = 0;
