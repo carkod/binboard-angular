@@ -7,10 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GlobalSettingsComponent implements OnInit {
 
-  symbol: String; // Default symbol (from balance service)
-  recvWindow: Number; // Default window
-  bidAskLimit: Number = 5; // Default bid ask table
-  baseCoin: String = 'BTC'; // Default exchange coin for platform
   constructor() { }
 
   ngOnInit() {

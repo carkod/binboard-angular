@@ -38,6 +38,7 @@ import { BinanceErrorsService } from './services/binance-errors.service';
 import { BidaskTableComponent } from './orders/bidask-table/bidask-table.component';
 import { SellComponent } from './orders/sell/sell.component';
 import { OpenOrdersComponent } from './orders/open-orders/open-orders.component';
+import { GlobalComponent } from './global-settings/global/global.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { OpenOrdersComponent } from './orders/open-orders/open-orders.component'
     BidaskTableComponent,
     SellComponent,
     OpenOrdersComponent,
+    GlobalComponent,
   ],
   imports: [
     BrowserModule,
