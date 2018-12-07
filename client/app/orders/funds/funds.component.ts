@@ -17,16 +17,16 @@ export class FundsComponent implements OnInit, OnDestroy {
 
   balancesSubscription: Subscription;
 
-  constructor(private db: DbService, private balances: BalanceService) { }
+  constructor(private balances: BalanceService) { }
 
   ngOnInit() {
-    this.currentTrades = [];
-    // this.balances.getTotalBalance().then(data => {
-    //   this.currentTrades = data
-    // });
-    // this.balances.getBtcAmout().then(data => {
-    //   this.totalBalance = data + ' BTC';
-    // })
+    this.balances.getTotalBalance().then(data => {
+      console.log(data);
+      this.currentTrades = data;
+    });
+    this.balances.getBtcAmout().then(data => {
+      this.totalBalance = data + ' BTC';
+    })
   }
 
   ngOnDestroy() {

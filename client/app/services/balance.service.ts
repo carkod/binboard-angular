@@ -73,6 +73,7 @@ export class BalanceService {
             free: element.free,
             total: (+x.price) * (+element.free),
           }
+          debugger;
           if (newObj !== undefined) {
             this.totalBalance.push(newObj)
           }

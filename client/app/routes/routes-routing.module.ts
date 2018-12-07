@@ -6,6 +6,12 @@ import { StockPickerComponent } from '../stock-picker/stock-picker.component';
 import { DetailComponent } from '../stock-picker/detail/detail.component';
 import { GlobalSettingsComponent } from '../global-settings/global-settings.component';
 import { OrdersComponent } from '../orders/orders.component';
+import { BuyComponent } from '../orders/buy/buy.component';
+import { SellComponent } from '../orders/sell/sell.component';
+import { OpenOrdersComponent } from '../orders/open-orders/open-orders.component';
+import { FundsComponent } from '../orders/funds/funds.component';
+import { OrderHistoryComponent } from '../orders/order-history/order-history.component';
+import { TradeHistoryComponent } from '../orders/trade-history/trade-history.component';
 
 const routes: Routes = [
   {
@@ -27,8 +33,16 @@ const routes: Routes = [
   {
     path: 'orders',
     component: OrdersComponent,
-    pathMatch: 'full',
-    data: { pageTitle: 'Orders' }
+    // pathMatch: 'full',
+    data: { pageTitle: 'Orders', children: [
+      { path: '', redirectTo: 'funds', pathMatch: 'full'},
+      { path: 'buy', component: BuyComponent},
+      { path: 'sell', component: SellComponent},
+      { path: 'funds', component: FundsComponent},
+      { path: 'open-orders', component: OpenOrdersComponent},
+      { path: 'order-history', component: OrderHistoryComponent},
+      { path: 'trade-history', component: TradeHistoryComponent},
+    ]}
   },
   {
     path: 'settings',
