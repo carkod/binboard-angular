@@ -25,14 +25,12 @@ import { CryptotableComponent } from './stock-picker/cryptotable/cryptotable.com
 import { DetailComponent } from './stock-picker/detail/detail.component';
 import { RankingTableComponent } from './my-dashboard/ranking-table/ranking-table.component';
 import { StreamsService } from './services/streams.service';
-import { TradesComponent } from './trades/funds.component';
 import { GlobalSettingsComponent } from './global-settings/global-settings.component';
 import { StatModelsComponent } from './stock-picker/stat-models/stat-models.component';
 import { StatDataComponent } from './stock-picker/stat-data/stat-data.component';
 import { OrdersComponent } from './orders/orders.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
-import { ListingTableComponent } from './trades/listing-table/listing-table.component';
 import { BuyComponent } from './orders/buy/buy.component';
 import { BinanceErrorsService } from './services/binance-errors.service';
 import { BidaskTableComponent } from './orders/bidask-table/bidask-table.component';
@@ -42,6 +40,8 @@ import { GlobalComponent } from './global-settings/global/global.component';
 import { RoundDecimalsPipe } from './pipes/round-decimals.pipe';
 import { UsersComponent } from './users/users.component';
 import { TestOrderComponent } from './orders/test-order/test-order.component';
+import { FundsComponent } from './orders/funds/funds.component';
+import { ListingTableComponent } from './orders/funds/listing-table/listing-table.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +58,7 @@ import { TestOrderComponent } from './orders/test-order/test-order.component';
     CoinSuggesterComponent,
     DetailComponent,
     RankingTableComponent,
-    TradesComponent,
+    FundsComponent,
     GlobalSettingsComponent,
     StatModelsComponent,
     StatDataComponent,
