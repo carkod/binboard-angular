@@ -5,7 +5,6 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { TIME_IN_FORCE, ORDER_TYPES } from 'client/app/models/static';
 import { BalanceService } from 'client/app/services/balance.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'buy',
@@ -22,7 +21,7 @@ export class BuyComponent implements OnInit {
   total: Number = 0;
   price: Number = 0;;
   quantity: Number = 0;
-  recvWindow: Number = 50000;
+  recvWindow: number = 50000;
 
   constructor(private db: DbService, private snackBar: MatSnackBar, private balances: BalanceService) {
     this.getDefaultSymbol();
@@ -84,7 +83,7 @@ export class BuyComponent implements OnInit {
     if (this.buyForm.valid) {
       const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.buyForm.value;
       const side = 'BUY';
-      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice, revWindow).subscribe(result => {
+      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice, this.recvWindow).subscribe(result => {
         // Handle errors in interceptor
         console.log(result);
       })
