@@ -1,0 +1,45 @@
+<mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+<table mat-table [dataSource]="data">
+  <ng-container matColumnDef="asset">
+    <th mat-header-cell *matHeaderCellDef>Asset</th>
+    <td mat-cell *matCellDef="let item"> {{item.asset}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="free">
+    <th mat-header-cell *matHeaderCellDef>Free</th>
+    <td mat-cell *matCellDef="let item"> {{item.free}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let item"> {{item.price}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef>Symbol</th>
+    <td mat-cell *matCellDef="let item"> {{item.symbol}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="total">
+    <th mat-header-cell *matHeaderCellDef>Total</th>
+    <td mat-cell *matCellDef="let item"> {{item.total}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <!-- <tr>
+    <th mat-header-cell *matHeaderCellDef *ngFor="let column of displayedColumns">
+      {{column}}
+    </th>
+  </tr>
+
+  <tr *ngFor="let row of currentTrades">
+    <td mat-cell>
+      {{row.asset}}
+    </td>
+    <td mat-cell>
+      {{row.free}}
+    </td>
+  </tr> -->
+
+</table>

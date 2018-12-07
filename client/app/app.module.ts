@@ -42,6 +42,8 @@ import { UsersComponent } from './users/users.component';
 import { TestOrderComponent } from './orders/test-order/test-order.component';
 import { FundsComponent } from './orders/funds/funds.component';
 import { ListingTableComponent } from './orders/funds/listing-table/listing-table.component';
+import { TradeHistoryComponent } from './orders/trade-history/trade-history.component';
+import { OrderHistoryComponent } from './orders/order-history/order-history.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { ListingTableComponent } from './orders/funds/listing-table/listing-tabl
     RoundDecimalsPipe,
     UsersComponent,
     TestOrderComponent,
+    OrderHistoryComponent,
+    TradeHistoryComponent,
   ],
   imports: [
     BrowserModule,
