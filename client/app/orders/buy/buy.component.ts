@@ -21,7 +21,8 @@ export class BuyComponent implements OnInit {
   symbol: String;
   total: Number = 0;
   price: Number = 0;;
-  quantity: Number = 0;;
+  quantity: Number = 0;
+  recvWindow: Number = 50000;
 
   constructor(private db: DbService, private snackBar: MatSnackBar, private balances: BalanceService) {
     this.getDefaultSymbol();
@@ -83,7 +84,7 @@ export class BuyComponent implements OnInit {
     if (this.buyForm.valid) {
       const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.buyForm.value;
       const side = 'BUY';
-      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe(result => {
+      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice, revWindow).subscribe(result => {
         // Handle errors in interceptor
         console.log(result);
       })

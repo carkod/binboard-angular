@@ -11,6 +11,7 @@ export class GlobalComponent implements OnInit {
   recvWindow: Number; // Default window
   bidAskLimit: Number = 5; // Default bid ask table
   baseCoin: String = 'BTC'; // Default exchange coin for platform
+  decimalPoints: Number = 5;
   
   constructor() { }
 

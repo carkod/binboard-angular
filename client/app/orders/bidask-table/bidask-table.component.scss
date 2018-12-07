@@ -1,7 +1,16 @@
+@import '../../../styles/variables';
+
 .bids-table, .asks-table {
     width: 100%;
 }
 
 .mat-sort-header-button {
     text-transform: uppercase;
+}
+
+.ask-price, .ask-quantity {
+    color: $red;
+}
+.bid-price, .bid-quantity {
+    color: $green;
 }

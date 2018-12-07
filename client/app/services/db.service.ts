@@ -17,7 +17,9 @@ const httpOptions = {
 })
 export class DbService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    
+  }
 
   getSingleCoinStats(symbol) {
     const coinsUrl = `${environment.db.base + environment.db.ticker24}/${symbol}`;
