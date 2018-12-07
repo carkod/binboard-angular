@@ -13,7 +13,7 @@ export class TopToolbarComponent implements OnInit {
 
   pageTitle: any;
   totalBalance: Number = 0;
-  euroPrice: Number;
+  euroPrice: Number = 0;
   totalEuros: Number = 0;
 
   constructor(private db: DbService, private route: ActivatedRoute, private drawerService: DrawerService, private balance: BalanceService) { 
@@ -36,8 +36,6 @@ export class TopToolbarComponent implements OnInit {
     });
     this.balance.getEurAmount().then(res => {
       this.euroPrice = +res.BTCEUR.last;
-      this.totalEuros = +this.totalBalance * +this.euroPrice;
-      this.totalEuros = +this.totalEuros.toFixed(2);
     })
   }
 

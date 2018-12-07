@@ -7,7 +7,7 @@
   </div>
   <div class="right">
     <p class="default-h1" style="color: #F0B90B; text-align: center">
-      {{totalBalance | roundDecimals: 8}} BTC &cong; {{totalEuros}} €
+      {{totalBalance | roundDecimals: 8}} BTC &cong; {{euroPrice * totalBalance | roundDecimals: 2}} €
     </p>
   </div>
 </mat-toolbar>
