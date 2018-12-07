@@ -15,25 +15,11 @@ import { BalanceService } from '../services/balance.service';
 export class MyDashboardComponent implements OnInit{
   pageElements: Array<any>;
   dataSource: MatTableDataSource<SymbolPriceTicker>;
-  totalBalance: Number = 0;
-  euroPrice: Number;
-  totalEuros: Number = 0;
+  
 
   constructor(private snackbar: MatSnackBar, private balance: BalanceService, private db: DbService) {}
 
   ngOnInit() {
-    this.loadBalanceAmount();
-  }
-
-  private loadBalanceAmount() {
-    this.balance.getBtcAmout().then(data => {
-      this.totalBalance = +data;
-    });
-    this.balance.getEurAmount().then(res => {
-      this.euroPrice = +res.BTCEUR.last;
-      this.totalEuros = +this.totalBalance * +this.euroPrice;
-      this.totalEuros = +this.totalEuros.toFixed(2);
-    })
   }
 
   clearLocal() {

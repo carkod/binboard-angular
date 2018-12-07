@@ -39,6 +39,7 @@ import { BidaskTableComponent } from './orders/bidask-table/bidask-table.compone
 import { SellComponent } from './orders/sell/sell.component';
 import { OpenOrdersComponent } from './orders/open-orders/open-orders.component';
 import { GlobalComponent } from './global-settings/global/global.component';
+import { RoundDecimalsPipe } from './pipes/round-decimals.pipe';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { GlobalComponent } from './global-settings/global/global.component';
     SellComponent,
     OpenOrdersComponent,
     GlobalComponent,
+    RoundDecimalsPipe,
   ],
   imports: [
     BrowserModule,
