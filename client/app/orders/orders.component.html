@@ -1,6 +1,6 @@
 <top-toolbar></top-toolbar>
 <div id="orders">
-  <mat-tab-group>
+  <mat-tab-group [selectedIndex]="3">
     <mat-tab label="Buy">
       <buy></buy>
     </mat-tab>
@@ -11,7 +11,7 @@
       <open-orders></open-orders>
     </mat-tab>
     <mat-tab label="Funds">
-      <!-- <funds></funds> -->
+      <funds></funds>
     </mat-tab>
     <mat-tab label="Order history">
       <order-history></order-history>
