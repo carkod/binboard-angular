@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input, OnDestroy } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 // import { RankingTableDataSource } from './ranking-table-datasource';
-import { ApiService } from '../../services/api.service';
 import { DbService } from '../../services/db.service';
+import { interval } from 'rxjs';
+import { startWith, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ranking-table',
@@ -17,16 +18,25 @@ export class RankingTableComponent implements OnInit, OnDestroy {
   @Input() displayedColumns: Array<string>;
   @Input() rank: string;
 
+  symbol: String;
+  limit: Number;
+  bids: Array<String>;
+  asks: Array<String>;
+  isLoadingResults: Boolean = false;
+  refreshInterval: number;
+
+  loadDataSubs: any;
+
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
 
   constructor(private db: DbService) {
-
+    this.limit = 5;
+    this.refreshInterval = 60000;
   }
 
   ngOnInit() {
-    this.db.getCoinStats().subscribe(data => {
-      this.renderData(data);
-    })
+    this.isLoadingResults = true;
+    this.loadData();
   }
 
   ngOnDestroy() {
@@ -63,5 +73,16 @@ export class RankingTableComponent implements OnInit, OnDestroy {
     } else {
       this.dataSource.data = this.byVolume(data);
     }
+  }
+
+  loadData() {
+    this.loadDataSubs = interval(this.refreshInterval).pipe(startWith(0), mergeMap(() => {
+      return this.db.getCoinStats();
+    }));
+
+    this.loadDataSubs.subscribe(orders => {
+      this.renderData(orders);
+      this.isLoadingResults = false;
+    });
   }
 }

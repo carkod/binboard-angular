@@ -1,4 +1,5 @@
-<div class="ranking-table">
+<mat-spinner *ngIf="isLoadingResults" [diameter]="50" [strokeWidth]="1"></mat-spinner>
+<div *ngIf="!isLoadingResults" class="ranking-table">
   <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
 
     <ng-container *ngFor="let title of displayedColumns" matColumnDef="{{title}}">
