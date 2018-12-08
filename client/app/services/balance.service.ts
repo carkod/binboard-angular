@@ -50,6 +50,7 @@ export class BalanceService {
     // await this.getAllQuoteAssets();
     const getTickerPrices = await this.db.getTicker().toPromise();
     const allTickers = JSON.parse(getTickerPrices);
+    this.tickerPrices.length = 0;
     this.balances.forEach(element => {
       const matchBaseCoin = allTickers.find(x => {
         return x.symbol === (element.asset + this.baseCoin);
@@ -59,7 +60,7 @@ export class BalanceService {
       }
 
     });
-    
+    this.totalBalance.length = 0;
     this.balances.forEach((element, i) => {
       let count = i;
       this.tickerPrices.forEach(x => {
@@ -73,13 +74,13 @@ export class BalanceService {
             free: element.free,
             total: (+x.price) * (+element.free),
           }
-          debugger;
           if (newObj !== undefined) {
             this.totalBalance.push(newObj)
           }
         }
       })
     });
+    console.log(this.totalBalance)
     return this.totalBalance;
   }
 

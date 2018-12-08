@@ -21,7 +21,6 @@ export class FundsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.balances.getTotalBalance().then(data => {
-      console.log(data);
       this.currentTrades = data;
     });
     this.balances.getBtcAmout().then(data => {
