@@ -1,0 +1,32 @@
+<mat-spinner *ngIf="isLoadingResults" [diameter]="50" [strokeWidth]="1"></mat-spinner>
+<div *ngIf="!isLoadingResults" class="bids">
+  <table class="bids-table" mat-table #table [dataSource]="bids" matSort aria-label="Elements">
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bid Price</th>
+      <td class="bid-price" mat-cell *matCellDef="let row">{{row[0]}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bid Quantity</th>
+      <td class="bid-quantity" mat-cell *matCellDef="let row">{{row[1]}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="bidColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: bidColumns;"></tr> -->
+  </table>
+
+  <table class="asks-table" mat-table #table [dataSource]="asks" matSort aria-label="Elements">
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ask Price</th>
+      <td class="ask-price" mat-cell *matCellDef="let row">{{row[0]}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ask Quantity</th>
+      <td class="ask-quantity" mat-cell *matCellDef="let row">{{row[1]}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="askColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: askColumns;"></tr>
+  </table>
+</div>

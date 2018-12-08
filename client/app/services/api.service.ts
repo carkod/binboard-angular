@@ -7,7 +7,8 @@ import { SinglePriceTicker } from '../models/services';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    // 'Authorization': 'my-auth-token'
+    'X-MBX-APIKEY': environment.apiKey,
+    'secretKey': environment.secretKey,
   })
 };
 
@@ -80,9 +81,10 @@ export class ApiService {
     return this.dataPoints;
   }
 
-  getTicker(symbol) {
-    this.tickerUrl = `${environment.api.candlestick}?symbol=${this.symbol}&interval=${this.interval}&limit=${this.limit}`;
-    this.dataPoints = this.http.get<any[]>(this.tickerUrl);
+  getTicker(symbol, interval, limit?) {
+    const url = `${environment.api.candlestick}?symbol=${symbol}&interval=${interval}&limit=${limit ? limit : '50'}`;
+    const data = this.http.get<any[]>(url);
+    return data;
   }
 
   /**
@@ -109,7 +111,20 @@ export class ApiService {
   }
   getExchange() {
     const coinsUrl = `${environment.api.exchange}`;
+    const coins = this.http.get<any>(coinsUrl, httpOptions);
+    return coins;
+  }
+
+  getServerTime() {
+    const coinsUrl = `${environment.api.serverTime}`;
     const coins = this.http.get<any>(coinsUrl);
     return coins;
   }
+  
+  getAccount(timestamp, recvWindow) {
+    const coinsUrl = `${environment.api.account}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}`;
+    const coins = this.http.get<any>(coinsUrl, httpOptions);
+    return coins;
+  }
+
 }

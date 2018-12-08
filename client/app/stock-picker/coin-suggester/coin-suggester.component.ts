@@ -1,9 +1,8 @@
-import { Component, OnInit, forwardRef } from '@angular/core';
-import { ApiService } from '../../services/api.service';
-import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '../../../../node_modules/@angular/forms';
-import { Observable } from '../../../../node_modules/rxjs';
-import { startWith, map } from '../../../../node_modules/rxjs/operators';
+import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { DbService } from '../../services/db.service';
+import { startWith, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, FormGroup } from '@angular/forms';
 
 export interface Ticker { symbol: string, price: string }
 
@@ -19,32 +18,49 @@ export interface Ticker { symbol: string, price: string }
     }
   ]
 })
-export class CoinSuggesterComponent implements ControlValueAccessor {
+export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges, OnInit {
 
-  myControl = new FormControl();
+  @Input() defaultSymbol: String;
+  myControl: FormControl = new FormControl();
   options: Ticker[];
   filteredOptions: Observable<Ticker[]>;
+  symbol: String;
+  stopSymbolBindingCount = 0;
 
-  constructor(private db: DbService) { 
+  constructor(private db: DbService) {
     this.db.getTicker().subscribe(coinData => {
       coinData = JSON.parse(coinData);
       this.options = coinData;
+      const findDefault = this.options.find(x => x.symbol === 'ONTETH')
       this.filteredOptions = this.myControl.valueChanges
       .pipe(
-        startWith<string | Ticker>(''),
+        // startWith<string | Ticker>(''),
         map(value => typeof value === 'string' ? value : value.symbol),
         map(symbol => symbol ? this._filter(symbol) : this.options.slice())
       );
     });
   }
 
-  displayFn(coin?: Ticker): string | undefined {
-    // this.propagateChange(coin);
-    // console.log(coin)
-    return coin ? coin.symbol : undefined;
+  ngOnInit() {
   }
 
-  private _filter(name: string): Ticker[] {
+  ngOnChanges(c: SimpleChanges) {
+    const { defaultSymbol } = c;
+    if (defaultSymbol.currentValue !== undefined && defaultSymbol.previousValue !== defaultSymbol.currentValue && this.stopSymbolBindingCount < 1) {
+      // this.displayFn(defaultSymbol.currentValue)
+      this.myControl.setValue(defaultSymbol.currentValue)
+      // Only execute setvalue for the first input binding (need better solution)
+      this.stopSymbolBindingCount++;
+    }
+  }
+
+  displayFn(coin?: any): string | undefined {
+    if (coin !== null) {
+      return this.symbol = coin;   
+    }
+  }
+
+  private _filter(name: string): any {
     const filterValue = name.toLowerCase();
     const value = this.options.filter(option => option.symbol.toLowerCase().indexOf(filterValue) === 0);
     this.propagateChange(value[0].symbol);
@@ -62,5 +78,9 @@ export class CoinSuggesterComponent implements ControlValueAccessor {
 
   registerOnTouched(value) {
     // console.log(value)
+  }
+
+  log(...text) {
+    console.log(...text);
   }
 }

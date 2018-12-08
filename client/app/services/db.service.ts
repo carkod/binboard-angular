@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
-import { SinglePriceTicker } from '../models/services';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': 'my-auth-token'
+    'X-MBX-APIKEY': environment.apiKey,
+    'secretKey': environment.secretKey,
   })
 };
 
@@ -17,7 +17,9 @@ const httpOptions = {
 })
 export class DbService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    
+  }
 
   getSingleCoinStats(symbol) {
     const coinsUrl = `${environment.db.base + environment.db.ticker24}/${symbol}`;
@@ -32,28 +34,7 @@ export class DbService {
 
   getTrackedCoins(): Observable<any> {
     const coinsUrl = `${environment.db.base + environment.db.tracker}`;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        // 'Authorization': 'my-auth-token'
-      })
-    };
     const coins = this.http.get(coinsUrl, httpOptions);
-
-    // const coins = this.http.get<any>(coinsUrl, httpOptions).pipe(map(res => {
-    //   return {
-    //     name: res.symbol,
-    //     symbol: res.symbol,
-    //     id: res.id,
-    //     price: res.lastPrice,
-    //     change: res.priceChange,
-    //     changePercent: res.priceChangePercent,
-    //     recommend: res.recommend,
-    //     closeTime: res.closeTime
-    //   }
-    // }));
-    // return coins;
     return coins;
   }
   deleteTrackedCoin(symbol) {
@@ -98,12 +79,58 @@ export class DbService {
         const date = new Date(r[6]);
         // const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
         klines.closeTime.push(date);
-          
       }
-      
       return klines
     }));
     return dataPoints;
   }
 
+  getServerTime() {
+    const coinsUrl = `${environment.db.base}${environment.db.serverTime}`;
+    const coins = this.http.get<any>(coinsUrl);
+    return coins;
+  }
+  
+  getAccount(timestamp, recvWindow?) {
+    const coinsUrl = `${environment.db.base}${environment.db.account}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}`;
+    const coins = this.http.get<any>(coinsUrl, httpOptions);
+    return coins;
+  }
+  
+  testOrder(recvWindow?) {
+    const timestamp = +new Date;
+    const coinsUrl = `${environment.db.base}${environment.db.testOrder}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}`;
+    const coins = this.http.post(coinsUrl, {}, httpOptions);
+    return coins;
+  }
+
+  getMyTrades(symbol: string, recvWindow?: Number, startTime?: Number, endTime?: Number, fromId?: Number, limit?: Number) {
+    const timestamp = +new Date;
+    const coinsUrl = `${environment.db.base}${environment.db.myTrades}?symbol=${symbol}&timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
+    const coins = this.http.get(coinsUrl, httpOptions);
+    return coins;
+  }
+
+  getOpenOrders(symbol?: string, recvWindow?: Number) {
+    const timestamp = +new Date;
+    const coinsUrl = `${environment.db.base}${environment.db.openOrders}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}${symbol !== undefined ? '&symbol=' + symbol : ''}`;
+    const coins = this.http.get(coinsUrl, httpOptions);
+    return coins;
+  }
+  getBookOrder(symbol: string, limit: Number) {
+    const coinsUrl = `${environment.db.base}${environment.db.orderBook}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : 10}`;
+    const coins = this.http.get<any>(coinsUrl, httpOptions);
+    return coins;
+  }
+  newOrder(symbol: string, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number, recvWindow?: number) {
+    const timestamp = +new Date;
+    const coinsUrl = `${environment.db.base}${environment.db.order}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+    const coins = this.http.post(coinsUrl, {}, httpOptions);
+    return coins;
+  }
+  getOrderBook(symbol, limit) {
+    const coinsUrl = `${environment.db.base}${environment.db.orderBook}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : 10}`;
+    const coins = this.http.get<any>(coinsUrl, httpOptions);
+    return coins;
+  }
 }

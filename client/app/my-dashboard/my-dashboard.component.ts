@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { MatTableDataSource, MatSnackBar } from '../../../node_modules/@angular/material';
 import { SymbolPriceTicker } from '../models/services';
+import { DbService } from '../services/db.service';
+import { BalanceService } from '../services/balance.service';
 
 @Component({
   selector: 'my-dashboard',
@@ -15,10 +17,11 @@ export class MyDashboardComponent implements OnInit{
   dataSource: MatTableDataSource<SymbolPriceTicker>;
   
 
-  constructor(private snackbar: MatSnackBar, private api: ApiService) {}
+  constructor(private snackbar: MatSnackBar, private balance: BalanceService, private db: DbService) {}
+
   ngOnInit() {
-   
   }
+
   clearLocal() {
     localStorage.removeItem('getCoinStats');
     this.snackbar.open('Local Coin data removed!', 'Undo', {

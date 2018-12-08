@@ -14,6 +14,8 @@ Short term goals include:
 - Most other common technical analysis measures, such as Bollinger bands, Volume, Oscillators, Support/Resistence...
 - Track and update prices on a real time basis and provide percentage changes in prices in the table.
 
+TODO: 
+- Exchange rate BTCEUR
 
 Long term goals include:
 - Basic Machine learning, using linear regression with a combination of technical analysis (high frequency trading with Machine Learning)

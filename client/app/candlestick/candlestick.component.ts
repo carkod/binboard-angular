@@ -123,9 +123,6 @@ export class CandlestickComponent implements OnInit {
     ];
     return this.data;
   }
-  update(e) {
-    console.log('updated', e);
-  }
 
   updateGraph(element, sd) {
     if (this.apiData && !this.repetition(sd)) {

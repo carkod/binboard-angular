@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy-server": "scp -r server/src root@188.166.92.221:/var/www/binboard.carloswu.com/server/"
   },
   "private": true,
   "dependencies": {
@@ -18,7 +19,7 @@
     "@angular/core": "^6.0.3",
     "@angular/forms": "^6.0.3",
     "@angular/http": "^6.0.3",
-    "@angular/material": "^6.2.1",
+    "@angular/material": "^6.4.7",
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",

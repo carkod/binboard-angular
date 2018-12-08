@@ -15,11 +15,7 @@ export class AddNewComponent implements OnInit {
 
   constructor(public snackBar: MatSnackBar, private db: DbService, fb: FormBuilder) {
     this.options = fb.group({
-      // hideRequired: false,
-      // floatLabel: 'auto',
       symbol: ['', Validators.required],
-      // interval:'30m',
-      // limit: '50',
     });
   }
   ngOnInit() {

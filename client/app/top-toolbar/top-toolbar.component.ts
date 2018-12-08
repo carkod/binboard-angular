@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '../../../node_modules/@angular/router';
 import { DrawerService } from '../services/drawer.service';
-import { ApiService } from '../services/api.service';
 import { DbService } from '../services/db.service';
+import { BalanceService } from '../services/balance.service';
 
 @Component({
   selector: 'top-toolbar',
@@ -11,20 +11,33 @@ import { DbService } from '../services/db.service';
 })
 export class TopToolbarComponent implements OnInit {
 
-  pageTitle: any;
-  constructor(private db: DbService, private route: ActivatedRoute, private drawerService: DrawerService) { }
+  pageTitle: String;
+  totalBalance: Number = 0;
+  euroPrice: Number = 0;
+  totalEuros: Number = 0;
+
+  constructor(private db: DbService, private route: ActivatedRoute, private drawerService: DrawerService, private balance: BalanceService) { 
+    this.loadBalanceAmount();
+  }
 
   ngOnInit() {
     this.route.data.subscribe(d => {
       this.pageTitle = d.pageTitle;
     });
-    this.db.getExchange().subscribe(info => {
-      // console.log(info);
-    })
     
   }
   toggle() {
     this.drawerService.toggle();
   }
+
+  private loadBalanceAmount() {
+    this.balance.getBtcAmout().then(data => {
+      this.totalBalance = +data;
+    });
+    this.balance.getEurAmount().then(res => {
+      this.euroPrice = +res.BTCEUR.last;
+    })
+  }
+
 
 }

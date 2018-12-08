@@ -1,6 +1,13 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" id="toolbar">
+  <div class="left">
     <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="toggle()">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <h1 class="mat-h1">{{pageTitle}}</h1>
-  </mat-toolbar>
+  </div>
+  <div class="right">
+    <p class="default-h1" style="color: #F0B90B; text-align: center">
+      {{totalBalance | roundDecimals: 8}} BTC &cong; {{euroPrice * totalBalance | roundDecimals: 2}} €
+    </p>
+  </div>
+</mat-toolbar>

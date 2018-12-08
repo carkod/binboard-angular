@@ -62,7 +62,6 @@ export class RankingTableComponent implements OnInit, OnDestroy {
         return -1
       }
     });
-    console.log(sorted)
     return sorted;
   }
   renderData(data) {
@@ -72,8 +71,4 @@ export class RankingTableComponent implements OnInit, OnDestroy {
       this.dataSource.data = this.byVolume(data);
     }
   }
-  log(...text) {
-    console.log(...text);
-  }
-
 }

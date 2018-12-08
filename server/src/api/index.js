@@ -7,6 +7,13 @@ import ticker from './ticker'
 import candlestick from './candlestick'
 import bookTicker from './bookticker'
 import exchangeInfo from './exchange-info'
+import account from './account'
+import serverTime from './server-time'
+import testOrder from './test-order'
+import order from './order'
+import myTrades from './my-trades'
+import openOrders from './open-orders'
+import orderBook from './order-book'
 
 const router = new Router()
 
@@ -41,5 +48,12 @@ router.use('/ticker', ticker)
 router.use('/candlestick', candlestick)
 router.use('/bookticker', bookTicker)
 router.use('/exchangeInfo', exchangeInfo)
+router.use('/server-time', serverTime)
+router.use('/account', account)
+router.use('/test-order', testOrder)
+router.use('/order', order)
+router.use('/my-trades', myTrades)
+router.use('/open-orders', openOrders)
+router.use('/order-book', orderBook)
 
 export default router

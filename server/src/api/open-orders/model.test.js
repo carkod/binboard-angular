@@ -1,0 +1,57 @@
+import { OpenOrders } from '.'
+
+let openOrders
+
+beforeEach(async () => {
+  openOrders = await OpenOrders.create({ symbol: 'test', orderId: 'test', clientOrderId: 'test', price: 'test', origQty: 'test', executedQty: 'test', cummulativeQuoteQty: 'test', status: 'test', timeInForce: 'test', type: 'test', side: 'test', stopPrice: 'test', icebergQty: 'test', time: 'test', updateTime: 'test', isWorking: 'test' })
+})
+
+describe('view', () => {
+  it('returns simple view', () => {
+    const view = openOrders.view()
+    expect(typeof view).toBe('object')
+    expect(view.id).toBe(openOrders.id)
+    expect(view.symbol).toBe(openOrders.symbol)
+    expect(view.orderId).toBe(openOrders.orderId)
+    expect(view.clientOrderId).toBe(openOrders.clientOrderId)
+    expect(view.price).toBe(openOrders.price)
+    expect(view.origQty).toBe(openOrders.origQty)
+    expect(view.executedQty).toBe(openOrders.executedQty)
+    expect(view.cummulativeQuoteQty).toBe(openOrders.cummulativeQuoteQty)
+    expect(view.status).toBe(openOrders.status)
+    expect(view.timeInForce).toBe(openOrders.timeInForce)
+    expect(view.type).toBe(openOrders.type)
+    expect(view.side).toBe(openOrders.side)
+    expect(view.stopPrice).toBe(openOrders.stopPrice)
+    expect(view.icebergQty).toBe(openOrders.icebergQty)
+    expect(view.time).toBe(openOrders.time)
+    expect(view.updateTime).toBe(openOrders.updateTime)
+    expect(view.isWorking).toBe(openOrders.isWorking)
+    expect(view.createdAt).toBeTruthy()
+    expect(view.updatedAt).toBeTruthy()
+  })
+
+  it('returns full view', () => {
+    const view = openOrders.view(true)
+    expect(typeof view).toBe('object')
+    expect(view.id).toBe(openOrders.id)
+    expect(view.symbol).toBe(openOrders.symbol)
+    expect(view.orderId).toBe(openOrders.orderId)
+    expect(view.clientOrderId).toBe(openOrders.clientOrderId)
+    expect(view.price).toBe(openOrders.price)
+    expect(view.origQty).toBe(openOrders.origQty)
+    expect(view.executedQty).toBe(openOrders.executedQty)
+    expect(view.cummulativeQuoteQty).toBe(openOrders.cummulativeQuoteQty)
+    expect(view.status).toBe(openOrders.status)
+    expect(view.timeInForce).toBe(openOrders.timeInForce)
+    expect(view.type).toBe(openOrders.type)
+    expect(view.side).toBe(openOrders.side)
+    expect(view.stopPrice).toBe(openOrders.stopPrice)
+    expect(view.icebergQty).toBe(openOrders.icebergQty)
+    expect(view.time).toBe(openOrders.time)
+    expect(view.updateTime).toBe(openOrders.updateTime)
+    expect(view.isWorking).toBe(openOrders.isWorking)
+    expect(view.createdAt).toBeTruthy()
+    expect(view.updatedAt).toBeTruthy()
+  })
+})
