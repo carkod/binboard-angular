@@ -3,21 +3,17 @@
   <mat-card>
     <div class="table-title">
       <h1 class="default-h1">Winners/Losers</h1>
-      <button mat-raised-button color="accent" class="btn" (click)="clearLocal()">Clear Local Data</button>
-      <small>* large dataset, defferred data</small>
     </div>
     <div class="table-content">
-      <ranking-table [rank]="'winners'" [displayedColumns]="['symbol', 'prevClosePrice', 'priceChange', 'priceChangePercent']"></ranking-table>
+      <ranking-table [rank]="'winners'" [displayedColumns]="winLoseColumns"></ranking-table>
     </div>
   </mat-card>
   <mat-card>
     <div class="table-title">
       <h1 class="default-h1">Most Active</h1>
-      <button mat-raised-button color="accent" class="btn" (click)="clearLocal()">Clear Local Data</button>
-      <small>* high volume coins</small>
     </div>
     <div class="table-content">
-      <ranking-table [rank]="'most-active'" [displayedColumns]="['symbol', 'prevClosePrice', 'quoteVolume']"></ranking-table>
+      <ranking-table [rank]="'most-active'" [displayedColumns]="mostActiveColumns"></ranking-table>
     </div>
   </mat-card>
 </div>

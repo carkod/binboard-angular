@@ -2,7 +2,7 @@ import config from '../../config'
 import request from 'request'
 import crypto from 'crypto'
 
-const { base, account } = config.api
+const { base, account, MASTER_KEY } = config.api
 
 const signature = (queryStrings, secretKey) => {
   const convert = crypto.createHmac('sha256', secretKey);

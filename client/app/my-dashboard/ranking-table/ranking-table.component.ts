@@ -19,21 +19,14 @@ export class RankingTableComponent implements OnInit, OnDestroy {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
 
-  constructor(private api: ApiService, private db: DbService) {
+  constructor(private db: DbService) {
 
   }
 
   ngOnInit() {
-    /**
-     * Dataset is too large, convert to JSON and store in Web Local Storage
-     */
-    const localData = JSON.parse(localStorage.getItem('getCoinStats'));
     this.db.getCoinStats().subscribe(data => {
-      // localStorage.setItem('getCoinStats', JSON.stringify(data));
       this.renderData(data);
     })
-    // setInterval(localStorage.removeItem('getCoinStats'), 1800000);
-
   }
 
   ngOnDestroy() {

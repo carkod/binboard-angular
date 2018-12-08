@@ -79,9 +79,6 @@ const config = {
       uri: 'mongodb://carkod:48295620-j@localhost:27017/binboard',
       options: {
         debug: true,
-        // user: 'carkod',
-        // pass: '48295620-j',
-        // dbName: 'binboard',
       }
     }
   },
