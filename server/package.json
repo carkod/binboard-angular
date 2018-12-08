@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "start": "node .",
+    "debug": "node . --inspect",
     "test": "jest",
     "coverage": "npm test -- --coverage",
     "postcoverage": "opn coverage/lcov-report/index.html",
@@ -19,6 +20,8 @@
     "setupTestFrameworkScriptFile": "<rootDir>/test/setup.js"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
     "apidoc": "^0.17.6",
     "apidoc-markdown": "^0.2.0",
     "babel-eslint": "^8.0.1",

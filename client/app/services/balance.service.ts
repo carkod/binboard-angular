@@ -80,7 +80,6 @@ export class BalanceService {
         }
       })
     });
-    console.log(this.totalBalance)
     return this.totalBalance;
   }
 

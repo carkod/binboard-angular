@@ -11,9 +11,9 @@ export class TestOrderComponent implements OnInit {
   constructor(private db: DbService) { }
 
   ngOnInit() {
-    // this.db.testOrder().subscribe(res => {
-    //   console.log('test order result ', res);
-    // })
+    this.db.testOrder().subscribe(res => {
+      console.log('test order result ', res);
+    })
   }
 
 }
