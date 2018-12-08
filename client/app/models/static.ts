@@ -13,3 +13,8 @@ export const TIME_IN_FORCE = [
     { value: 'IOC', viewValue: 'Immediate Or Cancel' },
     { value: 'FOK', viewValue: 'Fill Or Kill' },
 ]
+
+export const SIDES = [
+    { value: 'buy', viewValue: 'Buy' },
+    { value: 'sell', viewValue: 'Sell' },
+]
