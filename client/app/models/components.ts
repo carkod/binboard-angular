@@ -1,9 +1,4 @@
-export interface OrderTypes {
-    value: string;
-    viewValue: string;
-}
-
-export interface TimeInForce {
+export interface IMatOptions {
     value: string;
     viewValue: string;
 }

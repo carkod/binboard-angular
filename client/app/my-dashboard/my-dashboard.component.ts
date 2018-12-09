@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
 import { MatTableDataSource, MatSnackBar } from '../../../node_modules/@angular/material';
 import { SymbolPriceTicker } from '../models/services';
 import { DbService } from '../services/db.service';
@@ -15,7 +14,9 @@ import { BalanceService } from '../services/balance.service';
 export class MyDashboardComponent implements OnInit{
   pageElements: Array<any>;
   dataSource: MatTableDataSource<SymbolPriceTicker>;
-  
+
+  mostActiveColumns: Array<String> = ['symbol', 'prevClosePrice', 'quoteVolume'];
+  winLoseColumns = ['symbol', 'prevClosePrice', 'priceChange', 'priceChangePercent'];
 
   constructor(private snackbar: MatSnackBar, private balance: BalanceService, private db: DbService) {}
 

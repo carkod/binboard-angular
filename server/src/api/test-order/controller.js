@@ -9,27 +9,23 @@ const signature = (queryStrings, secretKey) => {
   return convert.update(queryStrings).digest('hex');
 }
 
-  
-  export const create = (result, res, next) => {
-    const { timestamp, recvWindow } = result.query;
-    const queryString = `timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}`;
-    const secretKey = res.req.headers['secretkey'];
-    const apiKey = res.req.headers['x-mbx-apikey'];
-    const headers = {
-     'X-MBX-APIKEY': apiKey,
-     'Content-type': 'application/x-www-form-urlencoded',
-    }
-    const url = `${base + testOrder}?${queryString}&signature=${signature(queryString, secretKey)}`;
-    const options = {
-      url: url,
-      headers: headers
-    }
-    let data;
-    return request(options, function (error, response, resBody) {
-      console.log('error:', error); // Print the error if one occurred
-      status = response.statusCode;
-      data = resBody
-      return res.status(error || 200).json(data);
-    })
-  
+export const create = ({ query }, res, next) => {
+  const { timestamp, recvWindow, type, symbol, side, quantity, price, timeInForce, stopPrice } = query;
+  const queryString = `timestamp=${timestamp}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${recvWindow ? '&recvWindow=' + recvWindow : ''}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+  const secretKey = res.req.headers['secretkey'];
+  const apiKey = res.req.headers['x-mbx-apikey'];
+  const headers = { 'X-MBX-APIKEY': apiKey }
+  const url = `${base + testOrder}?${queryString}&signature=${signature(queryString, secretKey)}`;
+  const options = {
+    url: url,
+    headers: headers
   }
+  let data, status;
+  return request.post(options, function (error, response, resBody) {
+    console.log('error:', error); // Print the error if one occurred
+    status = response.statusCode;
+    data = resBody;
+    return res.status(error || 200).json(data);
+  })
+
+}

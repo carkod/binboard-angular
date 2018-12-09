@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import { errorHandler as queryErrorHandler } from 'querymen'
 import { errorHandler as bodyErrorHandler } from 'bodymen'
+import path, { dirname } from 'path'
 import { env } from '../../config'
 
 export default (apiRoot, routes) => {
@@ -16,6 +17,11 @@ export default (apiRoot, routes) => {
     app.use(compression())
     app.use(morgan('dev'))
   }
+
+
+  // Docs
+  // app.use('/api', express.static(path.join(__dirname, '/DOCS.md')))
+  app.use('/api', express.static('/docs'))
 
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())

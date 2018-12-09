@@ -14,6 +14,7 @@ import order from './order'
 import myTrades from './my-trades'
 import openOrders from './open-orders'
 import orderBook from './order-book'
+import settings from './settings'
 
 const router = new Router()
 
@@ -55,5 +56,6 @@ router.use('/order', order)
 router.use('/my-trades', myTrades)
 router.use('/open-orders', openOrders)
 router.use('/order-book', orderBook)
+router.use('/settings', settings)
 
 export default router

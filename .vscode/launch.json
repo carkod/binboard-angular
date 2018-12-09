@@ -9,6 +9,7 @@
             "request": "launch",
             "name": "Launch Server",
             "program": "${workspaceFolder}/server/src/index.js",
+            "runtimeExecutable": "${workspaceRoot}/server/node_modules/.bin/nodemon.cmd",
             "outFiles": [ "${workspaceRoot}/server/.compiled/**/*.js" ]
         },
         {

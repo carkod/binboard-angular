@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderTypes, TimeInForce } from 'client/app/models/components';
+import { IMatOptions } from 'client/app/models/components';
 import { DbService } from 'client/app/services/db.service';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
@@ -13,15 +13,14 @@ import { BalanceService } from 'client/app/services/balance.service';
 })
 export class BuyComponent implements OnInit {
 
-  options: OrderTypes[] = ORDER_TYPES;
-  timeInForceOptions: TimeInForce[] = TIME_IN_FORCE;
+  options: IMatOptions[] = ORDER_TYPES;
+  timeInForceOptions: IMatOptions[] = TIME_IN_FORCE;
 
   buyForm: FormGroup;
   symbol: String;
   total: Number = 0;
-  price: Number = 0;;
+  price: Number = 0;
   quantity: Number = 0;
-  recvWindow: number = 50000;
 
   constructor(private db: DbService, private snackBar: MatSnackBar, private balances: BalanceService) {
     this.getDefaultSymbol();
@@ -83,7 +82,7 @@ export class BuyComponent implements OnInit {
     if (this.buyForm.valid) {
       const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.buyForm.value;
       const side = 'BUY';
-      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice, this.recvWindow).subscribe(result => {
+      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe(result => {
         // Handle errors in interceptor
         console.log(result);
       })

@@ -12,7 +12,6 @@ export class BalanceService {
 
   accountData: any;
   timestamp: Number;
-  recvWindow;
   serverTime: number;
   balances: Array<IBalances>;
   baseCoin: String;
@@ -26,7 +25,6 @@ export class BalanceService {
 
   constructor(private db: DbService) {
     this.timestamp = +new Date;
-    this.recvWindow = 20000;
     this.baseCoin = 'BTC';
     this.tickerPrices = [];
     this.totalBalance = [];
@@ -80,13 +78,12 @@ export class BalanceService {
         }
       })
     });
-    console.log(this.totalBalance)
     return this.totalBalance;
   }
 
   async getAccount(): Promise<any> {
     await this.retrieveServerTime();
-    const getAccountData = await this.db.getAccount(this.timestamp, this.recvWindow).toPromise();
+    const getAccountData = await this.db.getAccount(this.timestamp).toPromise();
     const accountData = JSON.parse(getAccountData);
     this.balances = accountData.balances.filter(x => parseFloat(x.free) > 0.0000000);
     return this.balances;

@@ -27,14 +27,14 @@ export const environment = {
     orderBook: '/api/v1/depth',
   },
   db: {
-    base: 'http://api.carloswu.com',
-    // base: 'http://localhost:8080',
+    // base: 'http://api.carloswu.com',
+    base: 'http://localhost:8080',
     exchangeInfo: '/api/exchangeInfo', // Proxy for api.exchange
     marketData: '/api/marketData',
     recentTrades: '/api/recentTrades',
     historicalTrades: '/api/historicalTrades',
     candlestick: '/api/candlestick', // requires parameters symbol and interval
-    ticker24: '/api/ticker24',
+    ticker24: '/api/ticker24', // Own API
     ticker:'/api/ticker', // Symbol Price only ticker -- retrieve all coins
     bookTicker: '/api/bookTicker', // Best price/qty on the order book for a symbol or symbols.
     tracker: '/api/tracker', // Own API, not a proxy
@@ -46,6 +46,7 @@ export const environment = {
     openOrders: '/api/open-orders',
     orderBook: '/api/order-book',
     order: '/api/order',
+    settings: '/api/settings' // Own API
   },
   other: {
     euro: 'https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC&fiat=EUR'
