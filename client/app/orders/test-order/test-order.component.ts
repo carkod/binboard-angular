@@ -22,7 +22,6 @@ export class TestOrderComponent implements OnInit {
   total: Number = 0;
   price: Number = 0;;
   quantity: Number = 0;
-  recvWindow: number = 50000;
   side: String;
 
   constructor(private db: DbService, private snackBar: MatSnackBar, private balances: BalanceService) {
@@ -86,7 +85,7 @@ export class TestOrderComponent implements OnInit {
   onSubmit() {
     if (this.testOrderForm.valid) {
       const { symbol, price, orderType, quantity, timeInForce, stopPrice, side } = this.testOrderForm.value;
-      this.db.testOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice, this.recvWindow).subscribe(res => {
+      this.db.testOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe(res => {
         console.log('test order result ', res);
       })
     } else {

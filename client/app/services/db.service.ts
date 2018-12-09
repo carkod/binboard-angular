@@ -23,8 +23,12 @@ const dbApiOptions = {
 })
 export class DbService {
 
-  constructor(private http: HttpClient) { 
-    
+  settingsType: string = 'global';
+  recvWindow: number;
+
+  constructor(private http: HttpClient) {
+    this.settingsType = 'global';
+    this.getSettings(this.settingsType).subscribe(res => this.recvWindow = res);
   }
 
   getSingleCoinStats(symbol) {
@@ -97,29 +101,29 @@ export class DbService {
     return coins;
   }
   
-  getAccount(timestamp, recvWindow?) {
-    const coinsUrl = `${environment.db.base}${environment.db.account}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}`;
+  getAccount(timestamp) {
+    const coinsUrl = `${environment.db.base}${environment.db.account}?timestamp=${timestamp}&recvWindow=${this.recvWindow}`;
     const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
   
-  testOrder(symbol: string, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number, recvWindow?: number) {
+  testOrder(symbol: string, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number) {
     const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.order}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+    const coinsUrl = `${environment.db.base}${environment.db.order}?timestamp=${timestamp}&recvWindow=${this.recvWindow}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
     const coins = this.http.post(coinsUrl, {}, httpOptions);
     return coins;
   }
 
-  getMyTrades(symbol: string, recvWindow?: Number, startTime?: Number, endTime?: Number, fromId?: Number, limit?: Number) {
+  getMyTrades(symbol: string, startTime?: Number, endTime?: Number, fromId?: Number, limit?: Number) {
     const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.myTrades}?symbol=${symbol}&timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
+    const coinsUrl = `${environment.db.base}${environment.db.myTrades}?symbol=${symbol}&timestamp=${timestamp}&recvWindow=${this.recvWindow}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }
 
-  getOpenOrders(symbol?: string, recvWindow?: Number) {
+  getOpenOrders(symbol?: string) {
     const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.openOrders}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : 5000}${symbol !== undefined ? '&symbol=' + symbol : ''}`;
+    const coinsUrl = `${environment.db.base}${environment.db.openOrders}?timestamp=${timestamp}&recvWindow=${this.recvWindow}${symbol !== undefined ? '&symbol=' + symbol : ''}`;
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }
@@ -128,9 +132,9 @@ export class DbService {
     const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
-  newOrder(symbol: string, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number, recvWindow?: number) {
+  newOrder(symbol: string, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number) {
     const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.order}?timestamp=${timestamp}&recvWindow=${recvWindow ? recvWindow : ''}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+    const coinsUrl = `${environment.db.base}${environment.db.order}?timestamp=${timestamp}&recvWindow=${this.recvWindow}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
     const coins = this.http.post(coinsUrl, {}, httpOptions);
     return coins;
   }
