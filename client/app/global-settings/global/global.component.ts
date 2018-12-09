@@ -37,7 +37,6 @@ export class GlobalComponent implements OnInit {
   }
 
   ngOnChanges(c: SimpleChanges) {
-    console.log(this.symbol)
     if (c.symbol.previousValue !== c.symbol.currentValue) {
       this.symbol = c.symbol.currentValue;
     }
@@ -45,7 +44,6 @@ export class GlobalComponent implements OnInit {
 
   buildForm() {
     this.globalSettingsForm = new FormGroup({
-      // symbol: new FormControl(null, Validators.required),
       recvWindow: new FormControl(null, Validators.required),
       bidAskLimit: new FormControl(null, Validators.required),
       baseCoin: new FormControl(null, Validators.required),
@@ -74,7 +72,6 @@ export class GlobalComponent implements OnInit {
 
   loadData() {
     this.db.getSettings(this.settingsType).subscribe(res => {
-      console.log(res.symbol)
       this.symbol = res.symbol;
       this.globalSettingsForm.get('recvWindow').setValue(res.recvWindow);
       this.globalSettingsForm.get('bidAskLimit').setValue(res.bidAskLimit);
@@ -83,7 +80,6 @@ export class GlobalComponent implements OnInit {
     });
 
     this.balance.getAllQuoteAssets().then(res => {
-      console.log(res);
       res.forEach((element, i) => {
         this.baseCoinOptions.push({
           value: element.toLowerCase(),
@@ -93,9 +89,4 @@ export class GlobalComponent implements OnInit {
 
     })
   }
-
-  log(...text) {
-    console.log(...text);
-  }
-
 }
