@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService } from 'client/app/services/db.service';
-import { OrderTypes, TimeInForce } from 'client/app/models/components';
+import { IMatOptions } from 'client/app/models/components';
 import { ORDER_TYPES, TIME_IN_FORCE, SIDES } from 'client/app/models/static';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
@@ -13,9 +13,9 @@ import { BalanceService } from 'client/app/services/balance.service';
 })
 export class TestOrderComponent implements OnInit {
 
-  options: OrderTypes[] = ORDER_TYPES;
-  timeInForceOptions: TimeInForce[] = TIME_IN_FORCE;
-  sideOptions: Array<OrderTypes> = SIDES;
+  options: IMatOptions[] = ORDER_TYPES;
+  timeInForceOptions: IMatOptions[] = TIME_IN_FORCE;
+  sideOptions: Array<IMatOptions> = SIDES;
 
   testOrderForm: FormGroup;
   symbol: String;

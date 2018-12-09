@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderTypes, NewOrder, TimeInForce } from 'client/app/models/components';
+import { IMatOptions } from 'client/app/models/components';
 import { DbService } from 'client/app/services/db.service';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
@@ -14,8 +14,8 @@ import { BalanceService } from 'client/app/services/balance.service';
 })
 export class SellComponent implements OnInit {
 
-  options: OrderTypes[] = ORDER_TYPES;
-  timeInForceOptions: TimeInForce[] = TIME_IN_FORCE;
+  options: IMatOptions[] = ORDER_TYPES;
+  timeInForceOptions: IMatOptions[] = TIME_IN_FORCE;
 
   sellForm: FormGroup;
   symbol: String;

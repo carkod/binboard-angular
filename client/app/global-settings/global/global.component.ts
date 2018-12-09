@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DbService } from 'client/app/services/db.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { BalanceService } from 'client/app/services/balance.service';
+import { IMatOptions } from 'client/app/models/components';
 
 @Component({
   selector: 'global',
@@ -19,8 +21,9 @@ export class GlobalComponent implements OnInit {
 
   globalSettings: Object;
   globalSettingsForm: FormGroup;
-  
-  constructor(private db: DbService, private snackBar: MatSnackBar) { 
+  symbolOptions: Array<IMatOptions>;
+
+  constructor(private db: DbService, private snackBar: MatSnackBar, private balance: BalanceService) {
   }
 
   ngOnInit() {
@@ -64,6 +67,16 @@ export class GlobalComponent implements OnInit {
 
   loadData() {
     this.db.getSettings(this.settingsType).subscribe(res => this.globalSettings = res);
+    this.balance.getAllQuoteAssets().then(res => {
+      console.log(res);
+      res.forEach(element => {
+        this.symbolOptions.push({
+          value: element.toLowerCase(),
+          viewValue: element.toUpperCase()
+        });
+      });
+
+    })
   }
 
 }

@@ -1,11 +1,11 @@
-<div class="buy-container">
-  <form class="buy-form" [formGroup]="globalForm" (ngSubmit)="onSubmit()">
+<div class="globalSettings-container">
+  <form class="globalSettings-form" [formGroup]="globalSettingsForm" (ngSubmit)="onSubmit()">
     <div class="form-row">
       <div class="column">
         <mat-form-field appearance="outline">
           <mat-label>Base coin for conversions</mat-label>
-          <input formControlName="price" matInput placeholder="baseCoin" type="number">
-          <mat-error *ngIf="!globalForm.hasError('required')">Base coin is required</mat-error>
+          <input formControlName="baseCoin" matInput placeholder="baseCoin" type="number">
+          <mat-error *ngIf="!globalSettingsForm.hasError('required')">Base coin is required</mat-error>
         </mat-form-field>
       </div>
       <div class="column">
@@ -27,7 +27,7 @@
           <mat-form-field appearance="outline">
             <mat-label>RecvWindow value</mat-label>
             <input formControlName="recvWindow" matInput placeholder="Receive Window" type="number">
-            <mat-error *ngIf="!globalForm.hasError('required')">RecvWindow is required</mat-error>
+            <mat-error *ngIf="!globalSettingsForm.hasError('required')">RecvWindow is required</mat-error>
           </mat-form-field>
         </mat-form-field>
       </div>
@@ -35,7 +35,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Bid and ask table limit of prices/volume shown</mat-label>
           <input formControlName="bidAskLimit" matInput placeholder="bidAskLimit" type="number">
-          <mat-error *ngIf="!globalForm.hasError('required')">Price is required</mat-error>
+          <mat-error *ngIf="!globalSettingsForm.hasError('required')">Price is required</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -45,14 +45,14 @@
         <mat-form-field appearance="outline">
           <mat-label>Stop Price</mat-label>
           <input formControlName="stopPrice" matInput placeholder="Stop Price" type="number">
-          <mat-error *ngIf="!globalForm.hasError('required')">Stop Price is required</mat-error>
+          <mat-error *ngIf="!globalSettingsForm.hasError('required')">Stop Price is required</mat-error>
         </mat-form-field>
       </div>
       <div class="column">
         <mat-form-field appearance="outline">
           <mat-label>Quantity</mat-label>
           <input formControlName="quantity" matInput type="number">
-          <mat-error *ngIf="!globalForm.hasError('required')">Quantity is required</mat-error>
+          <mat-error *ngIf="!globalSettingsForm.hasError('required')">Quantity is required</mat-error>
         </mat-form-field>
       </div>
     </div> -->
