@@ -7,8 +7,6 @@ import { SinglePriceTicker } from '../models/services';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'X-MBX-APIKEY': environment.apiKey,
-    'secretKey': environment.secretKey,
   })
 };
 

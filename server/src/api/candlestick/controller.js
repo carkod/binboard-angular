@@ -7,7 +7,6 @@ export const show = ({ params }, res, next) => {
   const { symbol, interval, limit } = params
   const candlestickurl = `${base + candlestick}?symbol=${symbol}&interval=${interval}&limit=${limit}`;
   let data, status;
-  console.log('symbol = ', symbol)
   return request(candlestickurl, function (error, response, resBody) {
     console.log('error:', error); // Print the error if one occurred
     // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received

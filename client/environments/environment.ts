@@ -4,8 +4,6 @@
 
 export const environment = {
   production: false,
-  apiKey: 'OF1K2rb8m0ML0J1gqKKagBkn9PIch1y87HeJ04WNFTt1FKh9t7aivgXnROpAnmax',
-  secretKey: 'PlOXYEvPNZ5BxftUJQZ3nbnFogbKMvURAYu9dpfQpwn9zSdkQIwIMOJ1Jp4K8RTp',
   ws: {
     base: 'wss://stream.binance.com:9443/ws/',
   },

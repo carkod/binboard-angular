@@ -2,8 +2,10 @@ import config from '../../config'
 import request from 'request'
 import crypto from 'crypto'
 
-const { base, account, MASTER_KEY } = config.api
-
+// load env variables
+const { binanceKey, binanceSecret } = config
+// load api urls
+const { base, account } = config.api
 const signature = (queryStrings, secretKey) => {
   const convert = crypto.createHmac('sha256', secretKey);
   return convert.update(queryStrings).digest('hex');
@@ -19,8 +21,8 @@ export const show = ({ params }, res, next) =>
 export const index = ({query}, res, next) => {
   const { timestamp, recvWindow } = query;
   const queryString = `timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : ''}`;
-  const secretKey = res.req.headers['secretkey'];
-  const apiKey = res.req.headers['x-mbx-apikey'];
+  const secretKey = binanceSecret;
+  const apiKey = binanceKey;
   const headers = {
    'X-MBX-APIKEY' : apiKey,
   }
