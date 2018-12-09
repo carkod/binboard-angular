@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DbService } from './db.service';
 import { Observable } from 'rxjs';
-import { IBalances, ITotalBalance } from '../models/services';
+import { IBalances } from '../models/services';
 import { environment } from 'client/environments/environment';
-import { RoundDecimalsPipe } from '../pipes/round-decimals.pipe';
 
 @Injectable({
   providedIn: 'root'
