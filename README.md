@@ -8,15 +8,6 @@ Binboard is a dashboard for Cryptocurrency trade analysis. Current features of t
 - Table that records prices in general per coin
 
 ## Future plans
-
-Short term goals include:
-- Multiple Mean Averages
-- Most other common technical analysis measures, such as Bollinger bands, Volume, Oscillators, Support/Resistence...
-- Track and update prices on a real time basis and provide percentage changes in prices in the table.
-
-TODO: 
-- Exchange rate BTCEUR
-
-Long term goals include:
+(See project section)
 - Basic Machine learning, using linear regression with a combination of technical analysis (high frequency trading with Machine Learning)
 - Automatic trading based on Machine Learning results
