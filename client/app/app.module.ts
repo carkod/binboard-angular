@@ -11,7 +11,6 @@ import { ListingComponent } from './listing/listing.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CandlestickComponent } from './candlestick/candlestick.component';
 import { CommonModule, DatePipe } from '@angular/common';
-import { ApiService } from './services/api.service';
 import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RoutesRoutingModule } from './routes/routes-routing.module';
@@ -120,7 +119,6 @@ import { StrategiesComponent } from './strategies/strategies.component';
     { provide: HTTP_INTERCEPTORS, useClass: BinanceErrorsService, multi: true },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
     DatePipe,
-    ApiService,
     DrawerService,
     StreamsService,
     MatSnackBar

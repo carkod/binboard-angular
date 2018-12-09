@@ -9,7 +9,7 @@ export const environment = {
   },
   db: {
     // base: 'http://api.carloswu.com',
-    base: 'http://localhost:8080',
+    base: 'http://localhost:9000',
     exchangeInfo: '/api/exchangeInfo', // Proxy for api.exchange
     marketData: '/api/marketData',
     recentTrades: '/api/recentTrades',

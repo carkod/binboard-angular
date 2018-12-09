@@ -2,8 +2,8 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { ApiService } from '../../services/api.service';
 import { SymbolPriceTicker } from '../../models/services';
+import { DbService } from 'client/app/services/db.service';
 
 
 /**
@@ -13,7 +13,7 @@ import { SymbolPriceTicker } from '../../models/services';
  */
 export class RankingTableDataSource extends DataSource<SymbolPriceTicker> {
   data: SymbolPriceTicker[];
-  api: ApiService;
+  api: DbService;
 
   constructor(private paginator: MatPaginator, private sort: MatSort) {
     super();
@@ -45,7 +45,7 @@ export class RankingTableDataSource extends DataSource<SymbolPriceTicker> {
    * any open connections or free any held resources that were set up during connect.
    */
   disconnect() {
-    this.api.getCoins().unsubscribe();
+    // this.api.getCoins().unsubscribe();
   }
 
   /**
