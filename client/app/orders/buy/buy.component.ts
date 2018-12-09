@@ -19,7 +19,7 @@ export class BuyComponent implements OnInit {
   buyForm: FormGroup;
   symbol: String;
   total: Number = 0;
-  price: Number = 0;;
+  price: Number = 0;
   quantity: Number = 0;
 
   constructor(private db: DbService, private snackBar: MatSnackBar, private balances: BalanceService) {
