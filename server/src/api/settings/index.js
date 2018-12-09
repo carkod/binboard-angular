@@ -5,16 +5,6 @@ export { schema } from './model'
 
 const router = new Router()
 
-/**
- * @api {post} /settings Create settings
- * @apiName CreateSettings
- * @apiGroup Settings
- * @apiSuccess {Object} settings Settings's data.
- * @apiError {Object} 400 Some parameters may contain invalid values.
- * @apiError 404 Settings not found.
- */
-router.post('/',
-  create)
 
 /**
  * @api {get} /settings Retrieve settings
@@ -29,14 +19,14 @@ router.get('/',
   index)
 
 /**
- * @api {get} /settings/:id Retrieve settings
+ * @api {get} /settings/:type Retrieve settings type ['general', 'local']
  * @apiName RetrieveSettings
  * @apiGroup Settings
  * @apiSuccess {Object} settings Settings's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Settings not found.
  */
-router.get('/:id',
+router.get('/:type',
   show)
 
 /**
@@ -47,17 +37,7 @@ router.get('/:id',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Settings not found.
  */
-router.put('/:id',
+router.put('/:type',
   update)
-
-/**
- * @api {delete} /settings/:id Delete settings
- * @apiName DeleteSettings
- * @apiGroup Settings
- * @apiSuccess (Success 204) 204 No Content.
- * @apiError 404 Settings not found.
- */
-router.delete('/:id',
-  destroy)
 
 export default router
