@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { AppLoadService } from './app-load-service.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,9 +25,8 @@ export class DbService {
   settingsType: string = 'global';
   recvWindow: number;
 
-  constructor(private http: HttpClient) {
-    this.settingsType = 'global';
-    this.getSettings(this.settingsType).subscribe(res => this.recvWindow = res);
+  constructor(private http: HttpClient, private appload: AppLoadService) {
+    this.appload.getSettings().then(res => this.recvWindow = res.recvWindow);
   }
 
   getSingleCoinStats(symbol) {
@@ -141,6 +141,10 @@ export class DbService {
     const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
+  /**
+   * Use for local settings
+   * @param type: string - setting type e.g. orders settings
+   */
   getSettings(type: string) {
     const coinsUrl = `${environment.db.base}${environment.db.settings}/${type}`;
     const coins = this.http.get<any>(coinsUrl, dbApiOptions);
