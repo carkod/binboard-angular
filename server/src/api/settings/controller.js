@@ -15,7 +15,6 @@ export const show = ({ params }, res, next) =>
 
 export const update = ({ body, params }, res, next) =>
   {
-    body = JSON.parse(body);
     return model.findOneAndUpdate({ type: params.type }, body)
     .then((settings) => res.json(settings))
     .catch(next)

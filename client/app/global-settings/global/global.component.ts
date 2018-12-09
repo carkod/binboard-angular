@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { DbService } from 'client/app/services/db.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
@@ -30,16 +30,22 @@ export class GlobalComponent implements OnInit {
   ngOnInit() {
     this.loadData();
     this.buildForm();
-    this.globalSettingsForm.get('symbol').valueChanges.subscribe(symbol => this.symbol = symbol);
     this.globalSettingsForm.get('recvWindow').valueChanges.subscribe(res => this.recvWindow = res);
     this.globalSettingsForm.get('bidAskLimit').valueChanges.subscribe(bidAskLimit => this.bidAskLimit = bidAskLimit);
     this.globalSettingsForm.get('baseCoin').valueChanges.subscribe(baseCoin => this.baseCoin = baseCoin);
     this.globalSettingsForm.get('decimalPoints').valueChanges.subscribe(decimalPoints => this.decimalPoints = decimalPoints);
   }
 
+  ngOnChanges(c: SimpleChanges) {
+    console.log(this.symbol)
+    if (c.symbol.previousValue !== c.symbol.currentValue) {
+      this.symbol = c.symbol.currentValue;
+    }
+  }
+
   buildForm() {
     this.globalSettingsForm = new FormGroup({
-      symbol: new FormControl(null, Validators.required),
+      // symbol: new FormControl(null, Validators.required),
       recvWindow: new FormControl(null, Validators.required),
       bidAskLimit: new FormControl(null, Validators.required),
       baseCoin: new FormControl(null, Validators.required),
@@ -68,6 +74,7 @@ export class GlobalComponent implements OnInit {
 
   loadData() {
     this.db.getSettings(this.settingsType).subscribe(res => {
+      console.log(res.symbol)
       this.symbol = res.symbol;
       this.globalSettingsForm.get('recvWindow').setValue(res.recvWindow);
       this.globalSettingsForm.get('bidAskLimit').setValue(res.bidAskLimit);

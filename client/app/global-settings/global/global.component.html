@@ -12,7 +12,7 @@
         </mat-form-field>
       </div>
       <div class="column">
-        <coin-suggester [defaultSymbol]="symbol" formControlName="symbol"></coin-suggester>
+        <coin-suggester (emitSymbol)="symbol" [defaultSymbol]="symbol"></coin-suggester>
       </div>
       <div class="column">
         <mat-form-field appearance="outline">

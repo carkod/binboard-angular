@@ -102,7 +102,6 @@ export class DbService {
   getAccount(timestamp) {
     const coinsUrl = `${environment.db.base}${environment.db.account}?timestamp=${timestamp}&recvWindow=${this.recvWindow}`;
     const coins = this.http.get<any>(coinsUrl, httpOptions);
-    debugger;
     return coins;
   }
   
@@ -124,7 +123,6 @@ export class DbService {
     const timestamp = +new Date;
     const coinsUrl = `${environment.db.base}${environment.db.openOrders}?timestamp=${timestamp}&recvWindow=${this.recvWindow}${symbol !== undefined ? '&symbol=' + symbol : ''}`;
     const coins = this.http.get(coinsUrl, httpOptions);
-    debugger;
     return coins;
   }
   getBookOrder(symbol: string, limit: Number) {
@@ -153,8 +151,8 @@ export class DbService {
     return coins;
   }
   updateSettings(type: string, body: object) {
-    const coinsUrl = `${environment.db.base}${environment.db.settings}${type}`;
-    const coins = this.http.post(coinsUrl, body, dbApiOptions);
+    const coinsUrl = `${environment.db.base}${environment.db.settings}/${type}`;
+    const coins = this.http.put(coinsUrl, body, dbApiOptions);
     return coins;
   }
 }
