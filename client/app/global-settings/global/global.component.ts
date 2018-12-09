@@ -14,14 +14,14 @@ export class GlobalComponent implements OnInit {
 
   symbol: String; // Default symbol (from balance service)
   recvWindow: number; // Default window
-  bidAskLimit: Number = 5; // Default bid ask table
-  baseCoin: String = 'BTC'; // Default exchange coin for platform
-  decimalPoints: Number = 5;
+  bidAskLimit: Number; // Default bid ask table
+  baseCoin: String; // Default exchange coin for platform
+  decimalPoints: Number;
   settingsType: string = 'global';
 
   globalSettings: Object;
   globalSettingsForm: FormGroup;
-  symbolOptions: Array<IMatOptions>;
+  baseCoinOptions: Array<IMatOptions> = [];
 
   constructor(private db: DbService, private snackBar: MatSnackBar, private balance: BalanceService) {
   }
@@ -66,17 +66,28 @@ export class GlobalComponent implements OnInit {
   }
 
   loadData() {
-    this.db.getSettings(this.settingsType).subscribe(res => this.globalSettings = res);
+    this.db.getSettings(this.settingsType).subscribe(res => {
+      this.symbol = res.symbol;
+      this.globalSettingsForm.get('recvWindow').setValue(res.recvWindow);
+      this.globalSettingsForm.get('bidAskLimit').setValue(res.bidAskLimit);
+      this.globalSettingsForm.get('baseCoin').setValue(res.baseCoin.toLowerCase());
+      this.globalSettingsForm.get('decimalPoints').setValue(res.decimalPoints)
+    });
+
     this.balance.getAllQuoteAssets().then(res => {
       console.log(res);
-      res.forEach(element => {
-        this.symbolOptions.push({
+      res.forEach((element, i) => {
+        this.baseCoinOptions.push({
           value: element.toLowerCase(),
-          viewValue: element.toUpperCase()
+          viewValue: element.toUpperCase(),
         });
       });
 
     })
+  }
+
+  log(...text) {
+    console.log(...text);
   }
 
 }

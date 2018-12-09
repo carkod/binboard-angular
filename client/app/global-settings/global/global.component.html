@@ -2,60 +2,40 @@
   <form class="globalSettings-form" [formGroup]="globalSettingsForm" (ngSubmit)="onSubmit()">
     <div class="form-row">
       <div class="column">
-        <mat-form-field appearance="outline">
-          <mat-label>Base coin for conversions</mat-label>
-          <input formControlName="baseCoin" matInput placeholder="baseCoin" type="number">
-          <mat-error *ngIf="!globalSettingsForm.hasError('required')">Base coin is required</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="column">
         <mat-form-field>
-          <mat-select formControlName="defaultCoin" placeholder="Choose default cryptocurrency in balance">
-            <mat-option *ngFor="let option of defaultCoinOptions" [value]="option.value">
+          <mat-select formControlName="baseCoin">
+            <mat-option *ngFor="let option of baseCoinOptions" [value]="option.value">
               {{option.viewValue}}
             </mat-option>
           </mat-select>
-          <mat-hint align="end">TIF only applies to Limit orders</mat-hint>
+          <mat-hint align="end">* baseCoin is required</mat-hint>
         </mat-form-field>
       </div>
-
-    </div>
-    <div class="form-row">
       <div class="column">
-        <!-- Only if order type === limited -->
-        <mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>RecvWindow value</mat-label>
-            <input formControlName="recvWindow" matInput placeholder="Receive Window" type="number">
-            <mat-error *ngIf="!globalSettingsForm.hasError('required')">RecvWindow is required</mat-error>
-          </mat-form-field>
+        <coin-suggester [defaultSymbol]="symbol" formControlName="symbol"></coin-suggester>
+      </div>
+      <div class="column">
+        <mat-form-field appearance="outline">
+          <mat-label>RecvWindow value</mat-label>
+          <input formControlName="recvWindow" matInput placeholder="Receive Window" type="number">
+          <mat-error *ngIf="!globalSettingsForm.hasError('required')">RecvWindow is required</mat-error>
         </mat-form-field>
       </div>
       <div class="column">
         <mat-form-field appearance="outline">
           <mat-label>Bid and ask table limit of prices/volume shown</mat-label>
           <input formControlName="bidAskLimit" matInput placeholder="bidAskLimit" type="number">
-          <mat-error *ngIf="!globalSettingsForm.hasError('required')">Price is required</mat-error>
+          <mat-error *ngIf="!globalSettingsForm.hasError('required')">Bid and Ask table limit is required</mat-error>
         </mat-form-field>
       </div>
+
     </div>
 
-    <!-- <div class="form-row">
+    <div class="form-row">
       <div class="column">
-        <mat-form-field appearance="outline">
-          <mat-label>Stop Price</mat-label>
-          <input formControlName="stopPrice" matInput placeholder="Stop Price" type="number">
-          <mat-error *ngIf="!globalSettingsForm.hasError('required')">Stop Price is required</mat-error>
-        </mat-form-field>
+        <button mat-button type="submit">Save</button>
       </div>
-      <div class="column">
-        <mat-form-field appearance="outline">
-          <mat-label>Quantity</mat-label>
-          <input formControlName="quantity" matInput type="number">
-          <mat-error *ngIf="!globalSettingsForm.hasError('required')">Quantity is required</mat-error>
-        </mat-form-field>
-      </div>
-    </div> -->
+    </div>
   </form>
 
 </div>
