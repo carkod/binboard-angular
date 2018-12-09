@@ -12,6 +12,12 @@ const httpOptions = {
   })
 };
 
+const dbApiOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  })
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -131,6 +137,16 @@ export class DbService {
   getOrderBook(symbol, limit) {
     const coinsUrl = `${environment.db.base}${environment.db.orderBook}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : 10}`;
     const coins = this.http.get<any>(coinsUrl, httpOptions);
+    return coins;
+  }
+  getSettings(type: string) {
+    const coinsUrl = `${environment.db.base}${environment.db.settings}/${type}`;
+    const coins = this.http.get<any>(coinsUrl, dbApiOptions);
+    return coins;
+  }
+  updateSettings(type: string, body: object) {
+    const coinsUrl = `${environment.db.base}${environment.db.settings}${type}`;
+    const coins = this.http.post(coinsUrl, body, dbApiOptions);
     return coins;
   }
 }
