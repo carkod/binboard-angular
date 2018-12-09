@@ -26,7 +26,7 @@ export class DbService {
   recvWindow: number;
 
   constructor(private http: HttpClient, private appload: AppLoadService) {
-    this.appload.getSettings().then(res => this.recvWindow = res.recvWindow);
+    this.recvWindow = this.appload.recvWindow;
   }
 
   getSingleCoinStats(symbol) {
@@ -102,6 +102,7 @@ export class DbService {
   getAccount(timestamp) {
     const coinsUrl = `${environment.db.base}${environment.db.account}?timestamp=${timestamp}&recvWindow=${this.recvWindow}`;
     const coins = this.http.get<any>(coinsUrl, httpOptions);
+    debugger;
     return coins;
   }
   
@@ -123,6 +124,7 @@ export class DbService {
     const timestamp = +new Date;
     const coinsUrl = `${environment.db.base}${environment.db.openOrders}?timestamp=${timestamp}&recvWindow=${this.recvWindow}${symbol !== undefined ? '&symbol=' + symbol : ''}`;
     const coins = this.http.get(coinsUrl, httpOptions);
+    debugger;
     return coins;
   }
   getBookOrder(symbol: string, limit: Number) {

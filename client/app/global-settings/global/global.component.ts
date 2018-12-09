@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BalanceService } from 'client/app/services/balance.service';
 import { IMatOptions } from 'client/app/models/components';
+import { AppLoadService } from 'client/app/services/app-load-service.service';
 
 @Component({
   selector: 'global',
@@ -23,7 +24,7 @@ export class GlobalComponent implements OnInit {
   globalSettingsForm: FormGroup;
   baseCoinOptions: Array<IMatOptions> = [];
 
-  constructor(private db: DbService, private snackBar: MatSnackBar, private balance: BalanceService) {
+  constructor(private db: DbService, private snackBar: MatSnackBar, private balance: BalanceService, private apploadService: AppLoadService) {
   }
 
   ngOnInit() {
