@@ -3,12 +3,11 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { AppLoadService } from './app-load-service.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'X-MBX-APIKEY': environment.apiKey,
-    'secretKey': environment.secretKey,
   })
 };
 
@@ -26,9 +25,8 @@ export class DbService {
   settingsType: string = 'global';
   recvWindow: number;
 
-  constructor(private http: HttpClient) {
-    this.settingsType = 'global';
-    this.getSettings(this.settingsType).subscribe(res => this.recvWindow = res);
+  constructor(private http: HttpClient, private appload: AppLoadService) {
+    this.recvWindow = this.appload.recvWindow;
   }
 
   getSingleCoinStats(symbol) {
@@ -143,14 +141,18 @@ export class DbService {
     const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
+  /**
+   * Use for local settings
+   * @param type: string - setting type e.g. orders settings
+   */
   getSettings(type: string) {
     const coinsUrl = `${environment.db.base}${environment.db.settings}/${type}`;
     const coins = this.http.get<any>(coinsUrl, dbApiOptions);
     return coins;
   }
   updateSettings(type: string, body: object) {
-    const coinsUrl = `${environment.db.base}${environment.db.settings}${type}`;
-    const coins = this.http.post(coinsUrl, body, dbApiOptions);
+    const coinsUrl = `${environment.db.base}${environment.db.settings}/${type}`;
+    const coins = this.http.put(coinsUrl, body, dbApiOptions);
     return coins;
   }
 }

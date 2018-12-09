@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
@@ -11,7 +11,6 @@ import { ListingComponent } from './listing/listing.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CandlestickComponent } from './candlestick/candlestick.component';
 import { CommonModule, DatePipe } from '@angular/common';
-import { ApiService } from './services/api.service';
 import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RoutesRoutingModule } from './routes/routes-routing.module';
@@ -46,6 +45,12 @@ import { TradeHistoryComponent } from './orders/trade-history/trade-history.comp
 import { OrderHistoryComponent } from './orders/order-history/order-history.component';
 import { RankingsComponent } from './rankings/rankings.component';
 import { StrategiesComponent } from './strategies/strategies.component';
+import { AppLoadService } from './services/app-load-service.service';
+
+// Execute this before app init
+export function getSettings(appLoadService: AppLoadService) {
+  return () => appLoadService.getSettings();
+}
 
 @NgModule({
   declarations: [
@@ -119,11 +124,12 @@ import { StrategiesComponent } from './strategies/strategies.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BinanceErrorsService, multi: true },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
+    { provide: APP_INITIALIZER, useFactory: getSettings, multi: true, deps: [ AppLoadService ] },
     DatePipe,
-    ApiService,
     DrawerService,
     StreamsService,
-    MatSnackBar
+    MatSnackBar,
+    AppLoadService
   ],
   bootstrap: [AppComponent]
 })

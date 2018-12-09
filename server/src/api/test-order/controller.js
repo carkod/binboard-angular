@@ -3,6 +3,7 @@ import request from 'request'
 import crypto from 'crypto'
 
 const { base, testOrder } = config.api
+const { binanceKey, binanceSecret } = config
 
 const signature = (queryStrings, secretKey) => {
   const convert = crypto.createHmac('sha256', secretKey);
@@ -12,8 +13,8 @@ const signature = (queryStrings, secretKey) => {
 export const create = ({ query }, res, next) => {
   const { timestamp, recvWindow, type, symbol, side, quantity, price, timeInForce, stopPrice } = query;
   const queryString = `timestamp=${timestamp}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${recvWindow ? '&recvWindow=' + recvWindow : ''}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
-  const secretKey = res.req.headers['secretkey'];
-  const apiKey = res.req.headers['x-mbx-apikey'];
+  const secretKey = binanceSecret
+  const apiKey = binanceKey
   const headers = { 'X-MBX-APIKEY': apiKey }
   const url = `${base + testOrder}?${queryString}&signature=${signature(queryString, secretKey)}`;
   const options = {

@@ -5,6 +5,7 @@ import config from '../../config'
 import request from 'request'
 import crypto from 'crypto'
 
+const { binanceKey, binanceSecret } = config
 const { base, allOrders } = config.api
 
 const signature = (queryStrings, secretKey) => {
@@ -16,8 +17,8 @@ const signature = (queryStrings, secretKey) => {
 export const index = ({query}, res, next) => {
   const { timestamp, recvWindow, symbol } = query;
   const queryString = `symbol=${symbol}&timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : ''}${orderId ? '&orderId=' + orderId : ''}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}`;
-  const secretKey = res.req.headers['secretkey'];
-  const apiKey = res.req.headers['x-mbx-apikey'];
+  const secretKey = binanceSecret;
+  const apiKey = binanceKey;
   const headers = {
    'X-MBX-APIKEY' : apiKey,
   }
