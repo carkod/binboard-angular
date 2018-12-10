@@ -20,5 +20,4 @@ export class TradeHistoryComponent implements OnInit {
       console.log(data);
     })  
   }
-
 }
