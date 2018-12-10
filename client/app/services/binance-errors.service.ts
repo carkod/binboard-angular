@@ -4,9 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BinanceErrorsService implements HttpInterceptor {
 
   constructor(private snackBar: MatSnackBar) { }

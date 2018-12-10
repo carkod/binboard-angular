@@ -9,9 +9,7 @@ import { WebSocketSubject } from 'rxjs/webSocket';
 })
 export class StreamsService {
 
-  private socket$;
   candlestick;
-  private observer: Observer<any>;
   prevDate;
 
   constructor() { }

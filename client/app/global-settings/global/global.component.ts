@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { DbService } from 'client/app/services/db.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BalanceService } from 'client/app/services/balance.service';
 import { IMatOptions } from 'client/app/models/components';
+import { AppLoadService } from 'client/app/services/app-load-service.service';
 
 @Component({
   selector: 'global',
@@ -23,22 +24,26 @@ export class GlobalComponent implements OnInit {
   globalSettingsForm: FormGroup;
   baseCoinOptions: Array<IMatOptions> = [];
 
-  constructor(private db: DbService, private snackBar: MatSnackBar, private balance: BalanceService) {
+  constructor(private db: DbService, private snackBar: MatSnackBar, private balance: BalanceService, private apploadService: AppLoadService) {
   }
 
   ngOnInit() {
     this.loadData();
     this.buildForm();
-    this.globalSettingsForm.get('symbol').valueChanges.subscribe(symbol => this.symbol = symbol);
     this.globalSettingsForm.get('recvWindow').valueChanges.subscribe(res => this.recvWindow = res);
     this.globalSettingsForm.get('bidAskLimit').valueChanges.subscribe(bidAskLimit => this.bidAskLimit = bidAskLimit);
     this.globalSettingsForm.get('baseCoin').valueChanges.subscribe(baseCoin => this.baseCoin = baseCoin);
     this.globalSettingsForm.get('decimalPoints').valueChanges.subscribe(decimalPoints => this.decimalPoints = decimalPoints);
   }
 
+  ngOnChanges(c: SimpleChanges) {
+    if (c.symbol.previousValue !== c.symbol.currentValue) {
+      this.symbol = c.symbol.currentValue;
+    }
+  }
+
   buildForm() {
     this.globalSettingsForm = new FormGroup({
-      symbol: new FormControl(null, Validators.required),
       recvWindow: new FormControl(null, Validators.required),
       bidAskLimit: new FormControl(null, Validators.required),
       baseCoin: new FormControl(null, Validators.required),
@@ -75,7 +80,6 @@ export class GlobalComponent implements OnInit {
     });
 
     this.balance.getAllQuoteAssets().then(res => {
-      console.log(res);
       res.forEach((element, i) => {
         this.baseCoinOptions.push({
           value: element.toLowerCase(),
@@ -85,9 +89,4 @@ export class GlobalComponent implements OnInit {
 
     })
   }
-
-  log(...text) {
-    console.log(...text);
-  }
-
 }

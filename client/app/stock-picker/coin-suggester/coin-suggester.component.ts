@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit, Output, EventEmitter } from '@angular/core';
 import { DbService } from '../../services/db.service';
 import { startWith, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -21,6 +21,7 @@ export interface Ticker { symbol: string, price: string }
 export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges, OnInit {
 
   @Input() defaultSymbol: String;
+  @Output() emitSymbol: EventEmitter<String> = new EventEmitter();
   myControl: FormControl = new FormControl();
   options: Ticker[];
   filteredOptions: Observable<Ticker[]>;
@@ -64,12 +65,14 @@ export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges, 
     const filterValue = name.toLowerCase();
     const value = this.options.filter(option => option.symbol.toLowerCase().indexOf(filterValue) === 0);
     this.propagateChange(value[0].symbol);
+    this.emitSymbol.emit(value[0].symbol);
     return value;
   }
   
   writeValue(value): void {
   }
   propagateChange = (_: any) => {
+    this.emitSymbol.emit(_);
   };
 
   registerOnChange(fn) {
