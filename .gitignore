@@ -8,7 +8,7 @@ package-lock.json
 /out-tsc
 
 # dependencies
-/node_modules
+node_modules/
 
 # IDEs and editors
 /.idea
@@ -41,7 +41,7 @@ testem.log
 Thumbs.db
 
 # Server
-public
-.tmp
-docs
-.env
+server/public
+server/*.tmp
+server/docs
+server/*.env*
