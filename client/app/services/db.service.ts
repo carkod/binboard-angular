@@ -162,7 +162,7 @@ export class DbService {
   }
   getAllOrders(symbol: String, startTime?: Number, endTime?: Number, fromId?: Number, limit?: Number) {
     const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.order}?symbol=${symbol}&timestamp=${timestamp}&recvWindow=${this.recvWindow}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
+    const coinsUrl = `${environment.db.base}${environment.db.allOrders}?symbol=${symbol}&timestamp=${timestamp}&recvWindow=${this.recvWindow}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }

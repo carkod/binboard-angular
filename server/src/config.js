@@ -78,9 +78,9 @@ const config = {
   development: {
     API_ROOT: '/api',
     mongo: {
-      uri: process.env.MONGODB_URI || `mongodb://${requireProcessEnv('MONGODB_USER')}:${requireProcessEnv('MONGODB_PASS')}@188.166.92.221:27017/binboard`,
+      uri: process.env.MONGODB_URI || undefined,
       options: {
-        debug: true,
+        debug: false,
       }
     }
   },
