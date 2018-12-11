@@ -15,6 +15,7 @@ import myTrades from './my-trades'
 import openOrders from './open-orders'
 import orderBook from './order-book'
 import settings from './settings'
+import symbols from './symbols'
 
 const router = new Router()
 
@@ -57,5 +58,6 @@ router.use('/my-trades', myTrades)
 router.use('/open-orders', openOrders)
 router.use('/order-book', orderBook)
 router.use('/settings', settings)
+router.use('/symbols', symbols)
 
 export default router

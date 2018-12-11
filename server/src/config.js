@@ -61,7 +61,6 @@ const config = {
       exchange: '/api/exchangeInfo',
       marketData: '/api/marketData',
       recentTrades: '/api/recentTrades',
-      historicalTrades: '/api/historicalTrades',
       candlestick: '/api/candlestick',
       ticker24: '/api/ticker/ticker24',
       ticker:'/api/ticker/ticker', // Symbol Price only ticker -- retrieve all coins
@@ -71,7 +70,9 @@ const config = {
       openOrders: '/api/open-orders',
       account: '/api/account',
       myTrades: '/api/my-trades',
-      orderBook: '/api/order-book'
+      orderBook: '/api/order-book',
+      historicalTrades: '/api/historical-trades',
+      allOrders: '/api/all-orders',
     }
   },
   test: { },

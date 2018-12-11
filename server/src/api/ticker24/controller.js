@@ -1,5 +1,5 @@
 import { success, notFound } from '../../services/response/'
-import { Ticker24 } from '.'
+import { Ticker24 } from './model'
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Ticker24.find(query, select, cursor)
