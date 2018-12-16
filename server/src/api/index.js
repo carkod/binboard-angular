@@ -1,4 +1,5 @@
-import { Router } from 'express'
+import express, { Router } from 'express'
+import logger from 'morgan'
 import user from './user'
 import auth from './auth'
 import tracker from './tracker'
@@ -16,6 +17,7 @@ import openOrders from './open-orders'
 import orderBook from './order-book'
 import settings from './settings'
 import symbols from './symbols'
+import { dirname } from 'path';
 
 const router = new Router()
 
@@ -42,6 +44,8 @@ const router = new Router()
  * @apiParam {String[]} [sort=-createdAt] Order of returned items.
  * @apiParam {String[]} [fields] Fields to be returned.
  */
+router.use(logger())
+router.use('/', express.static(__dirname + '../../../docs'))
 router.use('/users', user)
 router.use('/auth', auth)
 router.use('/tracker', tracker)
