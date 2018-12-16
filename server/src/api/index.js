@@ -44,7 +44,7 @@ const router = new Router()
  * @apiParam {String[]} [sort=-createdAt] Order of returned items.
  * @apiParam {String[]} [fields] Fields to be returned.
  */
-router.use(logger())
+// router.use(logger())
 router.use('/', express.static(__dirname + '../../../docs'))
 router.use('/users', user)
 router.use('/auth', auth)

@@ -12,7 +12,6 @@ export const create = ({ bodymen: { body } }, res, next) =>
     .catch(next)
 
 export const upsert = (body, res, next) => {
-  console.log('upsert::', body, res)
   const url = `${base + exchangeInfo}`;
   let data, status;
   return request(url, function (error, response, resBody) {
@@ -22,15 +21,14 @@ export const upsert = (body, res, next) => {
     const parseBody = JSON.parse(resBody);
     const filterSymbols = parseBody.symbols;
     return model.remove({})
-    .then(() => model.create(filterSymbols))
-    .then((symbols) => symbols.map((symbols) => symbols.view(true)))
-    .then((res) => res.status(200).json({
-      code: 1,
-      msg: "symbols successfully updated"
-    }))
-    .catch(next)
+      .then(() => model.create(filterSymbols))
+      .then((symbols) => symbols.map((symbols) => symbols.view()))
+      .then(() => res.status(200).json({
+        code: 1,
+        msg: "symbols successfully updated"
+      }))
+        .catch(next)
   })
-  
 }
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>

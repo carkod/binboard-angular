@@ -73,9 +73,7 @@ router.get('/:id',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Symbols not found.
  */
-router.put('/:id',
-  body({ symbol, status, baseAsset, baseAssetPrecision, quoteAsset, quotePrecision, orderTypes, icebergAllowed, filters }),
-  update)
+router.put('/', upsert)
 
 /**
  * @api {delete} /symbols/:id Delete symbols
