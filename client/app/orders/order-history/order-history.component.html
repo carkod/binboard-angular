@@ -1,3 +1,19 @@
-<p>
-  order-history works!
-</p>
+<mat-spinner *ngIf="isLoadingResults" [diameter]="50" [strokeWidth]="1"></mat-spinner>
+*Historical orders refresh every 5 hours
+<div *ngIf="!isLoadingResults && !noOpenOrders" class="bids">
+  <table class="bids-table" mat-table #table [dataSource]="bids" matSort aria-label="Elements">
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bid Price</th>
+      <td mat-cell *matCellDef="let row">{{row[0]}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bid Quantity</th>
+      <td mat-cell *matCellDef="let row">{{row[1]}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="openOrdersColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: openOrdersColumns;"></tr> -->
+  </table>
+</div>
+<h2 *ngIf="noOpenOrders" class="no-orders">There are no open orders</h2>

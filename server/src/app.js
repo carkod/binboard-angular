@@ -14,7 +14,7 @@ mongoose.Promise = Promise
 
 // Cron jobs
 ticker24job()
-historicalOrdersJob()
+historicalOrdersJob() // runs every 5 hours
 
 setImmediate(() => {
   server.listen(port, ip, () => {
