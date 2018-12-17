@@ -73,6 +73,7 @@ const config = {
       orderBook: '/api/order-book',
       historicalTrades: '/api/historical-trades',
       allOrders: '/api/all-orders',
+      symbols: '/api/symbols',
     }
   },
   test: { },

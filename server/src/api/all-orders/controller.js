@@ -1,5 +1,5 @@
 import { success, notFound } from '../../services/response/'
-import { AllOrders } from '.'
+import model from './model'
 
 import config from '../../config'
 import request from 'request'
@@ -41,7 +41,7 @@ export const index = ({query}, res, next) => {
 
 
 export const show = ({ params }, res, next) =>
-  AllOrders.findById(params.id)
+  model.findById(params.id)
     .then(notFound(res))
     .then((allOrders) => allOrders ? allOrders.view() : null)
     .then(success(res))
