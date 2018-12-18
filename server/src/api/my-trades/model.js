@@ -5,10 +5,10 @@ const myTradesSchema = new Schema({
     type: String
   },
   id: {
-    type: String
+    type: Number
   },
   orderId: {
-    type: String
+    type: Number
   },
   price: {
     type: String
@@ -23,16 +23,16 @@ const myTradesSchema = new Schema({
     type: String
   },
   time: {
-    type: String
+    type: Number
   },
   isBuyer: {
-    type: String
+    type: Boolean
   },
   isMaker: {
-    type: String
+    type: Boolean
   },
   isBestMatch: {
-    type: String
+    type: Boolean
   }
 }, {
   timestamps: true,
@@ -69,7 +69,7 @@ myTradesSchema.methods = {
   }
 }
 
-const model = mongoose.model('MyTrades', myTradesSchema)
+const model = mongoose.model('mytrades', myTradesSchema)
 
 export const schema = model.schema
 export default model

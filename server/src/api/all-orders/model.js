@@ -4,24 +4,20 @@ const allOrdersSchema = new Schema({
   symbol: {
     type: String
   },
-  orderId: {
-    type: String
-  },
-  startTime: {
-    type: String
-  },
-  endTime: {
-    type: String
-  },
-  limit: {
-    type: String
-  },
-  recvWindow: {
-    type: String
-  },
-  timestamp: {
-    type: String
-  }
+  orderId: { type: String },
+  clientOrderId: { type: String },
+  price: { type: String },
+  origQty: { type: String },
+  executedQty: { type: String },
+  cummulativeQuoteQty: { type: String },
+  status: { type: String },
+  timeInForce: { type: String },
+  side: { type: String },
+  stopPrice: { type: String },
+  icebergQty: { type: String },
+  time: { type: Number },
+  updateTime: { type: Number },
+  isWorking: { type: Boolean}
 }, {
   timestamps: true,
   toJSON: {
@@ -37,13 +33,18 @@ allOrdersSchema.methods = {
       id: this.id,
       symbol: this.symbol,
       orderId: this.orderId,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      limit: this.limit,
-      recvWindow: this.recvWindow,
-      timestamp: this.timestamp,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt
+      clientOrderId: this.clientOrderId,
+      price: this.price,
+      origQty: this.origQty,
+      executedQty: this.executedQty,
+      status: this.status,
+      timeInForce: this.timeInForce,
+      side: this.side,
+      stopPrice: this.stopPrice,
+      icebergQty: this.icebergQty,
+      time: this.time,
+      updateTime: this.updateTime,
+      isWorking: this.isWorking,
     }
 
     return full ? {
@@ -53,7 +54,7 @@ allOrdersSchema.methods = {
   }
 }
 
-const model = mongoose.model('AllOrders', allOrdersSchema)
+const model = mongoose.model('orders', allOrdersSchema)
 
 export const schema = model.schema
 export default model

@@ -41,6 +41,16 @@
 - [ServerTime](#servertime)
 	- [Retrieve server times](#retrieve-server-times)
 	
+- [Settings](#settings)
+	- [Retrieve settings](#retrieve-settings)
+	- [Update settings](#update-settings)
+	
+- [Symbols](#symbols)
+	- [Create symbols](#create-symbols)
+	- [Delete symbols](#delete-symbols)
+	- [Retrieve symbols](#retrieve-symbols)
+	- [Update symbols](#update-symbols)
+	
 - [TestOrder](#testorder)
 	- [Create test order](#create-test-order)
 	
@@ -55,7 +65,7 @@
 - [Tracker](#tracker)
 	- [Create tracking](#create-tracking)
 	- [Delete tracking](#delete-tracking)
-	- [Retrieve tracker](#retrieve-tracker)
+	- [Retrieve tracking](#retrieve-tracking)
 	- [Update tracking](#update-tracking)
 	
 - [User](#user)
@@ -318,6 +328,100 @@
 | sort			| String[]			| **optional** <p>Order of returned items.</p>							|
 | fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
 
+# Settings
+
+## Retrieve settings
+
+
+
+	GET /settings
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
+## Update settings
+
+
+
+	PUT /settings/:id
+
+
+# Symbols
+
+## Create symbols
+
+
+
+	POST /symbols
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| symbol			| 			|  <p>Symbols's symbol.</p>							|
+| status			| 			|  <p>Symbols's status.</p>							|
+| baseAsset			| 			|  <p>Symbols's baseAsset.</p>							|
+| baseAssetPrecision			| 			|  <p>Symbols's baseAssetPrecision.</p>							|
+| quoteAsset			| 			|  <p>Symbols's quoteAsset.</p>							|
+| quotePrecision			| 			|  <p>Symbols's quotePrecision.</p>							|
+| orderTypes			| 			|  <p>Symbols's orderTypes.</p>							|
+| icebergAllowed			| 			|  <p>Symbols's icebergAllowed.</p>							|
+| filters			| 			|  <p>Symbols's filters.</p>							|
+
+## Delete symbols
+
+
+
+	DELETE /symbols/:id
+
+
+## Retrieve symbols
+
+
+
+	GET /symbols
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
+## Update symbols
+
+
+
+	PUT /symbols/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| symbol			| 			|  <p>Symbols's symbol.</p>							|
+| status			| 			|  <p>Symbols's status.</p>							|
+| baseAsset			| 			|  <p>Symbols's baseAsset.</p>							|
+| baseAssetPrecision			| 			|  <p>Symbols's baseAssetPrecision.</p>							|
+| quoteAsset			| 			|  <p>Symbols's quoteAsset.</p>							|
+| quotePrecision			| 			|  <p>Symbols's quotePrecision.</p>							|
+| orderTypes			| 			|  <p>Symbols's orderTypes.</p>							|
+| icebergAllowed			| 			|  <p>Symbols's icebergAllowed.</p>							|
+| filters			| 			|  <p>Symbols's filters.</p>							|
+
 # TestOrder
 
 ## Create test order
@@ -403,22 +507,12 @@
 	DELETE /tracker/:id
 
 
-## Retrieve tracker
+## Retrieve tracking
 
 
 
-	GET /tracker
+	GET /tracker/:id
 
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
 
 ## Update tracking
 

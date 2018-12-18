@@ -61,7 +61,6 @@ const config = {
       exchange: '/api/exchangeInfo',
       marketData: '/api/marketData',
       recentTrades: '/api/recentTrades',
-      historicalTrades: '/api/historicalTrades',
       candlestick: '/api/candlestick',
       ticker24: '/api/ticker/ticker24',
       ticker:'/api/ticker/ticker', // Symbol Price only ticker -- retrieve all coins
@@ -71,16 +70,19 @@ const config = {
       openOrders: '/api/open-orders',
       account: '/api/account',
       myTrades: '/api/my-trades',
-      orderBook: '/api/order-book'
+      orderBook: '/api/order-book',
+      historicalTrades: '/api/historical-trades',
+      allOrders: '/api/all-orders',
+      symbols: '/api/symbols',
     }
   },
   test: { },
   development: {
     API_ROOT: '/api',
     mongo: {
-      uri: process.env.MONGODB_URI || `mongodb://${requireProcessEnv('MONGODB_USER')}:${requireProcessEnv('MONGODB_PASS')}@188.166.92.221:27017/binboard`,
+      uri: process.env.MONGODB_URI || undefined,
       options: {
-        debug: true,
+        debug: false,
       }
     }
   },
@@ -88,7 +90,7 @@ const config = {
     ip: process.env.IP || undefined,
     port: 8080,
     mongo: {
-      uri: `mongodb://${requireProcessEnv('MONGODB_USER')}:${requireProcessEnv('MONGODB_PASS')}@localhost:27017/binboard`,
+      uri: `mongodb://carkod:48295620-j@localhost:27017/binboard`,
     }
   }
 }

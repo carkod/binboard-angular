@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { index, show } from './controller'
-export Ticker24, { schema } from './model'
+import { schema } from './model'
 
 const router = new Router()
 
