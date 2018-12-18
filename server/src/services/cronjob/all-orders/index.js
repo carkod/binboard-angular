@@ -1,5 +1,3 @@
-import { db } from '../../../config'
-import request from 'request'
 import cron from 'node-cron'
 import getAllOrders from './controller';
 

@@ -1,9 +1,8 @@
-import { success, notFound } from '../../../services/response/'
 import config from '../../../config'
 import request from 'request'
 import crypto from 'crypto'
 import SymbolsModel from '../../../api/symbols/model'
-import AllOrdersModel from '../all-orders/model'
+import AllOrdersModel from '../../../api/all-orders/model'
 
 // load env variables
 const { binanceKey, binanceSecret } = config

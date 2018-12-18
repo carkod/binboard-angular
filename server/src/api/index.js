@@ -17,6 +17,7 @@ import openOrders from './open-orders'
 import orderBook from './order-book'
 import settings from './settings'
 import symbols from './symbols'
+import allOrders from './all-orders'
 import { dirname } from 'path';
 
 const router = new Router()
@@ -63,5 +64,6 @@ router.use('/open-orders', openOrders)
 router.use('/order-book', orderBook)
 router.use('/settings', settings)
 router.use('/symbols', symbols)
+router.use('/all-orders', allOrders)
 
 export default router

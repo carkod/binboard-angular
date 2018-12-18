@@ -19,9 +19,12 @@ export class OrderHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.isLoadingResults = true;
-    // this.loadData();
+    this.loadData();
   }
   loadData() {
+    this.db.getAllOrders().subscribe(res => {
+      console.log(res);
+    })
     // Update with db api structure
     // this.db.getAllOrders().subscribe((orders: any) => {
     //   const parseData = JSON.parse(orders);
