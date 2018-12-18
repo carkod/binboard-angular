@@ -2,7 +2,7 @@ import config from '../../../config'
 import request from 'request'
 import crypto from 'crypto'
 import SymbolsModel from '../../../api/symbols/model'
-import MyTradesModel from '../my-trades/model'
+import MyTradesModel from '../../../api/my-trades/model'
 
 // load env variables
 const { binanceKey, binanceSecret } = config
