@@ -69,7 +69,7 @@ myTradesSchema.methods = {
   }
 }
 
-const model = mongoose.model('my_trades', myTradesSchema)
+const model = mongoose.model('mytrades', myTradesSchema)
 
 export const schema = model.schema
 export default model
