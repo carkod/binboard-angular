@@ -39,12 +39,12 @@ export async function requestAllOrders(symbol) {
         // Remove all first to avoid duplicates
         AllOrdersModel.remove({});
         if (content.length > 0) {
-            return AllOrdersModel.insertMany(content, (e, r, b) => {
+            return AllOrdersModel.insertMany(content, (e, content) => {
                 if (e) {
                     const creationError = new Error('historical order creation error::', e)
                     throw creationError
                 }
-                console.log('historical order creation body::', b);
+                console.log('historical order creation body::', content);
             })
         }
     });

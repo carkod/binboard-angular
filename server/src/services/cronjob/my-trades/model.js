@@ -1,27 +1,19 @@
 import mongoose, { Schema } from 'mongoose'
 
 const myTradesSchema = new Schema({
-  symbol: {
-    type: String
-  },
-  orderId: {
-    type: String
-  },
-  startTime: {
-    type: String
-  },
-  endTime: {
-    type: String
-  },
-  limit: {
-    type: String
-  },
-  recvWindow: {
-    type: String
-  },
-  timestamp: {
-    type: String
-  }
+  symbol: { type: String },
+  id: { type: Number }, 
+  orderId: { type: Number },
+  price: { type: String },
+  qty: { type: String },
+  comission: { type: String },
+  comissionAsset: { type: String },
+  time: { type: Number },
+  isBuyer: { type: Boolean },
+  isMaker: { type: Boolean },
+  isBestMatch: { type: Boolean },
+
+
 }, {
   timestamps: true,
   toJSON: {
@@ -36,14 +28,14 @@ myTradesSchema.methods = {
       // simple view
       id: this.id,
       symbol: this.symbol,
-      orderId: this.orderId,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      limit: this.limit,
-      recvWindow: this.recvWindow,
-      timestamp: this.timestamp,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt
+      price: this.price,
+      qty: this.qty,
+      comission: this.comission,
+      comissionAsset: this.comissionAsset,
+      time: this.time,
+      isBuyer: this.isBuyer,
+      isMaker: this.isMaker,
+      isBestMatch: this.isBestMatch
     }
 
     return full ? {
