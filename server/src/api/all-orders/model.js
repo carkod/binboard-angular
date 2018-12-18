@@ -31,6 +31,7 @@ allOrdersSchema.methods = {
     const view = {
       // simple view
       id: this.id,
+      symbol: this.symbol,
       orderId: this.orderId,
       clientOrderId: this.clientOrderId,
       price: this.price,

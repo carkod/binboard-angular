@@ -33,7 +33,7 @@ export const index = (query, res, next) => {
 
 
 export const show = ({ params }, res, next) =>
-  model.findById(params.symbol)
+  model.findOne({ symbol: params.symbol })
     .then(notFound(res))
     .then((allOrders) => allOrders ? allOrders.view() : null)
     .then(success(res))
