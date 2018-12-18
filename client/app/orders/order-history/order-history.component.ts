@@ -19,18 +19,19 @@ export class OrderHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.isLoadingResults = true;
-    this.loadData();
+    // this.loadData();
   }
   loadData() {
-    this.db.getOpenOrders().subscribe((orders: any) => {
-      const parseData = JSON.parse(orders);
-      if (parseData.length === 0) {
-        this.noOpenOrders = true;
-      } else {
-        this.noOpenOrders = false;
-      }
-      this.isLoadingResults = false;
-    });
+    // Update with db api structure
+    // this.db.getAllOrders().subscribe((orders: any) => {
+    //   const parseData = JSON.parse(orders);
+    //   if (parseData.length === 0) {
+    //     this.noOpenOrders = true;
+    //   } else {
+    //     this.noOpenOrders = false;
+    //   }
+    //   this.isLoadingResults = false;
+    // });
   }
 
 }

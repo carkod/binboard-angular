@@ -160,9 +160,8 @@ export class DbService {
     const coins = this.http.get(coinsUrl, dbApiOptions);
     return coins;
   }
-  getAllOrders(symbol: String, startTime?: Number, endTime?: Number, fromId?: Number, limit?: Number) {
-    const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.allOrders}?symbol=${symbol}&timestamp=${timestamp}&recvWindow=${this.recvWindow}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
+  getAllOrders() {
+    const coinsUrl = `${environment.db.base}${environment.db.allOrders}`;
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }

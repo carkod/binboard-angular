@@ -19,7 +19,7 @@ export const environment = {
     ticker:'/api/ticker', // Symbol Price only ticker -- retrieve all coins
     bookTicker: '/api/bookTicker', // Best price/qty on the order book for a symbol or symbols.
     tracker: '/api/tracker', // Own API, not a proxy
-    allOrders: '/api/allOrders',
+    allOrders: '/api/all-orders',
     account: '/api/account',
     myTrades: '/api/my-trades',
     serverTime: '/api/server-time',

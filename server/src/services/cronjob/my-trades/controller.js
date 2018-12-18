@@ -1,13 +1,12 @@
-import { success, notFound } from '../../../services/response/'
 import config from '../../../config'
 import request from 'request'
 import crypto from 'crypto'
 import SymbolsModel from '../../../api/symbols/model'
-import AllOrdersModel from '../all-orders/model'
+import MyTradesModel from '../my-trades/model'
 
 // load env variables
 const { binanceKey, binanceSecret } = config
-const { base, allOrders } = config.api
+const { base, myTrades } = config.api
 
 const signature = (queryStrings, secretKey) => {
     const convert = crypto.createHmac('sha256', secretKey);
@@ -19,15 +18,15 @@ export async function requestSymbolsFromDb() {
     return symbols;
 }
 
-export async function requestAllOrders(symbol) {
-    console.log('request All Orders triggered, symbol::', symbol)
+export async function requestMyTrades(symbol) {
+    console.log('request My Trades triggered, symbol::', symbol)
     const timestamp = +new Date();
     const recvWindow = 20000; // Change with DB value
     const queryString = `symbol=${symbol}&timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : ''}`;
     const secretKey = binanceSecret;
     const apiKey = binanceKey;
     const options = {
-        url: `${base + allOrders}?${queryString}&signature=${signature(queryString, secretKey)}`,
+        url: `${base + myTrades}?${queryString}&signature=${signature(queryString, secretKey)}`,
         headers: {
             'X-MBX-APIKEY': apiKey,
         }
@@ -38,27 +37,42 @@ export async function requestAllOrders(symbol) {
         const content = JSON.parse(resBody)
 
         // Remove all first to avoid duplicates
-        AllOrdersModel.remove({});
+        MyTradesModel.remove({});
         if (content.length > 0) {
-            return AllOrdersModel.insertMany(content, (e, r, b) => {
+            return MyTradesModel.insertMany(content, (e, docs) => {
                 if (e) {
                     const creationError = new Error('historical order creation error::', e)
                     throw creationError
                 }
-                console.log('historical order creation body::', b);
+                console.log('mytrades creation body::', docs);
             })
         }
+        // response.status = response.statusCode;
+        //   ordersUpsert(resBody, response);
+
     });
     return get
 }
 
-export default async function getAllOrders() {
+export default async function getMyTrades() {
 
     let symbolsArray;
     let startCount = 0;
     const symbols = requestSymbolsFromDb();
     symbols.then((symbols) => {
         symbolsArray = symbols.map(x => x.symbol);
-        setInterval(() => requestAllOrders(symbolsArray[startCount++]), 3000);
+        setInterval(() => requestMyTrades(symbolsArray[startCount++]), 3000);
+        // symbolsArray.forEach((symbol, index) => {
+
+        //     // Token for each request
+        //     // Create new histOrders url per symbol
+        //     // Make one request per symbol
+        //     requestMyTrades(symbol).then(() => {
+        //         setTimeout(ordersPromise, index * 30000)
+        //     })
+
+
+        // });
+
     }).catch(e => console.log(e))
 }
