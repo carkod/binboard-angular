@@ -88,7 +88,7 @@ const config = {
   },
   production: {
     ip: process.env.IP || undefined,
-    port: 8081,
+    port: 9000,
     mongo: {
       uri: `mongodb://${requireProcessEnv('MONGODB_USER')}:${requireProcessEnv('MONGODB_PASS')}@localhost:27017/binboard`,
     }
