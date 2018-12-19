@@ -9,7 +9,7 @@ import { myTradesJob } from './services/cronjob/my-trades';
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)
-
+console.log(mongo)
 mongoose.connect(mongo.uri)
 mongoose.Promise = Promise
 
