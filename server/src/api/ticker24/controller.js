@@ -18,7 +18,7 @@ export const show = ({ params }, res, next) =>
 export const create = (body, res, next) => {
   body = JSON.parse(body);
   return model.create(body)
-    // .then((model) => model.view(true))
+    .then((model) => model.view(true))
     .then(success(res, 201))
     .catch(next);
 }

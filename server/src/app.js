@@ -3,13 +3,13 @@ import { env, mongo, port, ip, apiRoot } from './config'
 import mongoose from './services/mongoose'
 import express from './services/express'
 import api from './api'
-import { ticker24job } from './services/cronjob'
+import { ticker24job } from './services/cronjob/ticker24'
 import historicalOrdersJob from './services/cronjob/all-orders'
 import { myTradesJob } from './services/cronjob/my-trades';
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)
-console.log(mongo)
+
 mongoose.connect(mongo.uri)
 mongoose.Promise = Promise
 

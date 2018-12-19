@@ -1,11 +1,10 @@
-import { success, notFound } from '../../services/response/'
+import { success, notFound } from '../../response'
 import { Ticker24 } from '.'
-import { detectBufferEncoding } from 'tslint/lib/utils';
 
 export const create = (body, res, next) => {
   body = JSON.parse(body);
   return Ticker24.create(body)
-    // .then((Ticker24) => Ticker24.view(true))
+    .then((Ticker24) => Ticker24.view(true))
     .then(success(res, 201))
     .catch(next);
 }
