@@ -90,7 +90,7 @@ const config = {
     ip: process.env.IP || undefined,
     port: 8081,
     mongo: {
-      uri: `mongodb://${requireProcessEnv('MONGO_USER')}:${requireProcessEnv('MONGO_PASS')}@localhost:27017/binboard`,
+      uri: `mongodb://${requireProcessEnv('MONGODB_USER')}:${requireProcessEnv('MONGODB_PASS')}@localhost:27017/binboard`,
     }
   }
 }
