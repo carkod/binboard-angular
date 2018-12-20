@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService } from 'client/app/services/db.service';
-import { BalanceService } from 'client/app/services/balance.service';
+import { TradesHistory } from 'client/app/models/components';
 
 @Component({
   selector: 'trade-history',
@@ -9,15 +9,41 @@ import { BalanceService } from 'client/app/services/balance.service';
 })
 export class TradeHistoryComponent implements OnInit {
 
-  constructor(private db: DbService, private balance: BalanceService) { }
+  orders: Array<String>;
+  isLoadingResults: Boolean = false;
+  history: Array<TradesHistory> = [];
+  tradeHistoryColumns = ['time', 'pair', 'type', 'fee','price', 'filled',  'total'];
+  constructor(private db: DbService) { }
 
   ngOnInit() {
+    this.isLoadingResults = true;
+    this.loadData();
   }
 
   loadData() {
-    // First get all symbols in account
-    this.balance.getAccount().then(data => {
-      console.log(data);
-    })  
+    this.db.getTradesHistory().subscribe((res: Array<any>) => {
+      this.isLoadingResults = false;
+      this.history = res.map(x => {
+        return {
+          id: x.id,
+          orderId: x.orderId,
+          time: x.time,
+          pair: x.symbol,
+          type: '-',
+          price: x.price,
+          fee: x.commission,
+          filled: '-',
+          qty: x.qty,
+          total: this.getTotal(x.price, x.qty),
+        }
+      });
+    })
+  }
+
+  getTotal(price, qty) {
+    price = parseFloat(price);
+    qty = parseFloat(qty);
+    const result = price * qty;
+    return result.toString();
   }
 }

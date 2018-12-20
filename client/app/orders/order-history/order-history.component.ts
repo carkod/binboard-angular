@@ -17,7 +17,7 @@ export class OrderHistoryComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   openOrdersColumns = ['updated', 'pair', 'type', 'side', 'price', 'filled', 'amount', 'total', 'status'];
 
-  constructor(private db: DbService, private datePipe: DatePipe) { }
+  constructor(private db: DbService) { }
 
   ngOnInit() {
     this.isLoadingResults = true;

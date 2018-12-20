@@ -40,3 +40,15 @@ export interface OrderHistory {
     trigger: String,
     status: String
 }
+
+export interface TradesHistory {
+    id: String,
+    orderId: String,
+    time: Number,
+    pair: String,
+    type: String,
+    price: String,
+    filled: String,
+    fee: String,
+    total: String,
+}
