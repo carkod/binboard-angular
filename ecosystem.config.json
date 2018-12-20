@@ -1,0 +1,13 @@
+{
+    "apps" : [
+        {
+          "name": "Binboard",
+          "cwd": "./server",
+          "script": "pm2 start npm -- run prod",
+          "env_production": {
+                "PORT": 8081,
+                "NODE_ENV": "production"
+            }
+        }
+    ]
+}
