@@ -1,15 +1,50 @@
 <mat-spinner *ngIf="isLoadingResults" [diameter]="50" [strokeWidth]="1"></mat-spinner>
-*Historical orders refresh every 5 hours
-<div *ngIf="!isLoadingResults && !noOpenOrders" class="bids">
-  <table class="bids-table" mat-table #table [dataSource]="bids" matSort aria-label="Elements">
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bid Price</th>
-      <td mat-cell *matCellDef="let row">{{row[0]}}</td>
+<small>*Historical orders refresh every 5 hours</small>
+<div *ngIf="!isLoadingResults" class="bids">
+  <table class="bids-table" mat-table #table [dataSource]="history" matSort aria-label="Elements">
+    <ng-container matColumnDef="updated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated</th>
+      <td mat-cell *matCellDef="let row">{{row.updatedAt | date: 'M/d HH:mm:ss'}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="quantity">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bid Quantity</th>
-      <td mat-cell *matCellDef="let row">{{row[1]}}</td>
+    <ng-container matColumnDef="pair">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Pair</th>
+      <td mat-cell *matCellDef="let row">{{row.pair}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Order type</th>
+      <td mat-cell *matCellDef="let row">{{row.type}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="side">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Side</th>
+      <td mat-cell *matCellDef="let row">{{row.side}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+      <td mat-cell *matCellDef="let row">{{row.price}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="filled">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Filled</th>
+      <td mat-cell *matCellDef="let row">{{row.filled}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Original amount</th>
+      <td mat-cell *matCellDef="let row">{{row.amount}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+      <td mat-cell *matCellDef="let row">{{row.total}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let row">{{row.status}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="openOrdersColumns"></tr>

@@ -10,27 +10,6 @@ export const index = (query, res, next) => {
     .then(success(res))
     .catch(next)
 }
-  
-
-// export const index = ({query}, res, next) => {
-  
-//   const url = `${base + allOrders}?${queryString}&signature=${signature(queryString, secretKey)}`;
-  
-//   const options = {
-//     url: url,
-//     headers: headers
-//   }
-//   let data, status;
-//   return request(options, function (error, response, resBody) {
-//     console.log('error:', error); // Print the error if one occurred
-//     status = response.statusCode;
-//     data = resBody
-//     return res.status(error || 200).json(data);
-//   })
-
-// }
-
-
 
 export const show = ({ params }, res, next) =>
   model.findOne({ symbol: params.symbol })

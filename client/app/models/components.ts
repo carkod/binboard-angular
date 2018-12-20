@@ -23,3 +23,20 @@ export interface BidsTicker {
     askPrice: String,
     askQty: String,
 }
+
+export interface OrderHistory {
+    id: String,
+    orderId: String,
+    createdAt: Number,
+    updatedAt: Number,
+    pair: String,
+    type: String,
+    side: String,
+    average: String,
+    price: String,
+    filled: String,
+    amount: String,
+    total: String,
+    trigger: String,
+    status: String
+}

@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy-server": "scp -r server/src root@188.166.92.221:/var/www/binboard.carloswu.com/server/"
+    "deploy-server": "scp -r server/src root@188.166.92.221:/var/www/binboard.carloswu.com/server/",
+    "deploy-client": "ng build && scp -r client/src/dist root@188.166.92.221:/var/www/binboard.carloswu.com/client/"
   },
   "private": true,
   "dependencies": {

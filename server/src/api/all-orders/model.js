@@ -1,9 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 
 const allOrdersSchema = new Schema({
-  symbol: {
-    type: String
-  },
+  symbol: { type: String },
   orderId: { type: String },
   clientOrderId: { type: String },
   price: { type: String },
@@ -39,6 +37,7 @@ allOrdersSchema.methods = {
       executedQty: this.executedQty,
       status: this.status,
       timeInForce: this.timeInForce,
+      type: this.type,
       side: this.side,
       stopPrice: this.stopPrice,
       icebergQty: this.icebergQty,
