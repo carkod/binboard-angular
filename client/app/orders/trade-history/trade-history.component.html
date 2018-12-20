@@ -43,7 +43,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="tradeHistoryColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: tradeHistoryColumns;"></tr> -->
+    <tr mat-row *matRowDef="let row; columns: tradeHistoryColumns;"></tr>
   </table>
 </div>
 <h2 *ngIf="noOpenOrders" class="no-orders">There are no open orders</h2>
