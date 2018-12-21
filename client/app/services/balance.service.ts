@@ -4,9 +4,7 @@ import { Observable } from 'rxjs';
 import { IBalances } from '../models/services';
 import { environment } from 'client/environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BalanceService {
 
   accountData: any;
@@ -44,7 +42,7 @@ export class BalanceService {
 
   async getTotalBalance(): Promise<any> {
     await this.getAccount();
-    // await this.getAllQuoteAssets();
+    await this.getAllQuoteAssets();
     const getTickerPrices = await this.db.getTicker().toPromise();
     const allTickers = JSON.parse(getTickerPrices);
     this.tickerPrices.length = 0;

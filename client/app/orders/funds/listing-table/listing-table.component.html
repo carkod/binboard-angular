@@ -1,4 +1,4 @@
-<mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+<mat-spinner *ngIf="isLoadingResults" [diameter]="50" [strokeWidth]="1"></mat-spinner>
 <table mat-table [dataSource]="data">
   <ng-container matColumnDef="asset">
     <th mat-header-cell *matHeaderCellDef>Asset</th>
