@@ -155,8 +155,8 @@ export class DbService {
     const coins = this.http.put(coinsUrl, body, dbApiOptions);
     return coins;
   }
-  getTradesHistory(symbol: String, limit?: number, fromId?: number) {
-    const coinsUrl = `${environment.db.base}${environment.db.historicalTrades}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : ''}${fromId ? '&fromId=' + fromId : ''}`;
+  getTradesHistory() {
+    const coinsUrl = `${environment.db.base}${environment.db.myTrades}`;
     const coins = this.http.get(coinsUrl, dbApiOptions);
     return coins;
   }
