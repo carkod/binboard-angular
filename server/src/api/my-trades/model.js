@@ -1,39 +1,17 @@
 import mongoose, { Schema } from 'mongoose'
 
 const myTradesSchema = new Schema({
-  symbol: {
-    type: String
-  },
-  id: {
-    type: Number
-  },
-  orderId: {
-    type: Number
-  },
-  price: {
-    type: String
-  },
-  qty: {
-    type: String
-  },
-  commission: {
-    type: String
-  },
-  commissionAsset: {
-    type: String
-  },
-  time: {
-    type: Number
-  },
-  isBuyer: {
-    type: Boolean
-  },
-  isMaker: {
-    type: Boolean
-  },
-  isBestMatch: {
-    type: Boolean
-  }
+  symbol: { type: String },
+  id: { type: Number },
+  orderId: { type: Number },
+  price: { type: String },
+  qty: { type: String },
+  commission: { type: String },
+  commissionAsset: { type: String },
+  time: { type: Number },
+  isBuyer: { type: Boolean },
+  isMaker: { type: Boolean },
+  isBestMatch: { type: Boolean }
 }, {
   timestamps: true,
   toJSON: {

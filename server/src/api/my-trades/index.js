@@ -13,18 +13,30 @@ const router = new Router()
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/',
-  query(),
+  query({
+    symbol: { type: String },
+    orderIdFrom: { type: String, paths: ['orderId'], operator: '$gte' },
+    orderIdTo: { type: String, paths: ['orderId'], operator: '$lte' },
+    commissionFrom: { type: String, paths: ['commission'], operator: '$gte' },
+    commissionTo: { type: String, paths: ['commission'], operator: '$lte' },
+    commissionAsset: { type: String },
+    timeFrom: { type: Number, paths: ['time'], operator: '$gte' },
+    timeTo: { type: Number, paths: ['time'], operator: '$lte' },
+    isBuyer: { type: Boolean },
+    isMaker: { type: Boolean },
+    isBestMatch: { type: Boolean }
+  }),
   index)
 
-  /**
- * @api {get} /my-trades/:symbol Retrieve My Trades given symbol
- * @apiName RetrieveSingleMytrades
- * @apiGroup MyTrades
- * @apiSuccess {Object} allOrders Single mytrades Object data.
- * @apiError {Object} 400 Some parameters may contain invalid values.
- * @apiError 404 Trades not found.
- */
+/**
+* @api {get} /my-trades/:symbol Retrieve My Trades given symbol
+* @apiName RetrieveSingleMytrades
+* @apiGroup MyTrades
+* @apiSuccess {Object} allOrders Single mytrades Object data.
+* @apiError {Object} 400 Some parameters may contain invalid values.
+* @apiError 404 Trades not found.
+*/
 router.get('/:symbol',
-show)
+  show)
 
 export default router

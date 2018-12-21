@@ -1,13 +1,11 @@
 import { success, notFound } from '../../services/response/'
 import model from './model'
-import { middleware as query } from 'querymen';
 
 /**
  * All orders is a database query (DB)
  */
 export const index = (req, res, next) => {
   const { cursor, query, select } = req.querymen
-  console.log(req.querymen, req.fields)
   model.find(query)
     .limit(cursor.limit)
     .skip(cursor.skip)
