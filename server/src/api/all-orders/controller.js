@@ -1,12 +1,22 @@
 import { success, notFound } from '../../services/response/'
 import model from './model'
+import { middleware as query } from 'querymen';
 
 /**
  * All orders is a database query (DB)
  */
-export const index = (query, res, next) => {
-  model.find({})
-    .then((data) => data.map((content) => content.view()))
+export const index = (req, res, next) => {
+  const { cursor, query, select } = req.querymen
+  console.log(req.querymen, req.fields)
+  model.find(query)
+    .limit(cursor.limit)
+    .skip(cursor.skip)
+    .sort(cursor.sort)
+    .then((data) => {
+      console.log(data);
+      return data.map((content) => content.view())
+    })
+    
     .then(success(res))
     .catch(next)
 }
