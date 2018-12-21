@@ -28,6 +28,11 @@ export class BalanceService {
     this.quoteAssets = [];
   }
 
+  async getRecvWindow() {
+    const promise = await this.db.getSettings('global').toPromise();
+    return promise.recvWindow
+  }
+
   async getEurAmount() {
     await this.getBtcAmout();
     let euroPrice = await fetch(environment.other.euro);
@@ -60,7 +65,7 @@ export class BalanceService {
       let count = i;
       this.tickerPrices.forEach(x => {
         const check = x.symbol.indexOf(element.asset)
-        if (check !== undefined && check > -1 && count < (this.balances.length-1)) {
+        if (check !== undefined && check > -1 && count < (this.balances.length - 1)) {
           count = i++
           const newObj = {
             symbol: x.symbol,
@@ -79,9 +84,14 @@ export class BalanceService {
   }
 
   async getAccount(): Promise<any> {
-    await this.retrieveServerTime();
+    const serverTime = await this.retrieveServerTime();
+    const recvWindow = await this.getRecvWindow();
+    const recvWindowCondition = this.timestamp < (serverTime + 1000) && (serverTime - +this.timestamp) <= +recvWindow;
     const getAccountData = await this.db.getAccount(this.timestamp).toPromise();
     const accountData = JSON.parse(getAccountData);
+    if (!recvWindowCondition || accountData.code === -1021) {
+      this.timestamp = new Date().getTime();
+    }
     this.balances = accountData.balances.filter(x => parseFloat(x.free) > 0.0000000);
     return this.balances;
   }
@@ -89,6 +99,7 @@ export class BalanceService {
   async retrieveServerTime(): Promise<any> {
     const serverTime: string = await this.db.getServerTime().toPromise();
     this.serverTime = +JSON.parse(serverTime).serverTime;
+    debugger;
     return this.serverTime;
   }
 

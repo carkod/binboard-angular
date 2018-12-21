@@ -16,6 +16,9 @@ export class BinanceErrorsService implements HttpInterceptor {
         const parseEvent = JSON.parse(event.body);
         if (parseEvent.code !== undefined) {
           this.snackBar.open(parseEvent.msg, 'close', { verticalPosition: 'bottom' });
+          if (parseEvent.code === -1021) {
+            location.reload();
+          }
         }
         return parseEvent;
       }
