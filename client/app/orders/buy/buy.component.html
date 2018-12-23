@@ -58,7 +58,7 @@
         <div class="column">
           <mat-list>
             <mat-divider></mat-divider>
-            <mat-list-item>Total: {{price * quantity}}</mat-list-item>
+            <mat-list-item>Total: {{(price * quantity) | roundDecimals: 5}}</mat-list-item>
             <mat-divider></mat-divider>
           </mat-list>
         </div>
