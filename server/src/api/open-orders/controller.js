@@ -1,5 +1,6 @@
 import { success, notFound } from '../../services/response/'
 import { OpenOrders } from '.'
+import manageTimeSync from '../../services/response/recvwindow'
 
 import config from '../../config'
 import request from 'request'
@@ -13,9 +14,11 @@ const signature = (queryStrings, secretKey) => {
   return convert.update(queryStrings).digest('hex');
 }
 
-export const index = ({query}, res, next) => {
-  const { timestamp, recvWindow, symbol } = query;
-  const queryString = `${symbol ? 'symbol=' : ''}&timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : ''}`;
+export const index = async ({query}, res, next) => {
+  const timeSync = await manageTimeSync();
+  const { timestamp, recvWindow } = timeSync
+  const { symbol } = query;
+  const queryString = `${symbol ? 'symbol=' : ''}&timestamp=${timestamp}&recvWindow=${recvWindow}`;
   const secretKey = binanceSecret;
   const apiKey = binanceKey;
   const headers = {

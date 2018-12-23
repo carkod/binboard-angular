@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IMatOptions } from 'client/app/models/components';
 import { DbService } from 'client/app/services/db.service';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
@@ -13,6 +13,8 @@ import { BalanceService } from 'client/app/services/balance.service';
 })
 export class BuyComponent implements OnInit {
 
+  @Output() updateData: EventEmitter<Object> = new EventEmitter();
+  
   options: IMatOptions[] = ORDER_TYPES;
   timeInForceOptions: IMatOptions[] = TIME_IN_FORCE;
 
@@ -85,6 +87,8 @@ export class BuyComponent implements OnInit {
       this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe(result => {
         // Handle errors in interceptor
         console.log(result);
+        const resultParse = result;
+        this.updateData.emit(resultParse)
       })
     } else {
       console.log('form invalid', this.buyForm)

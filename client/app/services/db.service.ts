@@ -22,11 +22,7 @@ const dbApiOptions = {
 })
 export class DbService {
 
-  settingsType: string = 'global';
-  recvWindow: number;
-
   constructor(private http: HttpClient, private appload: AppLoadService) {
-    this.recvWindow = this.appload.recvWindow;
   }
 
   getSingleCoinStats(symbol) {
@@ -99,29 +95,26 @@ export class DbService {
     return coins;
   }
   
-  getAccount(timestamp) {
-    const coinsUrl = `${environment.db.base}${environment.db.account}?timestamp=${timestamp}&recvWindow=${this.recvWindow}`;
+  getAccount() {
+    const coinsUrl = `${environment.db.base}${environment.db.account}`;
     const coins = this.http.get<any>(coinsUrl, httpOptions);
     return coins;
   }
   
   testOrder(symbol: String, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number) {
-    const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.order}?timestamp=${timestamp}&recvWindow=${this.recvWindow}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+    const coinsUrl = `${environment.db.base}${environment.db.order}?symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
     const coins = this.http.post(coinsUrl, {}, httpOptions);
     return coins;
   }
 
   getMyTrades(symbol: String, startTime?: Number, endTime?: Number, fromId?: Number, limit?: Number) {
-    const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.myTrades}?symbol=${symbol}&timestamp=${timestamp}&recvWindow=${this.recvWindow}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
+    const coinsUrl = `${environment.db.base}${environment.db.myTrades}?symbol=${symbol}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }
 
   getOpenOrders(symbol?: string) {
-    const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.openOrders}?timestamp=${timestamp}&recvWindow=${this.recvWindow}${symbol !== undefined ? '&symbol=' + symbol : ''}`;
+    const coinsUrl = `${environment.db.base}${environment.db.openOrders}?${symbol !== undefined ? '&symbol=' + symbol : ''}`;
     const coins = this.http.get(coinsUrl, httpOptions);
     return coins;
   }
@@ -131,8 +124,7 @@ export class DbService {
     return coins;
   }
   newOrder(symbol: String, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number) {
-    const timestamp = +new Date;
-    const coinsUrl = `${environment.db.base}${environment.db.order}?timestamp=${timestamp}&recvWindow=${this.recvWindow}&symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+    const coinsUrl = `${environment.db.base}${environment.db.order}?symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
     const coins = this.http.post(coinsUrl, {}, httpOptions);
     return coins;
   }

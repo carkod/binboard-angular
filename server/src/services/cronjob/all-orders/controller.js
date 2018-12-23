@@ -3,6 +3,7 @@ import request from 'request'
 import crypto from 'crypto'
 import SymbolsModel from '../../../api/symbols/model'
 import AllOrdersModel from '../../../api/all-orders/model'
+import manageTimeSync from '../../response/recvwindow';
 
 // load env variables
 const { binanceKey, binanceSecret } = config
@@ -20,9 +21,8 @@ export async function requestSymbolsFromDb() {
 
 export async function requestAllOrders(symbol) {
     console.log('request All Orders triggered, symbol::', symbol)
-    const timestamp = +new Date();
-    const recvWindow = 20000; // Change with DB value
-    const queryString = `symbol=${symbol}&timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : ''}`;
+    const { timestamp, recvWindow } = await manageTimeSync()
+    const queryString = `symbol=${symbol}&timestamp=${timestamp}&recvWindow=${recvWindow}`;
     const secretKey = binanceSecret;
     const apiKey = binanceKey;
     const options = {
@@ -39,12 +39,12 @@ export async function requestAllOrders(symbol) {
         // Remove all first to avoid duplicates
         AllOrdersModel.remove({});
         if (content.length > 0) {
-            return AllOrdersModel.insertMany(content, (e, content) => {
+            return AllOrdersModel.insertMany(content, (e, docs) => {
                 if (e) {
                     const creationError = new Error('historical order creation error::', e)
                     throw creationError
                 }
-                console.log('historical order creation body::', content);
+                console.log('historical order creation body::', docs);
             })
         }
     });

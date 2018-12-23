@@ -7,6 +7,7 @@ import { ticker24job } from './services/cronjob/ticker24'
 import historicalOrdersJob from './services/cronjob/all-orders'
 import { myTradesJob } from './services/cronjob/my-trades';
 import symbolsJob from './services/cronjob/symbols';
+import recvWindow from './services/response/recvWindow';
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'orders',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
+  updateData: any;
   constructor() { }
 
   ngOnInit() {
+    console.log(this.updateData)
   }
 
 }

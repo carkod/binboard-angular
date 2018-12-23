@@ -9,7 +9,6 @@ const { tree } = schema;
 
 export function ticker24job() {
   const ticker24url = api.base + '/' + api.ticker24;
-  console.log(process.env)
   // schedule tasks to be run on the server   
   cron.schedule("0 */3 * * *", function () {
     console.log('executing ticker24 cronjob')
