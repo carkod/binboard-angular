@@ -91,11 +91,11 @@ export class BuyComponent implements OnInit {
       const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.buyForm.value;
       const side = 'BUY';
       this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe((result: string) => {
-        // Handle errors in interceptor
-        const { symbol, status, side, orderId, origQty, price } = JSON.parse(result);
+        if (result) {
+          const { symbol, status, side, orderId } = JSON.parse(result);
         this.updateData.emit(JSON.parse(result))
         this.snackBar.open(`${status} ${symbol} ${side} order has been created with orderId ${orderId}`, 'close');  
-
+        }
       })
     } else {
       console.log('form invalid', this.buyForm)
@@ -144,9 +144,4 @@ export class BuyComponent implements OnInit {
     return null
 
   }
-
-  onOptionSelected(event: Event) {
-    console.log(event);
-  }
-
 }
