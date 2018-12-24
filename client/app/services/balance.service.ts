@@ -4,13 +4,10 @@ import { Observable } from 'rxjs';
 import { IBalances } from '../models/services';
 import { environment } from 'client/environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BalanceService {
 
   accountData: any;
-  timestamp: Number;
   serverTime: number;
   balances: Array<IBalances>;
   baseCoin: String;
@@ -23,7 +20,6 @@ export class BalanceService {
   getAccountSubs$: Observable<any>;
 
   constructor(private db: DbService) {
-    this.timestamp = +new Date;
     this.baseCoin = 'BTC';
     this.tickerPrices = [];
     this.totalBalance = [];
@@ -44,7 +40,7 @@ export class BalanceService {
 
   async getTotalBalance(): Promise<any> {
     await this.getAccount();
-    // await this.getAllQuoteAssets();
+    await this.getAllQuoteAssets();
     const getTickerPrices = await this.db.getTicker().toPromise();
     const allTickers = JSON.parse(getTickerPrices);
     this.tickerPrices.length = 0;
@@ -62,7 +58,7 @@ export class BalanceService {
       let count = i;
       this.tickerPrices.forEach(x => {
         const check = x.symbol.indexOf(element.asset)
-        if (check !== undefined && check > -1 && count < (this.balances.length-1)) {
+        if (check !== undefined && check > -1 && count < (this.balances.length - 1)) {
           count = i++
           const newObj = {
             symbol: x.symbol,
@@ -81,17 +77,10 @@ export class BalanceService {
   }
 
   async getAccount(): Promise<any> {
-    await this.retrieveServerTime();
-    const getAccountData = await this.db.getAccount(this.timestamp).toPromise();
+    const getAccountData = await this.db.getAccount().toPromise();
     const accountData = JSON.parse(getAccountData);
     this.balances = accountData.balances.filter(x => parseFloat(x.free) > 0.0000000);
     return this.balances;
-  }
-
-  async retrieveServerTime(): Promise<any> {
-    const serverTime: string = await this.db.getServerTime().toPromise();
-    this.serverTime = +JSON.parse(serverTime).serverTime;
-    return this.serverTime;
   }
 
   async getAllQuoteAssets(): Promise<any> {

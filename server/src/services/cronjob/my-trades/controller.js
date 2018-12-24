@@ -3,6 +3,7 @@ import request from 'request'
 import crypto from 'crypto'
 import SymbolsModel from '../../../api/symbols/model'
 import MyTradesModel from '../../../api/my-trades/model'
+import manageTimeSync from '../../response/recvwindow';
 
 // load env variables
 const { binanceKey, binanceSecret } = config
@@ -20,9 +21,8 @@ export async function requestSymbolsFromDb() {
 
 export async function requestMyTrades(symbol) {
     console.log('request My Trades triggered, symbol::', symbol)
-    const timestamp = +new Date();
-    const recvWindow = 20000; // Change with DB value
-    const queryString = `symbol=${symbol}&timestamp=${timestamp}${recvWindow ? '&recvWindow=' + recvWindow : ''}`;
+    const { timestamp, recvWindow } = await manageTimeSync()
+    const queryString = `symbol=${symbol}&timestamp=${timestamp}&recvWindow=${recvWindow}`;
     const secretKey = binanceSecret;
     const apiKey = binanceKey;
     const options = {

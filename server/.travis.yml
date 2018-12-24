@@ -9,9 +9,11 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - gcc-4.8
-    - g++-4.8
+    - g++-4.8 
 script:
-  - npm test -- -i --coverage
+  - npm test -- -i asdfasdf--coverage
+  - ng build
+  - ng test
 env:
   global:
   - CXX=g++-4.8

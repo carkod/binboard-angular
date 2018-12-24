@@ -3,8 +3,7 @@ import request from 'request'
 
 const { base, serverTime } = config.api
 
-export const index = ({query}, res, next) => {
-  const { timestamp, recvWindow } = query;
+export const index = (q, res, next) => {
   const url = `${base + serverTime}`;
   let data, status;
   return request(url, function (error, response, resBody) {

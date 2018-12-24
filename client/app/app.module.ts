@@ -46,6 +46,7 @@ import { OrderHistoryComponent } from './orders/order-history/order-history.comp
 import { RankingsComponent } from './rankings/rankings.component';
 import { StrategiesComponent } from './strategies/strategies.component';
 import { AppLoadService } from './services/app-load-service.service';
+import { BalanceService } from './services/balance.service';
 
 // Execute this before app init
 export function getSettings(appLoadService: AppLoadService) {
@@ -129,7 +130,8 @@ export function getSettings(appLoadService: AppLoadService) {
     DrawerService,
     StreamsService,
     MatSnackBar,
-    AppLoadService
+    AppLoadService,
+    BalanceService
   ],
   bootstrap: [AppComponent]
 })

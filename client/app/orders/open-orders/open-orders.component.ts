@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { DbService } from 'client/app/services/db.service';
 import { parse } from 'url';
 
@@ -7,8 +7,9 @@ import { parse } from 'url';
   templateUrl: './open-orders.component.html',
   styleUrls: ['./open-orders.component.scss']
 })
-export class OpenOrdersComponent implements OnInit {
+export class OpenOrdersComponent implements OnInit, OnChanges {
 
+  @Input() updateData;
   orders: Array<String>;
   isLoadingResults: Boolean = false;
   noOpenOrders: Boolean = false;
@@ -23,6 +24,12 @@ export class OpenOrdersComponent implements OnInit {
   ngOnInit() {
     this.isLoadingResults = true;
     this.loadData();
+  }
+
+  ngOnChanges(c: SimpleChanges) {
+    if (c.updateData.currentValue) {
+      this.loadData();
+    }
   }
 
   loadData() {

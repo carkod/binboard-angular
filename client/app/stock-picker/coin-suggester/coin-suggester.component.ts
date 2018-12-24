@@ -3,6 +3,7 @@ import { DbService } from '../../services/db.service';
 import { startWith, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, FormGroup } from '@angular/forms';
+import { MatOptionSelectionChange, MatAutocompleteSelectedEvent } from '@angular/material';
 
 export interface Ticker { symbol: string, price: string }
 
@@ -11,7 +12,7 @@ export interface Ticker { symbol: string, price: string }
   templateUrl: './coin-suggester.component.html',
   styleUrls: ['./coin-suggester.component.scss'],
   providers: [
-    { 
+    {
       provide: NG_VALUE_ACCESSOR,
       useExisting: CoinSuggesterComponent,
       multi: true
@@ -32,13 +33,12 @@ export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges, 
     this.db.getTicker().subscribe(coinData => {
       coinData = JSON.parse(coinData);
       this.options = coinData;
-      const findDefault = this.options.find(x => x.symbol === 'ONTETH')
       this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        // startWith<string | Ticker>(''),
-        map(value => typeof value === 'string' ? value : value.symbol),
-        map(symbol => symbol ? this._filter(symbol) : this.options.slice())
-      );
+        .pipe(
+          startWith<string | Ticker>(''),
+          map(value => typeof value === 'string' ? value : value.symbol),
+          map(symbol => symbol ? this._filter(symbol) : this.options.slice())
+        );
     });
   }
 
@@ -57,18 +57,19 @@ export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges, 
 
   displayFn(coin?: any): string | undefined {
     if (coin !== null) {
-      return this.symbol = coin;   
+      return this.symbol = coin;
     }
   }
 
   private _filter(name: string): any {
     const filterValue = name.toLowerCase();
     const value = this.options.filter(option => option.symbol.toLowerCase().indexOf(filterValue) === 0);
-    this.propagateChange(value[0].symbol);
-    this.emitSymbol.emit(value[0].symbol);
+    if (value.length !== 0) {
+      this.propagateChange(value[0].symbol);
+    }
     return value;
   }
-  
+
   writeValue(value): void {
   }
   propagateChange = (_: any) => {
@@ -81,9 +82,5 @@ export class CoinSuggesterComponent implements ControlValueAccessor, OnChanges, 
 
   registerOnTouched(value) {
     // console.log(value)
-  }
-
-  log(...text) {
-    console.log(...text);
   }
 }
