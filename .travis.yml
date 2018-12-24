@@ -10,7 +10,9 @@ addons:
     - g++-4.8 
 script:
   - ng build
+  - ng lint
   - ng test
+  - ng e2e
 env:
   global:
   - CXX=g++-4.8
