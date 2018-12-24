@@ -6,7 +6,7 @@ export const show = ({ params }, res, next) => {
   
   const { symbol } = params
   const tickerurl = `${base + ticker}?symbol=${symbol}`;
-  let data;
+  let data, status;
   return request(tickerurl, function (error, response, resBody) {
     console.log('error:', error); // Print the error if one occurred
     // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received

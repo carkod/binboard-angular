@@ -1,7 +1,8 @@
 import request from 'supertest'
 import { apiRoot } from '../../config'
 import express from '../../services/express'
-import routes, { Ticker } from '.'
+import routes from '.'
+import Ticker from './model'
 
 const app = () => express(apiRoot, routes)
 

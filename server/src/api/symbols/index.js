@@ -8,9 +8,6 @@ const router = new Router()
 const { symbol, status, baseAsset, baseAssetPrecision, quoteAsset, quotePrecision, orderTypes, icebergAllowed, filters } = schema.tree
 
 
-router.get('/update', upsert)
-
-
 /**
  * @api {post} /symbols Create symbols
  * @apiName CreateSymbols
@@ -46,14 +43,14 @@ router.get('/',
   index)
 
 /**
- * @api {get} /symbols/:id Retrieve symbols
- * @apiName RetrieveSymbols
+ * @api {get} /symbols/:symbol Retrieve symbols
+ * @apiName RetrieveSingleSymbol
  * @apiGroup Symbols
  * @apiSuccess {Object} symbols Symbols's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Symbols not found.
  */
-router.get('/:id',
+router.get('/:symbol',
   show)
 
 /**

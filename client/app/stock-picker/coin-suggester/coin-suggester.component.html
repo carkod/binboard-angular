@@ -1,6 +1,6 @@
 <mat-form-field class="example-full-width">
   <input type="text" placeholder="Cryptocurrency symbol" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" >
-  <mat-autocomplete #auto="matAutocomplete" >
+  <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option.symbol">
       {{option.symbol}}
     </mat-option>

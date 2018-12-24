@@ -26,11 +26,6 @@ export class BalanceService {
     this.quoteAssets = [];
   }
 
-  async getRecvWindow() {
-    const promise = await this.db.getSettings('global').toPromise();
-    return promise.recvWindow
-  }
-
   async getEurAmount() {
     await this.getBtcAmout();
     let euroPrice = await fetch(environment.other.euro);
@@ -86,12 +81,6 @@ export class BalanceService {
     const accountData = JSON.parse(getAccountData);
     this.balances = accountData.balances.filter(x => parseFloat(x.free) > 0.0000000);
     return this.balances;
-  }
-
-  async retrieveServerTime(): Promise<any> {
-    const serverTime: string = await this.db.getServerTime().toPromise();
-    this.serverTime = +JSON.parse(serverTime).serverTime;
-    return this.serverTime;
   }
 
   async getAllQuoteAssets(): Promise<any> {

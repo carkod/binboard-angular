@@ -26,41 +26,46 @@ export class DbService {
   }
 
   getSingleCoinStats(symbol) {
-    const coinsUrl = `${environment.db.base + environment.db.ticker24}/${symbol}`;
-    const coins = this.http.get(coinsUrl, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base + environment.db.ticker24}/${symbol}`;
+    const req = this.http.get(reqUrl, httpOptions);
+    return req;
   }
   postNewCoin(content) {
-    const coinsUrl = `${environment.db.base + environment.db.tracker}`;
-    const coins = this.http.post(coinsUrl, content, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base + environment.db.tracker}`;
+    const req = this.http.post(reqUrl, content, httpOptions);
+    return req;
   }
 
   getTrackedCoins(): Observable<any> {
-    const coinsUrl = `${environment.db.base + environment.db.tracker}`;
-    const coins = this.http.get(coinsUrl, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base + environment.db.tracker}`;
+    const req = this.http.get(reqUrl, httpOptions);
+    return req;
   }
   deleteTrackedCoin(symbol) {
-    const coinsUrl = `${environment.db.base + environment.db.tracker}/${symbol}`;
-    const coins = this.http.delete(coinsUrl, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base + environment.db.tracker}/${symbol}`;
+    const req = this.http.delete(reqUrl, httpOptions);
+    return req;
   }
   getCoinStats() {
-    const coinsUrl = `${environment.db.base + environment.db.ticker24}`;
-    let coins = this.http.get<any>(coinsUrl);
-    return coins;
+    const reqUrl = `${environment.db.base + environment.db.ticker24}`;
+    let req = this.http.get<any>(reqUrl);
+    return req;
   }
 
   getExchange() {
-    const coinsUrl = `${environment.db.base + environment.db.exchangeInfo}`;
-    let coins = this.http.get<any>(coinsUrl);
-    return coins;
+    const reqUrl = `${environment.db.base + environment.db.exchangeInfo}`;
+    let req = this.http.get<any>(reqUrl);
+    return req;
   }
-  getTicker() {
-    const coinsUrl = `${environment.db.base + environment.db.ticker}`;
-    let coins = this.http.get<any>(coinsUrl);
-    return coins;
+  getTicker(symbol?: String) {
+    const reqUrl = `${environment.db.base + environment.db.ticker}/${symbol ? symbol : ''}`;
+    let req = this.http.get<any>(reqUrl);
+    return req;
+  }
+  getTicker24(symbol?: String) {
+    const reqUrl = `${environment.db.base + environment.db.ticker24}/${symbol || ''}`;
+    let req = this.http.get<any>(reqUrl);
+    return req;
   }
   getCandlestick(symbol: String, interval: string, limit: number) {
     const candlestickUrl = `${environment.db.base + environment.db.candlestick}/${symbol}/${interval}/${limit}`;
@@ -90,71 +95,71 @@ export class DbService {
   }
 
   getServerTime() {
-    const coinsUrl = `${environment.db.base}${environment.db.serverTime}`;
-    const coins = this.http.get<any>(coinsUrl);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.serverTime}`;
+    const req = this.http.get<any>(reqUrl);
+    return req;
   }
   
   getAccount() {
-    const coinsUrl = `${environment.db.base}${environment.db.account}`;
-    const coins = this.http.get<any>(coinsUrl, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.account}`;
+    const req = this.http.get<any>(reqUrl, httpOptions);
+    return req;
   }
   
   testOrder(symbol: String, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number) {
-    const coinsUrl = `${environment.db.base}${environment.db.order}?symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
-    const coins = this.http.post(coinsUrl, {}, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.order}?symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+    const req = this.http.post(reqUrl, {}, httpOptions);
+    return req;
   }
 
   getMyTrades(symbol: String, startTime?: Number, endTime?: Number, fromId?: Number, limit?: Number) {
-    const coinsUrl = `${environment.db.base}${environment.db.myTrades}?symbol=${symbol}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
-    const coins = this.http.get(coinsUrl, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.myTrades}?symbol=${symbol}${limit ? '&limit=' + limit : ''}${startTime ? '&startTime=' + startTime : ''}${endTime ? '&endTime=' + endTime : ''}${fromId ? '&fromId=' + fromId : ''}`;
+    const req = this.http.get(reqUrl, httpOptions);
+    return req;
   }
 
   getOpenOrders(symbol?: string) {
-    const coinsUrl = `${environment.db.base}${environment.db.openOrders}?${symbol !== undefined ? '&symbol=' + symbol : ''}`;
-    const coins = this.http.get(coinsUrl, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.openOrders}?${symbol !== undefined ? '&symbol=' + symbol : ''}`;
+    const req = this.http.get(reqUrl, httpOptions);
+    return req;
   }
   getBookOrder(symbol: String, limit: Number) {
-    const coinsUrl = `${environment.db.base}${environment.db.orderBook}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : 10}`;
-    const coins = this.http.get<any>(coinsUrl, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.orderBook}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : 10}`;
+    const req = this.http.get<any>(reqUrl, httpOptions);
+    return req;
   }
   newOrder(symbol: String, side: string, type: string, quantity: number, price?: Number, timeInForce?: String, stopPrice?: Number) {
-    const coinsUrl = `${environment.db.base}${environment.db.order}?symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
-    const coins = this.http.post(coinsUrl, {}, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.order}?symbol=${symbol}&type=${type}&side=${side}&quantity=${quantity}${price ? '&price=' + price : ''}${timeInForce ? '&timeInForce=' + timeInForce : ''}${stopPrice ? '&stopPrice=' + stopPrice : ''}`;
+    const req = this.http.post(reqUrl, {}, httpOptions);
+    return req;
   }
   getOrderBook(symbol: String, limit: Number) {
-    const coinsUrl = `${environment.db.base}${environment.db.orderBook}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : 10}`;
-    const coins = this.http.get<any>(coinsUrl, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.orderBook}?${symbol !== undefined ? '&symbol=' + symbol : ''}${limit !== undefined ? '&limit=' + limit : 10}`;
+    const req = this.http.get<any>(reqUrl, httpOptions);
+    return req;
   }
   /**
    * Use for local settings
    * @param type: string - setting type e.g. orders settings
    */
   getSettings(type: string) {
-    const coinsUrl = `${environment.db.base}${environment.db.settings}/${type}`;
-    const coins = this.http.get<any>(coinsUrl, dbApiOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.settings}/${type}`;
+    const req = this.http.get<any>(reqUrl, dbApiOptions);
+    return req;
   }
   updateSettings(type: string, body: object) {
-    const coinsUrl = `${environment.db.base}${environment.db.settings}/${type}`;
-    const coins = this.http.put(coinsUrl, body, dbApiOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.settings}/${type}`;
+    const req = this.http.put(reqUrl, body, dbApiOptions);
+    return req;
   }
   getTradesHistory() {
-    const coinsUrl = `${environment.db.base}${environment.db.myTrades}`;
-    const coins = this.http.get(coinsUrl, dbApiOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.myTrades}`;
+    const req = this.http.get(reqUrl, dbApiOptions);
+    return req;
   }
   getAllOrders() {
-    const coinsUrl = `${environment.db.base}${environment.db.allOrders}`;
-    const coins = this.http.get(coinsUrl, httpOptions);
-    return coins;
+    const reqUrl = `${environment.db.base}${environment.db.allOrders}`;
+    const req = this.http.get(reqUrl, httpOptions);
+    return req;
   }
 }

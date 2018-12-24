@@ -19,9 +19,9 @@ export const environment = {
     ticker:'/api/ticker', // Symbol Price only ticker -- retrieve all coins
     bookTicker: '/api/bookTicker', // Best price/qty on the order book for a symbol or symbols.
     tracker: '/api/tracker', // Own API, not a proxy
-    allOrders: '/api/all-orders',
+    allOrders: '/api/all-orders', // Own API, cronjob
     account: '/api/account',
-    myTrades: '/api/my-trades',
+    myTrades: '/api/my-trades', // Own API, with cronjob
     serverTime: '/api/server-time',
     testOrder: '/api/test-order',
     openOrders: '/api/open-orders',

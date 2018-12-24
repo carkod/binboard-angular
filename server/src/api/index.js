@@ -18,7 +18,6 @@ import orderBook from './order-book'
 import settings from './settings'
 import symbols from './symbols'
 import allOrders from './all-orders'
-import { dirname } from 'path';
 
 const router = new Router()
 

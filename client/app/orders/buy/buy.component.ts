@@ -5,6 +5,9 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { TIME_IN_FORCE, ORDER_TYPES } from 'client/app/models/static';
 import { BalanceService } from 'client/app/services/balance.service';
+import { interval } from 'rxjs';
+import { startWith, mergeMap, debounceTime } from 'rxjs/operators';
+import { debug } from 'util';
 
 @Component({
   selector: 'buy',
@@ -14,7 +17,7 @@ import { BalanceService } from 'client/app/services/balance.service';
 export class BuyComponent implements OnInit {
 
   @Output() updateData: EventEmitter<Object> = new EventEmitter();
-  
+
   options: IMatOptions[] = ORDER_TYPES;
   timeInForceOptions: IMatOptions[] = TIME_IN_FORCE;
 
@@ -33,7 +36,10 @@ export class BuyComponent implements OnInit {
     this.buyForm.get('orderType').valueChanges.subscribe(orderType => this.dynamicFields(orderType));
     this.buyForm.get('price').valueChanges.subscribe(price => this.price = price);
     this.buyForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
-    this.buyForm.get('symbol').valueChanges.subscribe(symbol => this.symbol = symbol);
+    this.buyForm.get('symbol').valueChanges.pipe(debounceTime(5000)).subscribe(symbol => {
+      this.symbol = symbol
+      this.defaultPrice(symbol);
+    });
   }
 
   dynamicFields(orderType: String) {
@@ -84,16 +90,63 @@ export class BuyComponent implements OnInit {
     if (this.buyForm.valid) {
       const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.buyForm.value;
       const side = 'BUY';
-      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe(result => {
+      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe((result: string) => {
         // Handle errors in interceptor
-        console.log(result);
-        const resultParse = result;
-        this.updateData.emit(resultParse)
+        const { symbol, status, side, orderId, origQty, price } = JSON.parse(result);
+        this.updateData.emit(JSON.parse(result))
+        this.snackBar.open(`${status} ${symbol} ${side} order has been created with orderId ${orderId}`, 'close');  
+
       })
     } else {
       console.log('form invalid', this.buyForm)
       this.snackBar.open('Invalid form fields, cannot be submitted', 'close');
     }
+  }
+/**
+ * Get price using ticker endpoint
+ * @param symbol {string} set default price GIVEN symbol (coin-suggester component)
+ */
+  defaultPrice(symbol) {
+    this.db.getTicker(symbol).subscribe(res => {
+      const { price } = JSON.parse(res);
+      this.buyForm.get('price').setValue(price)
+      this.maxQty(price);
+    })
+  }
+
+  async maxQty(price: String) {
+    const balance = await this.balances.getAccount();
+    const baseAssets = await this.balances.getAllQuoteAssets();
+    // Get base Asset (price)
+    const matchedBaseAsset = baseAssets.find(x => {
+      if (this.symbol.indexOf(x) > -1) {
+        return x
+      }
+      return null
+    });
+    // Find this base asset in existent Funds
+    let matchBalance = null
+    if (matchedBaseAsset !== null) {
+      matchBalance = balance.find(x => {
+        if (x.asset === matchedBaseAsset) {
+          return x.free
+        }
+        return null
+      });
+    }
+    // If found, calculate quantity
+    if (matchBalance) {
+      const result = matchBalance.free / +price; // Get quantity given price
+      const round = Math.floor(result);
+      console.log(round)
+      this.buyForm.get('quantity').setValue(round)
+    }
+    return null
+
+  }
+
+  onOptionSelected(event: Event) {
+    console.log(event);
   }
 
 }
