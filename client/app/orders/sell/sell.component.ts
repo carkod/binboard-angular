@@ -16,6 +16,7 @@ import { debounceTime } from 'rxjs/operators';
 export class SellComponent implements OnInit {
 
   @Output() updateData: EventEmitter<Object> = new EventEmitter();
+  @Output() updateSymbol: EventEmitter<String> =  new EventEmitter();
 
   options: IMatOptions[] = ORDER_TYPES;
   timeInForceOptions: IMatOptions[] = TIME_IN_FORCE;
@@ -37,6 +38,7 @@ export class SellComponent implements OnInit {
     this.sellForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
     this.sellForm.get('symbol').valueChanges.pipe(debounceTime(5000)).subscribe(symbol => {
       this.symbol = symbol;
+      this.updateSymbol.emit(symbol);
       this.defaultPrice(symbol);
     });
   }
@@ -87,10 +89,13 @@ export class SellComponent implements OnInit {
     if (this.sellForm.valid) {
       const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.sellForm.value;
       const side = 'SELL';
-      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe(result => {
-        // Handle errors in interceptor
-        const resultParse = result;
-        this.updateData.emit(resultParse)
+      this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe((result: string) => {
+        console.log(result)
+        const { symbol, status, side, orderId } = JSON.parse(result);
+        if (status) {
+        this.updateData.emit(JSON.parse(result))
+        this.snackBar.open(`${status} order created`, 'close');  
+        }
       })
     } else {
       this.snackBar.open('Invalid form fields, cannot be submitted', 'close');

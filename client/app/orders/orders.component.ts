@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor() { }
+  symbol: String;
+  isLoadingResults: Boolean;
+
+  constructor() { 
+    if (this.symbol === undefined) {
+      this.isLoadingResults = true;
+    }
+  }
 
   ngOnInit() {
+  }
+
+  updateSymbol(symbol: String) {
+    this.symbol = symbol;
+    this.isLoadingResults = false
   }
 
 }

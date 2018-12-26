@@ -5,9 +5,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { TIME_IN_FORCE, ORDER_TYPES } from 'client/app/models/static';
 import { BalanceService } from 'client/app/services/balance.service';
-import { interval } from 'rxjs';
-import { startWith, mergeMap, debounceTime } from 'rxjs/operators';
-import { debug } from 'util';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'buy',
@@ -17,6 +15,7 @@ import { debug } from 'util';
 export class BuyComponent implements OnInit {
 
   @Output() updateData: EventEmitter<Object> = new EventEmitter();
+  @Output() updateSymbol: EventEmitter<String> =  new EventEmitter();
 
   options: IMatOptions[] = ORDER_TYPES;
   timeInForceOptions: IMatOptions[] = TIME_IN_FORCE;
@@ -37,7 +36,8 @@ export class BuyComponent implements OnInit {
     this.buyForm.get('price').valueChanges.subscribe(price => this.price = price);
     this.buyForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
     this.buyForm.get('symbol').valueChanges.pipe(debounceTime(5000)).subscribe(symbol => {
-      this.symbol = symbol
+      this.symbol = symbol;
+      this.updateSymbol.emit(symbol);
       this.defaultPrice(symbol);
     });
   }

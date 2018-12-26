@@ -1,26 +1,32 @@
 <top-toolbar></top-toolbar>
 <div id="orders">
-  <mat-tab-group [selectedIndex]="1">
-    <mat-tab label="Buy">
-      <buy (updateOrders)="update($event)"></buy>
-    </mat-tab>
-    <mat-tab label="Sell">
-      <sell (updateOrders)="update($event)"></sell>
-    </mat-tab>
-    <mat-tab label="Open orders">
-      <open-orders [updateData]="updateData"></open-orders>
-    </mat-tab>
-    <mat-tab label="Funds">
-      <funds [updateData]="updateData"></funds>
-    </mat-tab>
-    <mat-tab label="Order history">
-      <order-history></order-history>
-    </mat-tab>
-    <mat-tab label="Trade history">
-      <trade-history></trade-history>
-    </mat-tab>
-    <mat-tab label="Test orders">
-      <test-order (updateOrders)="update($event)"></test-order>
-    </mat-tab>
-  </mat-tab-group>
+  <div class="graph-wrapper">
+    <mat-spinner *ngIf="isLoadingResults" [diameter]="50" [strokeWidth]="1"></mat-spinner>
+    <candlestick *ngIf="!isLoadingResults" [symbolCode]="symbol"></candlestick>
+  </div>
+  <div class="orders-tabs">
+    <mat-tab-group [selectedIndex]="1">
+      <mat-tab label="Buy">
+        <buy (updateSymbol)="updateSymbol($event)"></buy>
+      </mat-tab>
+      <mat-tab label="Sell">
+        <sell (updateSymbol)="updateSymbol($event)"></sell>
+      </mat-tab>
+      <mat-tab label="Open orders">
+        <open-orders [updateData]="updateData"></open-orders>
+      </mat-tab>
+      <mat-tab label="Funds">
+        <funds [updateData]="updateData"></funds>
+      </mat-tab>
+      <mat-tab label="Order history">
+        <order-history></order-history>
+      </mat-tab>
+      <mat-tab label="Trade history">
+        <trade-history></trade-history>
+      </mat-tab>
+      <mat-tab label="Test orders">
+        <test-order (updateOrders)="update($event)"></test-order>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>
