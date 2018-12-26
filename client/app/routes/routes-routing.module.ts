@@ -33,7 +33,7 @@ const routes: Routes = [
   {
     path: 'orders',
     component: OrdersComponent,
-    // pathMatch: 'full',
+    pathMatch: 'full',
     data: { pageTitle: 'Orders' }
   },
   {

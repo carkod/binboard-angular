@@ -31,7 +31,7 @@ export class SellComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.buildForm(); 
+    this.buildForm();
     this.sellForm.get('orderType').valueChanges.subscribe(orderType => this.dynamicFields(orderType));
     this.sellForm.get('price').valueChanges.subscribe(price => this.price = price);
     this.sellForm.get('quantity').valueChanges.subscribe(quantity => this.quantity = quantity);
@@ -39,7 +39,7 @@ export class SellComponent implements OnInit {
       this.symbol = symbol;
       this.defaultPrice(symbol);
     });
-  } 
+  }
 
   dynamicFields(orderType: String) {
     // If it is a limit order turn on Time in force
@@ -73,7 +73,7 @@ export class SellComponent implements OnInit {
       stopPrice: new FormControl({ value: null, disabled: true }),
     });
   }
-  getDefaultSymbol () {
+  getDefaultSymbol() {
     this.balances.getTotalBalance().then(balance => {
       const quoteAssets = balance;
       this.balances.getAllQuoteAssets().then(quote => {
@@ -101,36 +101,32 @@ export class SellComponent implements OnInit {
  * Get price using ticker endpoint
  * @param symbol {string} set default price GIVEN symbol (coin-suggester component)
  */
-defaultPrice(symbol) {
-  this.db.getTicker(symbol).subscribe(res => {
-    const { price } = JSON.parse(res);
-    this.sellForm.get('price').setValue(price)
-    this.maxQty(price);
-  })
-}
+  defaultPrice(symbol) {
+    this.db.getTicker(symbol).subscribe(res => {
+      const { price } = JSON.parse(res);
+      this.sellForm.get('price').setValue(price)
+      this.maxQty(price);
+    })
+  }
 
-async maxQty(price: String) {
-  const balance = await this.balances.getAccount();
-  
-  // Find this base asset in existent Funds
-  let matchBalance = null
-  if (matchBalance !== null) {
-    matchBalance = balance.find(x => {
-      if (x.asset === this.symbol) {
+  async maxQty(price: String) {
+    const balance = await this.balances.getAccount();
+    const baseAssets = await this.balances.getAllQuoteAssets();
+    // Find this base asset in existent Funds
+    const matchBalance = balance.find(x => {
+      // If asset is found in funds && not in the list of base assets (not a ETH, BTC, BNB, USDT...)
+      if (this.symbol.indexOf(x.asset) > -1 && baseAssets.indexOf(x.asset) === -1) {
         return x.free
       }
       return null
     });
-  }
-  // If found, calculate quantity
-  if (matchBalance) {
-    const result = matchBalance.free / +price; // Get quantity given price
-    const round = Math.floor(result);
-    console.log(round)
-    this.sellForm.get('price').setValue(round)
-  }
-  return null
+    if (matchBalance) {
+      // Sell available funds of quote Asset
+      console.log(matchBalance.free)
+      this.sellForm.get('quantity').setValue(matchBalance.free)
+    }
+    return null
 
-}
+  }
 
 }

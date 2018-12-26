@@ -1,4 +1,3 @@
-import { success, notFound } from '../../services/response/'
 import model from './model'
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
@@ -10,8 +9,6 @@ export const show = ({ params }, res, next) =>
   model.findOne({ type: params.type })
     .then((settings) => res.json(settings))
     .catch(next)
-
-
 
 export const update = ({ body, params }, res, next) =>
   {

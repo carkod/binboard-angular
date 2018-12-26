@@ -3,9 +3,7 @@ import config from '../../config'
 import request from 'request'
 
 export async function getRecvWindow() {
-  const dbRequest = await SettingsModel.find({ type: 'global' }, { recvWindow: true, _id: false }, (err, doc) => {
-    return doc[0].recvWindow
-  });
+  const dbRequest = await SettingsModel.findOne({ type: 'global' }, { recvWindow: true, _id: false });
   return dbRequest;
 }
 
@@ -40,6 +38,6 @@ export default async function manageTimeSync() {
   return {
     serverTime: serverTime,
     timestamp: timestamp,
-    recvWindow: recvWindow[0].recvWindow
+    recvWindow: recvWindow.recvWindow
   }
 }
