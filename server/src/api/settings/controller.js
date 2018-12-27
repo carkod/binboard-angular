@@ -5,10 +5,16 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     .then((settings) => settings.map((obj) => res.json(obj)))
     .catch(next)
 
-export const show = ({ params }, res, next) =>
+export const show = ({ params }, res, next) => {
+  console.log('settings show::', params)
   model.findOne({ type: params.type })
-    .then((settings) => res.json(settings))
+    .then((settings) => {
+      console.log('settings callback::')
+      res.json(settings)
+    })
     .catch(next)
+}
+  
 
 export const update = ({ body, params }, res, next) =>
   {
