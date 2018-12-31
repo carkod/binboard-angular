@@ -1,6 +1,15 @@
-<h1>{{symbolCode}}</h1>
-
+<div class="candlestick-header">
+    <h1 class="symbol">{{symbolCode}}</h1>
+    <button (click)="toggleChart(chart)" mat-icon-button>
+        <mat-icon aria-label="See chart" inline="true">details</mat-icon>
+    </button>
+    <button (click)="toggleChartOptions(options)" mat-icon-button>
+        <mat-icon aria-label="See chart options" inline="true">build</mat-icon>
+    </button>
+</div>
+<candlestick-options #options></candlestick-options>
 <div *ngIf="!data" class="error-data">
     Data is loading...
 </div>
+
 <div id="chart" #chart></div>

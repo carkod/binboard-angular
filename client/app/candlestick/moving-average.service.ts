@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { formatDate } from '@angular/common';
+import { StandardDeviationService } from './standard-deviation.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovingAverageService {
 
-  interval: number;
+  @Input() interval: number;
   _mean: number;
-  maArray: Array<any>;
-  maArrayDates: Array<any>;
+  maArray: Array<any> = [];
+  maArrayDates: Array<any> = [];
+  maTopArray: Array<any> = [];
+  maBottomArray: Array<any> = [];
   
 
-  constructor() {
+  constructor(private sd: StandardDeviationService) {
     // Set interval for 30 min (add 30 min more)
-    // this.interval = 5;
-    this.maArray = [];
-    this.maArrayDates = [];
   }
   /**
    * Updates prices as new data and a range is feeded into it
@@ -25,7 +25,6 @@ export class MovingAverageService {
    */
   updatePrices(closePrices: Array<any>, range: number) {
     for (let i = 0; i < closePrices.length - (range - 1); i++) {
-      
       const prepArray = closePrices.slice(i, i+range);
       const sum = prepArray.reduce((a, v) => {
         v = parseFloat(v);
@@ -33,20 +32,28 @@ export class MovingAverageService {
         return a + v
       }, 0)
       const mean = sum/range;
-      // console.log(mean)
-      this.maArray.push(mean);  
+      this.maArray.push(mean);
     }
     return this.maArray;
   }
 
   updateDates(dates: Array<any>, range?: number) {
     for (let i = 0; i < dates.length; i++) {
-      const serverDate = dates[i] ;
-      range +=0; 
-      const d = new Date(serverDate.setHours(serverDate.getHours() + range));
-      const dateFormatted = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
-      this.maArrayDates.push(dateFormatted);  
+      const serverDate = dates[i + range];
+      this.maArrayDates.push(serverDate);  
     }
     return this.maArrayDates;
+  }
+  updateTopBolliger(closePrices, range: number) {
+    for (let i = 0; i < closePrices.length - (range - 1); i++) {
+      const prepArray = closePrices.slice(i, i+range);
+      const sum = prepArray.reduce((a, v) => {
+        v = parseFloat(v);
+        a = parseFloat(a);
+        return a + v
+      }, 0)
+      // const mean = sumthis.sd.standardDeviation(prepArray);
+      // this.maTopArray.push(mean);
+    }
   }
 }

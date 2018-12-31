@@ -90,7 +90,6 @@ export class SellComponent implements OnInit {
       const { symbol, price, orderType, quantity, timeInForce, stopPrice } = this.sellForm.value;
       const side = 'SELL';
       this.db.newOrder(symbol, side, orderType, quantity, price, timeInForce, stopPrice).subscribe((result: string) => {
-        console.log(result)
         const { symbol, status, side, orderId } = JSON.parse(result);
         if (status) {
         this.updateData.emit(JSON.parse(result))
@@ -127,7 +126,6 @@ export class SellComponent implements OnInit {
     });
     if (matchBalance) {
       // Sell available funds of quote Asset
-      console.log(matchBalance.free)
       this.sellForm.get('quantity').setValue(matchBalance.free)
     }
     return null

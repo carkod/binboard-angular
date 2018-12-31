@@ -47,7 +47,8 @@ import { RankingsComponent } from './rankings/rankings.component';
 import { StrategiesComponent } from './strategies/strategies.component';
 import { AppLoadService } from './services/app-load-service.service';
 import { BalanceService } from './services/balance.service';
-
+import { CandlestickOptionsComponent } from './candlestick/candlestick-options/candlestick-options.component';
+import { StandardDeviationService } from './candlestick/standard-deviation.service';
 // Execute this before app init
 export function getSettings(appLoadService: AppLoadService) {
   return () => appLoadService.getSettings();
@@ -86,6 +87,7 @@ export function getSettings(appLoadService: AppLoadService) {
     TradeHistoryComponent,
     RankingsComponent,
     StrategiesComponent,
+    CandlestickOptionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -131,7 +133,8 @@ export function getSettings(appLoadService: AppLoadService) {
     StreamsService,
     MatSnackBar,
     AppLoadService,
-    BalanceService
+    BalanceService,
+    StandardDeviationService,
   ],
   bootstrap: [AppComponent]
 })

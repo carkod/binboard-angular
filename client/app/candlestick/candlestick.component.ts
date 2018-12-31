@@ -3,6 +3,7 @@ import { MovingAverageService } from './moving-average.service';
 import { StreamsService } from '../services/streams.service';
 import * as Plotly from 'plotly.js/dist/plotly.js';
 import { DbService } from '../services/db.service';
+import { StandardDeviationService } from './standard-deviation.service';
 
 
 @Component({
@@ -18,8 +19,8 @@ export class CandlestickComponent implements OnInit {
   graph;
   data;
   layout;
-  interval: string;
-  limit: number;
+  interval: string = '30m';
+  limit: number = 50;
   element;
 
   // Candlestick
@@ -38,28 +39,29 @@ export class CandlestickComponent implements OnInit {
   updateTime: Object;
   count;
 
-  constructor(private ws: StreamsService, private api: DbService, private maService: MovingAverageService) {
+  constructor(
+    private ws: StreamsService, 
+    private api: DbService, 
+    private maService: MovingAverageService,
+    private sd: StandardDeviationService
+  ) {
   }
 
   ngOnInit() {
-    this.interval = '30m';
-    this.limit = 50;
     this.count = 0;
-
     this.api.getCandlestick(this.symbolCode, this.interval, this.limit).subscribe(d => {
       this.apiData = d;
       let element = this.el.nativeElement;
       Plotly.newPlot(element, this.renderData(d), this.renderLayout(d))
-      
     }, error => {
       console.error('candlestick data error: ', error)
     });
 
-    this.ws.candlestickStream(this.symbolCode, this.interval).subscribe(sd => {
-      let element = this.el.nativeElement;
-      this.updateGraph(element, sd);
+    // this.ws.candlestickStream(this.symbolCode, this.interval).subscribe(sd => {
+    //   let element = this.el.nativeElement;
+    //   this.updateGraph(element, sd);
       
-    });
+    // });
 
   }
 
@@ -67,11 +69,11 @@ export class CandlestickComponent implements OnInit {
     this.layout = {
       dragmode: 'zoom',
       margin: {
-        r: 10,
-        t: 25,
-        b: 40,
+        r: 60, 
+        t: 40, 
+        b: 40, 
         l: 60
-      },
+      }, 
       showlegend: false,
       xaxis: {
         autorange: false,
@@ -102,23 +104,23 @@ export class CandlestickComponent implements OnInit {
         close: obj.closePrices,
         high: obj.highPrices,
         low: obj.lowPrices,
-        decreasing: { line: { color: 'red' } },
-        increasing: { line: { color: 'green' } },
-        line: { color: '#17BECF' },
+        decreasing: { line: { color: 'red', width: '0.5' } },
+        increasing: { line: { color: 'green', width: '0.5' } },
+        line: { color: '#17BECF', opacity: 0.5},
         type: 'candlestick',
         xaxis: 'x',
         yaxis: 'y'
       },
-      // {
-      //   // Moving average
-      //   x: this.maService.updateDates(obj.closeTimeRaw, 3),
-      //   y: this.maService.updatePrices(obj.closePrices, 7),
-      //   type: 'scatter',
-      //   xaxis: 'x',
-      //   yaxis: 'y',
-      //   mode: 'lines',
-      //   line: { width: '1', },
-      // }
+      {
+        // Moving average
+        x: this.maService.updateDates(obj.closeTime, 3),
+        y: this.maService.updatePrices(obj.closePrices, 7),
+        type: 'scatter',
+        xaxis: 'x',
+        yaxis: 'y',
+        mode: 'lines',
+        line: { width: '1', },
+      }
     ];
     return this.data;
   }
@@ -154,5 +156,12 @@ export class CandlestickComponent implements OnInit {
     const currentTime = this.apiData.closeTime[this.apiData.closeTime.length - 1].getTime();
     // const currentPrice = this.apiData.closePrices[this.apiData.closePrices.length];
     return (sd.closeTime.getTime() === currentTime);
+  }
+
+  toggleChart(chart) {
+    console.log(chart)
+  }
+  toggleChartOptions(options) {
+    console.log(options)
   }
 }
