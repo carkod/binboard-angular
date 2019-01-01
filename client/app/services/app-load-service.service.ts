@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 export class AppLoadService {
  
   recvWindow: number;
+  symbol: string;
   constructor(private httpClient: HttpClient) { }
  
   getSettings(): Promise<any> {

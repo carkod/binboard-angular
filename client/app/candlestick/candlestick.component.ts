@@ -44,8 +44,8 @@ export class CandlestickComponent implements OnInit {
   @Input() sma: Boolean = true;
 
   constructor(
-    private ws: StreamsService, 
-    private api: DbService, 
+    private ws: StreamsService,
+    private api: DbService,
     private maService: MovingAverageService,
     private sd: StandardDeviationService
   ) {
@@ -58,7 +58,7 @@ export class CandlestickComponent implements OnInit {
     // this.ws.candlestickStream(this.symbolCode, this.interval).subscribe(sd => {
     //   let element = this.el.nativeElement;
     //   this.updateGraph(element, sd);
-      
+
     // });
 
   }
@@ -82,7 +82,7 @@ export class CandlestickComponent implements OnInit {
   renderLayout(obj) {
     this.layout = {
       dragmode: 'zoom',
-      margin: { r: 40,  t: 60,  b: 40,  l: 80 }, 
+      margin: { r: 40, t: 60, b: 40, l: 80 },
       showlegend: false,
       xaxis: {
         autorange: false,
@@ -115,42 +115,16 @@ export class CandlestickComponent implements OnInit {
         low: obj.lowPrices,
         decreasing: { line: { color: 'red', width: '0.5' } },
         increasing: { line: { color: 'green', width: '0.5' } },
-        line: { color: '#17BECF', opacity: 0.5},
+        line: { color: '#17BECF', opacity: 0.5 },
         type: 'candlestick',
         xaxis: 'x',
         yaxis: 'y'
       },
-      {
-        // Moving average
-        x: this.maService.updateDates(obj.closeTime, 3),
-        y: this.maService.updatePrices(obj.closePrices, 7),
-        type: 'scatter',
-        xaxis: 'x',
-        yaxis: 'y',
-        mode: 'lines',
-        line: { width: '1', },
-      },
-      {
-        // Moving average Top (Top Bollinger)
-        x: this.maService.updateDates(obj.closeTime, 3),
-        y: this.maService.updateTopBolliger(obj.closePrices, 7),
-        type: 'scatter',
-        xaxis: 'x',
-        yaxis: 'y',
-        mode: 'lines',
-        line: { width: '1', color: 'blue' },
-      },
-      {
-        // Moving average Bottom (Bottom Bollinger)
-        x: this.maService.updateDates(obj.closeTime, 3),
-        y: this.maService.updateTopBolliger(obj.closePrices, 7),
-        type: 'scatter',
-        xaxis: 'x',
-        yaxis: 'y',
-        mode: 'lines',
-        line: { width: '1', color: 'blue' },
-      },
     ];
+    if (this.bolligerBands) {
+      this.renderBollinger(obj);
+    }
+
     return this.data;
   }
 
@@ -176,7 +150,7 @@ export class CandlestickComponent implements OnInit {
       this.apiData.lowPrices.splice(i, 0, sd.lowPrices);
       this.apiData.closePrices.splice(i, 0, sd.closePrices);
       this.apiData.closeTime.splice(i, 0, sd.closeTime);
-      
+
       Plotly.update(element, this.renderData(this.apiData), this.renderLayout(this.apiData), [0]);
     }
   }
@@ -192,5 +166,41 @@ export class CandlestickComponent implements OnInit {
   }
   toggleChartOptions(options) {
     console.log(options)
+  }
+  renderBollinger(obj) {
+
+    const sma = {
+      // Moving average
+      x: this.maService.updateDates(obj.closeTime, 3),
+      y: this.maService.updatePrices(obj.closePrices, 7),
+      type: 'scatter',
+      xaxis: 'x',
+      yaxis: 'y',
+      mode: 'lines',
+      line: { width: '1', },
+    };
+    const tBand = {
+      // Moving average Top (Top Bollinger)
+      x: this.maService.updateDates(obj.closeTime, 3),
+      y: this.maService.updateTopBolliger(obj.closePrices, 7),
+      type: 'scatter',
+      xaxis: 'x',
+      yaxis: 'y',
+      mode: 'lines',
+      line: { width: '1', color: 'blue' },
+    };
+    const bBand = {
+      // Moving average Bottom (Bottom Bollinger)
+      x: this.maService.updateDates(obj.closeTime, 3),
+      y: this.maService.updateBottomBolliger(obj.closePrices, 7),
+      type: 'scatter',
+      xaxis: 'x',
+      yaxis: 'y',
+      mode: 'lines',
+      line: { width: '1', color: 'blue' },
+    }
+    this.data.push(sma);
+    this.data.push(tBand);
+    this.data.push(bBand);
   }
 }
