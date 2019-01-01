@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, SimpleChange, SimpleChanges } from '@angular/core';
 import { MovingAverageService } from './moving-average.service';
 import { StreamsService } from '../services/streams.service';
 import * as Plotly from 'plotly.js/dist/plotly.js';
@@ -39,6 +39,10 @@ export class CandlestickComponent implements OnInit {
   updateTime: Object;
   count;
 
+  //Indicators
+  @Input() bolligerBands: Boolean = true;
+  @Input() sma: Boolean = true;
+
   constructor(
     private ws: StreamsService, 
     private api: DbService, 
@@ -49,13 +53,7 @@ export class CandlestickComponent implements OnInit {
 
   ngOnInit() {
     this.count = 0;
-    this.api.getCandlestick(this.symbolCode, this.interval, this.limit).subscribe(d => {
-      this.apiData = d;
-      let element = this.el.nativeElement;
-      Plotly.newPlot(element, this.renderData(d), this.renderLayout(d))
-    }, error => {
-      console.error('candlestick data error: ', error)
-    });
+    this.loadData();
 
     // this.ws.candlestickStream(this.symbolCode, this.interval).subscribe(sd => {
     //   let element = this.el.nativeElement;
@@ -65,15 +63,26 @@ export class CandlestickComponent implements OnInit {
 
   }
 
+  ngOnChanges(c: SimpleChanges) {
+    if (c.symbolCode.currentValue !== c.symbolCode.previousValue) {
+      this.loadData();
+    }
+  }
+
+  loadData() {
+    this.api.getCandlestick(this.symbolCode, this.interval, this.limit).subscribe(d => {
+      this.apiData = d;
+      let element = this.el.nativeElement;
+      Plotly.newPlot(element, this.renderData(d), this.renderLayout(d))
+    }, error => {
+      console.error('candlestick data error: ', error)
+    });
+  }
+
   renderLayout(obj) {
     this.layout = {
       dragmode: 'zoom',
-      margin: {
-        r: 60, 
-        t: 40, 
-        b: 40, 
-        l: 60
-      }, 
+      margin: { r: 40,  t: 60,  b: 40,  l: 80 }, 
       showlegend: false,
       xaxis: {
         autorange: false,
@@ -120,7 +129,27 @@ export class CandlestickComponent implements OnInit {
         yaxis: 'y',
         mode: 'lines',
         line: { width: '1', },
-      }
+      },
+      {
+        // Moving average Top (Top Bollinger)
+        x: this.maService.updateDates(obj.closeTime, 3),
+        y: this.maService.updateTopBolliger(obj.closePrices, 7),
+        type: 'scatter',
+        xaxis: 'x',
+        yaxis: 'y',
+        mode: 'lines',
+        line: { width: '1', color: 'blue' },
+      },
+      {
+        // Moving average Bottom (Bottom Bollinger)
+        x: this.maService.updateDates(obj.closeTime, 3),
+        y: this.maService.updateTopBolliger(obj.closePrices, 7),
+        type: 'scatter',
+        xaxis: 'x',
+        yaxis: 'y',
+        mode: 'lines',
+        line: { width: '1', color: 'blue' },
+      },
     ];
     return this.data;
   }

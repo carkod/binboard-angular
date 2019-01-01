@@ -24,6 +24,7 @@ export class MovingAverageService {
    * @param {float} range - e.g. 5 will calculate Average with 5 numbers, it must be a discreet number
    */
   updatePrices(closePrices: Array<any>, range: number) {
+    this.maArray = [];
     for (let i = 0; i < closePrices.length - (range - 1); i++) {
       const prepArray = closePrices.slice(i, i+range);
       const sum = prepArray.reduce((a, v) => {
@@ -38,22 +39,38 @@ export class MovingAverageService {
   }
 
   updateDates(dates: Array<any>, range?: number) {
+    this.maArrayDates = [];
     for (let i = 0; i < dates.length; i++) {
       const serverDate = dates[i + range];
-      this.maArrayDates.push(serverDate);  
+      this.maArrayDates.push(serverDate);
     }
     return this.maArrayDates;
   }
   updateTopBolliger(closePrices, range: number) {
+    this.maTopArray = [];
+    const sdArray = [];
     for (let i = 0; i < closePrices.length - (range - 1); i++) {
       const prepArray = closePrices.slice(i, i+range);
-      const sum = prepArray.reduce((a, v) => {
-        v = parseFloat(v);
-        a = parseFloat(a);
-        return a + v
-      }, 0)
-      // const mean = sumthis.sd.standardDeviation(prepArray);
-      // this.maTopArray.push(mean);
+      const sd = this.sd.standardDeviation(prepArray);
+      sdArray.push(sd);
     }
+    this.maTopArray = this.maArray.map((x, i) => {
+      return x + (+sdArray[i]*2);
+    });
+    return this.maTopArray;
+  }
+
+  updateBottomBolliger(closePrices, range: number) {
+    this.maBottomArray = [];
+    const sdArray = [];
+    for (let i = 0; i < closePrices.length - (range - 1); i++) {
+      const prepArray = closePrices.slice(i, i+range);
+      const sd = this.sd.standardDeviation(prepArray);
+      sdArray.push(sd);
+    }
+    this.maBottomArray = this.maArray.map((x, i) => {
+      return x - (+sdArray[i]*2);
+    });
+    return this.maBottomArray;
   }
 }
