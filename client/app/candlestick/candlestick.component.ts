@@ -4,6 +4,7 @@ import { StreamsService } from '../services/streams.service';
 import * as Plotly from 'plotly.js/dist/plotly.js';
 import { DbService } from '../services/db.service';
 import { StandardDeviationService } from './standard-deviation.service';
+import { CandlestickToolsService } from './candlestick-tools.service';
 
 
 @Component({
@@ -47,7 +48,8 @@ export class CandlestickComponent implements OnInit {
     private ws: StreamsService,
     private api: DbService,
     private maService: MovingAverageService,
-    private sd: StandardDeviationService
+    private sd: StandardDeviationService,
+    private tools: CandlestickToolsService,
   ) {
   }
 
@@ -80,6 +82,7 @@ export class CandlestickComponent implements OnInit {
   }
 
   renderLayout(obj) {
+    console.log(this.tools.bollingerAnnotations(obj))
     this.layout = {
       dragmode: 'zoom',
       margin: { r: 40, t: 60, b: 40, l: 80 },
@@ -100,7 +103,9 @@ export class CandlestickComponent implements OnInit {
         tickformat: '.10f',
         type: 'linear',
         maxPoints: 50,
-      }
+      },
+      annotations: this.tools.bollingerAnnotations(obj),
+      shapes: this.tools.bollingerShapes(obj),
     }
     return this.layout;
   }

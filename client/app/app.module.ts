@@ -49,6 +49,7 @@ import { AppLoadService } from './services/app-load-service.service';
 import { BalanceService } from './services/balance.service';
 import { CandlestickOptionsComponent } from './candlestick/candlestick-options/candlestick-options.component';
 import { StandardDeviationService } from './candlestick/standard-deviation.service';
+import { CandlestlickModule } from './candlestick/candlestlick-module.module';
 // Execute this before app init
 export function getSettings(appLoadService: AppLoadService) {
   return () => appLoadService.getSettings();
@@ -122,7 +123,8 @@ export function getSettings(appLoadService: AppLoadService) {
     CdkTreeModule,
     MatProgressSpinnerModule,
     MatTabsModule,
-    MatSelectModule
+    MatSelectModule,
+    CandlestlickModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BinanceErrorsService, multi: true },
@@ -134,7 +136,6 @@ export function getSettings(appLoadService: AppLoadService) {
     MatSnackBar,
     AppLoadService,
     BalanceService,
-    StandardDeviationService,
   ],
   bootstrap: [AppComponent]
 })
