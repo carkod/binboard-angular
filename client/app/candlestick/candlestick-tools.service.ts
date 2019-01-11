@@ -115,11 +115,11 @@ export class CandlestickToolsService {
     let annotations = [];
     let bbIndex = 0; // counter for Bollinger bands (length - range)
     for (let i = range - 1; i < closePrices.length; i++) {
-      bbIndex ++
+      bbIndex++
       const close = Number(closePrices[i]);
       const open = Number(openPrices[i]);
       const topBand = this.ma.updateTopBolliger(closePrices, range);
-      const bottomBand = this.ma.updateTopBolliger(closePrices, range);
+      const bottomBand = this.ma.updateBottomBolliger(closePrices, range);
       if (close > open) {
         // Increase (green)
         const priceDiff = close - topBand[bbIndex];
@@ -142,12 +142,11 @@ export class CandlestickToolsService {
           annotations.push(annotation);
         }
         // If close price is lower than topBand, do nothing
-      } 
-      if (close < open) {
+      } else if (close < open) {
         // decrease (red)
-        const priceDiff = bottomBand[bbIndex] - close;
+        const bottomPriceDiff = open - bottomBand[bbIndex];
         // if close price is lower than bottomBand, sell
-        if (priceDiff > 0) {
+        if (bottomPriceDiff < 0) {
           // Execute sell if funds have possession of this currency
           console.log('paint sell')
           const annotation: IAnnotation = {
