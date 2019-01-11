@@ -104,7 +104,7 @@ export class CandlestickComponent implements OnInit {
         type: 'linear',
         maxPoints: 50,
       },
-      // annotations: this.tools.bollingerAnnotations(obj),
+      annotations: this.tools.bollingerStrategy(obj),
       // shapes: this.tools.bollingerShapes(obj),
     }
     return this.layout;
@@ -176,7 +176,7 @@ export class CandlestickComponent implements OnInit {
 
     const sma = {
       // Moving average
-      x: this.maService.updateDates(obj.closeTime, 3),
+      x: this.maService.updateDates(obj.closeTime, 6),
       y: this.maService.updatePrices(obj.closePrices, 7),
       type: 'scatter',
       xaxis: 'x',
@@ -186,7 +186,7 @@ export class CandlestickComponent implements OnInit {
     };
     const tBand = {
       // Moving average Top (Top Bollinger)
-      x: this.maService.updateDates(obj.closeTime, 3),
+      x: this.maService.updateDates(obj.closeTime, 6),
       y: this.maService.updateTopBolliger(obj.closePrices, 7),
       type: 'scatter',
       xaxis: 'x',
@@ -196,7 +196,7 @@ export class CandlestickComponent implements OnInit {
     };
     const bBand = {
       // Moving average Bottom (Bottom Bollinger)
-      x: this.maService.updateDates(obj.closeTime, 3),
+      x: this.maService.updateDates(obj.closeTime, 6),
       y: this.maService.updateBottomBolliger(obj.closePrices, 7),
       type: 'scatter',
       xaxis: 'x',

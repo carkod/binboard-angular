@@ -110,35 +110,64 @@ export class CandlestickToolsService {
   }
 
   bollingerStrategy(obj) {
-    const { closePrices, openPrices } = obj;
+    const { closePrices, openPrices, closeTime } = obj;
     const range = 7;
-    // const annotation: IAnnotation = {
-    //   x: obj.closeTime[i],
-    //   y: 1,
-    //   xref: 'x',
-    //   yref: 'paper',
-    //   text: 'Resistance break, buy',
-    //   font: { color: 'magenta' },
-    //   showarrow: false,
-    //   xanchor: 'right',
-    //   ax: -50,
-    //   ay: 0
-    // };
-    for (let i = 0; i < closePrices.length; i++) {
-        const close = Number(closePrices[i]);
-        const open = Number(openPrices[i]);
-        const topBand = this.ma.updateTopBolliger(closePrices, range);
-        const bottomBand = this.ma.updateTopBolliger(closePrices, range);
-        // close > open
-        if (close > open) {
-          // top band - close price
-          console.log('increase', close > topBand[i]);
-        // close < open
-        } else if (close < open) {
-          console.log('decrease', );
-          // bottom band - open price
+    let annotations = [];
+    let bbIndex = 0; // counter for Bollinger bands (length - range)
+    for (let i = range - 1; i < closePrices.length; i++) {
+      bbIndex ++
+      const close = Number(closePrices[i]);
+      const open = Number(openPrices[i]);
+      const topBand = this.ma.updateTopBolliger(closePrices, range);
+      const bottomBand = this.ma.updateTopBolliger(closePrices, range);
+      if (close > open) {
+        // Increase (green)
+        const priceDiff = close - topBand[bbIndex];
+        // If close price is higher than topBand, buy
+        if (priceDiff > 0) {
+          // Execute buy order
+          console.log('paint buy')
+          const annotation: IAnnotation = {
+            x: closeTime[i],
+            y: 1,
+            xref: 'x',
+            yref: 'paper',
+            text: 'Resistance break, buy',
+            font: { color: 'magenta' },
+            showarrow: false,
+            xanchor: 'right',
+            ax: -50,
+            ay: 0
+          };
+          annotations.push(annotation);
         }
+        // If close price is lower than topBand, do nothing
+      } 
+      if (close < open) {
+        // decrease (red)
+        const priceDiff = bottomBand[bbIndex] - close;
+        // if close price is lower than bottomBand, sell
+        if (priceDiff > 0) {
+          // Execute sell if funds have possession of this currency
+          console.log('paint sell')
+          const annotation: IAnnotation = {
+            x: closeTime[i],
+            y: 1,
+            xref: 'x',
+            yref: 'paper',
+            text: 'Support break, sell',
+            font: { color: 'magenta' },
+            showarrow: false,
+            xanchor: 'right',
+            ax: -50,
+            ay: 0
+          };
+          annotations.push(annotation);
+        }
+        // else do nothing
+      }
     }
+    return annotations;
   }
   topBandCheck(price, i) {
     // const topBand = this.maTopArray[i];
