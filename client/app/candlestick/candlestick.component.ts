@@ -82,7 +82,6 @@ export class CandlestickComponent implements OnInit {
   }
 
   renderLayout(obj) {
-    console.log(this.tools.bollingerStrategy(obj))
     this.layout = {
       dragmode: 'zoom',
       margin: { r: 40, t: 60, b: 40, l: 80 },
@@ -104,8 +103,8 @@ export class CandlestickComponent implements OnInit {
         type: 'linear',
         maxPoints: 50,
       },
-      annotations: this.tools.bollingerStrategy(obj),
-      // shapes: this.tools.bollingerShapes(obj),
+      annotations: this.tools.bollingerAnnotations(obj),
+      shapes: this.tools.bollingerShapes(obj),
     }
     return this.layout;
   }
