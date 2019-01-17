@@ -30,6 +30,8 @@ const config = {
     jwtSecret: requireProcessEnv('JWT_SECRET'),
     binanceKey: requireProcessEnv('BINANCE_KEY'),
     binanceSecret: requireProcessEnv('BINANCE_SECRET'),
+    emailUser: requireProcessEnv('TRANSPORT_EMAIL_USER'),
+    emailPass: requireProcessEnv('TRANSPORT_EMAIL_PASS'),
     mongo: {
       options: {
         db: {
