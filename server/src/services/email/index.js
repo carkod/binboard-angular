@@ -1,11 +1,14 @@
 import nodemailer from 'nodemailer'
-import { emailUser, emailPass } from '../../config'
-import model from './model'
-import EmailModel from './model';
+import { emailUser, emailPass, emailClientId, emailClientSecret } from '../../config'
 
-export async function main(title, from, to, message, subject, text, html, cc, bcc, attachments) {
+function htmlFormat(text) {
+    const html = `<body style="text-align: center;"><p>${text}</p></body>`;
+    return html;
+}
 
-
+export default async function sendMail({ 
+    from, to, subject, text, html, cc, bcc, attachments 
+}) {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         //   host: "smtp.gmail.email",
@@ -14,19 +17,24 @@ export async function main(title, from, to, message, subject, text, html, cc, bc
         // secure: false, // true for 465, false for other ports
         auth: {
             user: emailUser,
-            pass: emailPass
-        }
+            pass: emailPass,
+          }
     });
 
-    console.log(model)
-
     // setup email data with unicode symbols
-    let mailOptions = EmailModel.mailOptions;
+    let mailOptions = {
+        from: from,
+        subject: subject, // Subject line
+        text: text, // plain text body
+        to: to,
+        // Optional fields below
+        html: htmlFormat(), // html body
+        cc: cc,
+        bcc: bcc,
+        attachments: [],
+    };
 
     // send mail with defined transport object
     let info = await transporter.sendMail(mailOptions)
-
-    console.log("Message sent: %s", info.messageId);
-
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    console.log("Binboard mail sent: %s", info.messageId);
 }

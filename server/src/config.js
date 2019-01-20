@@ -32,6 +32,8 @@ const config = {
     binanceSecret: requireProcessEnv('BINANCE_SECRET'),
     emailUser: requireProcessEnv('TRANSPORT_EMAIL_USER'),
     emailPass: requireProcessEnv('TRANSPORT_EMAIL_PASS'),
+    emailClientid: requireProcessEnv('TRANSPORT_EMAIL_CLIENTID'),
+    emailSecret: requireProcessEnv('TRANSPORT_EMAIL_CLIENTSECRET'),
     mongo: {
       options: {
         db: {

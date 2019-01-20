@@ -18,6 +18,7 @@ import orderBook from './order-book'
 import settings from './settings'
 import symbols from './symbols'
 import allOrders from './all-orders'
+import emailNotifications from './email-notifications'
 
 const router = new Router()
 
@@ -64,5 +65,6 @@ router.use('/order-book', orderBook)
 router.use('/settings', settings)
 router.use('/symbols', symbols)
 router.use('/all-orders', allOrders)
+router.use('/email-notifications', emailNotifications)
 
 export default router
