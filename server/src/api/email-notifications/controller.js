@@ -33,15 +33,15 @@ export const create = ({ bodymen: { body } }, res) => {
 }
   
 
-// export const index = ({ querymen: { query, select, cursor } }, res, next) =>
-//   EmailNotifications.find(query, select, cursor)
-//     .then((emailNotifications) => emailNotifications.map((emailNotifications) => emailNotifications.view()))
-//     .then(success(res))
-//     .catch(next)
+export const index = ({ querymen: { query, select, cursor } }, res, next) =>
+  EmailNotifications.find(query, select, cursor)
+    .then((emailNotifications) => emailNotifications.map((emailNotifications) => emailNotifications.view()))
+    .then(success(res))
+    .catch(next)
 
-// export const show = ({ params }, res, next) =>
-//   EmailNotifications.findById(params.id)
-//     .then(notFound(res))
-//     .then((emailNotifications) => emailNotifications ? emailNotifications.view() : null)
-//     .then(success(res))
-//     .catch(next)
+export const show = ({ params }, res, next) =>
+  EmailNotifications.findById(params.id)
+    .then(notFound(res))
+    .then((emailNotifications) => emailNotifications ? emailNotifications.view() : null)
+    .then(success(res))
+    .catch(next)
