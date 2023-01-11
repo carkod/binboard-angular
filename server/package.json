@@ -55,7 +55,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.4.0",
     "mongoose-create-unique": "^0.4.4",
     "mongoose-keywords": "^0.4.0",
